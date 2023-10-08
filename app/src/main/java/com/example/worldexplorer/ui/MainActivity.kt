@@ -1,4 +1,4 @@
-package com.example.worldexplorer
+package com.example.worldexplorer.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

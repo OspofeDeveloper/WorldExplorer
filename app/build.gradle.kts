@@ -58,6 +58,9 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:$retrofit2Version")
     implementation("com.squareup.retrofit2:converter-gson:$retrofit2Version")
 
+    //Coil Images
+    implementation("io.coil-kt:coil:2.4.0")
+
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

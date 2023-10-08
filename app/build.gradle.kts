@@ -38,6 +38,9 @@ android {
     kapt {
         correctErrorTypes = true
     }
+    viewBinding {
+        enable = true
+    }
 }
 
 dependencies {

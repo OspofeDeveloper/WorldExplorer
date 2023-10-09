@@ -45,6 +45,7 @@ dependencies {
     val navVersion = "2.7.3"
     val daggerHiltVersion = "2.48"
     val retrofit2Version = "2.9.0"
+    val roomVersion = "2.5.0"
 
     //Navigation Components
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
@@ -60,6 +61,12 @@ dependencies {
 
     //Coil Images
     implementation("io.coil-kt:coil:2.4.0")
+
+    // Room
+    implementation("androidx.room:room-runtime:$roomVersion")
+    kapt("androidx.room:room-compiler:$roomVersion")
+    implementation("androidx.room:room-ktx:$roomVersion")
+
 
 
     implementation("androidx.core:core-ktx:1.9.0")

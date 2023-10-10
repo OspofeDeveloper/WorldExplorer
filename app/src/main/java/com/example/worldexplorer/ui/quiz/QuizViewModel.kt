@@ -11,11 +11,11 @@ import javax.inject.Inject
 @HiltViewModel
 class QuizViewModel @Inject constructor() : ViewModel() {
 
-    private var _quiz = MutableStateFlow<List<QuizInfo>>(emptyList())
-    val quiz: StateFlow<List<QuizInfo>> = _quiz
+    private var _quizState = MutableStateFlow<List<QuizInfo>>(emptyList())
+    val quizState: StateFlow<List<QuizInfo>> = _quizState
 
     init {
-        _quiz.value = listOf(
+        _quizState.value = listOf(
             Europe, Asia, Africa
         )
     }

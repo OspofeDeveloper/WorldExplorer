@@ -8,4 +8,19 @@
     <string name="quiz">Quiz</string>
     <string name="exchange">Exchange</string>
 
+    <!-- Quiz -->
+    <string name="earth">Earth</string>
+    <string name="oceania">Oceania</string>
+    <string name="america">America</string>
+    <string name="africa">Africa</string>
+    <string name="europe">Europe</string>
+    <string name="asia">Asia</string>
+    <string name="caribbean">Caribbean</string>
+    <string name="northern_europe">Northern Europe</string>
+    <string name="northern_africa">Northern Africa</string>
+    <string name="eastern_africa">Eastern Africa</string>
+    <string name="western_asia">Western Asia</string>
+    <string name="south_america">South America</string>
+
+
 </resources>

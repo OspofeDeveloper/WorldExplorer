@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.worldexplorer.databinding.FragmentExchangeBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ExchangeFragment : Fragment() {
 
     private var _binding: FragmentExchangeBinding? = null

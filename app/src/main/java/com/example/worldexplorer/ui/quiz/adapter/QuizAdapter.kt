@@ -11,8 +11,10 @@ import com.example.worldexplorer.domain.model.QuizInfo
     la lista por parámetro para que el recyclerview se cree de primeras pero no se vea obligado a recibir los datos en el
     momento de crearse, sino que le es indiferente cuando le pasamos los datos
 */
-class QuizAdapter(private var quizList: List<QuizInfo> = emptyList()) :
+class QuizAdapter(private var quizList: List<QuizInfo> = emptyList(),
+    private val onItemSelected: (QuizInfo) -> Unit) :
     RecyclerView.Adapter<QuizViewHolder>() {
+
 
     /*
         Esto no es optimo en el caso de que vayamos modificando el recyclerView poco a poco, pero como en nuestro caso
@@ -31,7 +33,7 @@ class QuizAdapter(private var quizList: List<QuizInfo> = emptyList()) :
     override fun getItemCount(): Int = quizList.size
 
     override fun onBindViewHolder(holder: QuizViewHolder, position: Int) {
-        holder.render(quizList[position])
+        holder.render(quizList[position], onItemSelected)
     }
 
 }

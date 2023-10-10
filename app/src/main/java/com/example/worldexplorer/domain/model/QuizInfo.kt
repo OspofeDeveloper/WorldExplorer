@@ -2,8 +2,11 @@ package com.example.worldexplorer.domain.model
 
 import com.example.worldexplorer.R
 
-//If we have limited and fixed objects it is better to create a sealed class than a data class
-//for an easier control of its logic
+/*
+    If we have limited and fixed objects it is better to create a sealed class than a data class
+    for an easier control of its logic because when we call one of this objects we do not have to
+    specify the name and image, the object already knows what is its name and image
+*/
 sealed class QuizInfo(val name: Int, val image: Int){
     object Europe:QuizInfo(R.string.europe, R.drawable.europe)
     object Africa:QuizInfo(R.string.africa, R.drawable.africa)

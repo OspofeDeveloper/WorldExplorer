@@ -1,7 +1,8 @@
-package com.example.worldexplorer.domain.model
+package com.example.worldexplorer.domain.listCountriesScreen.model
 
 import com.example.worldexplorer.data.database.entities.CountryEntity
 import com.example.worldexplorer.data.model.CountryModel
+import java.text.Normalizer
 
 data class CountryItem (
     var flagImageUrl: String,
@@ -11,7 +12,7 @@ data class CountryItem (
 fun CountryModel.toDomain() : CountryItem =
     CountryItem(
         "https://flagcdn.com/w320/${cca2.lowercase()}.png",
-        java.text.Normalizer.normalize(name.common, java.text.Normalizer.Form.NFD))
+        Normalizer.normalize(name.common, Normalizer.Form.NFD))
 
 
 fun CountryEntity.toDomain() : CountryItem =

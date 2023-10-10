@@ -4,8 +4,8 @@ import com.example.worldexplorer.data.database.dao.CountryDao
 import com.example.worldexplorer.data.database.entities.CountryEntity
 import com.example.worldexplorer.data.database.entities.toDatabase
 import com.example.worldexplorer.data.network.RestCountriesService
-import com.example.worldexplorer.domain.model.CountryItem
-import com.example.worldexplorer.domain.model.toDomain
+import com.example.worldexplorer.domain.listCountriesScreen.model.CountryItem
+import com.example.worldexplorer.domain.listCountriesScreen.model.toDomain
 import javax.inject.Inject
 
 class RestCountriesRepository @Inject constructor(

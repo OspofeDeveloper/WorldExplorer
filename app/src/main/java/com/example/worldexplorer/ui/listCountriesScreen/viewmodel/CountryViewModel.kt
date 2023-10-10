@@ -3,10 +3,10 @@ package com.example.worldexplorer.ui.listCountriesScreen.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.worldexplorer.domain.GetAllCountriesOrderAscUseCase
-import com.example.worldexplorer.domain.GetAllCountriesOrderDescUseCase
-import com.example.worldexplorer.domain.GetAllCountriesUseCase
-import com.example.worldexplorer.domain.model.CountryItem
+import com.example.worldexplorer.domain.listCountriesScreen.GetAllCountriesOrderAscUseCase
+import com.example.worldexplorer.domain.listCountriesScreen.GetAllCountriesOrderDescUseCase
+import com.example.worldexplorer.domain.listCountriesScreen.GetAllCountriesUseCase
+import com.example.worldexplorer.domain.listCountriesScreen.model.CountryItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.worldexplorer.R
-import com.example.worldexplorer.domain.model.CountryItem
+import com.example.worldexplorer.domain.listCountriesScreen.model.CountryItem
 
 class ListCountriesAdapter(private val list: List<CountryItem>) : RecyclerView.Adapter<ListCountrieViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListCountrieViewHolder {

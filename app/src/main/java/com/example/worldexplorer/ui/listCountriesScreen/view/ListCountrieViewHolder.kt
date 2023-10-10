@@ -4,7 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.example.worldexplorer.databinding.ItemListCountriesBinding
-import com.example.worldexplorer.domain.model.CountryItem
+import com.example.worldexplorer.domain.listCountriesScreen.model.CountryItem
 
 class ListCountrieViewHolder(view: View): ViewHolder(view) {
     val binding = ItemListCountriesBinding.bind(view)

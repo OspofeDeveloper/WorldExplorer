@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentListCountriesBinding
-import com.example.worldexplorer.domain.model.CountryItem
+import com.example.worldexplorer.domain.listCountriesScreen.model.CountryItem
 import com.example.worldexplorer.ui.listCountriesScreen.viewmodel.CountryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

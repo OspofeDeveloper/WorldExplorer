@@ -1,7 +1,7 @@
-package com.example.worldexplorer.domain
+package com.example.worldexplorer.domain.listCountriesScreen
 
 import com.example.worldexplorer.data.RestCountriesRepository
-import com.example.worldexplorer.domain.model.CountryItem
+import com.example.worldexplorer.domain.listCountriesScreen.model.CountryItem
 import javax.inject.Inject
 
 class GetAllCountriesOrderDescUseCase @Inject constructor(

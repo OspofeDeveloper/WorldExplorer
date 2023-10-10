@@ -9,9 +9,13 @@ class RestCountriesService @Inject constructor(
     private val api : RestCountriesApiClient
 ) {
     suspend fun getAllCountriesList(fields: String): List<CountryModel> {
-        return withContext(Dispatchers.IO) {
-            val response = api.getAllCountries(fields)
-            response ?: emptyList()
+        return try {
+            withContext(Dispatchers.IO) {
+                val response = api.getAllCountries(fields)
+                response
+            }
+        } catch (e: Exception) {
+            emptyList()
         }
     }
 }

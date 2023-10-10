@@ -9,7 +9,9 @@ data class CountryItem (
 )
 
 fun CountryModel.toDomain() : CountryItem =
-    CountryItem("https://flagcdn.com/w320/${cca2.lowercase()}.png", name.common)
+    CountryItem(
+        "https://flagcdn.com/w320/${cca2.lowercase()}.png",
+        java.text.Normalizer.normalize(name.common, java.text.Normalizer.Form.NFD))
 
 
 fun CountryEntity.toDomain() : CountryItem =

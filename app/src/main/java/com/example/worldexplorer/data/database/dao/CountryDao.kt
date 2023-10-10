@@ -17,4 +17,10 @@ interface CountryDao {
 
     @Query("DELETE FROM country_table")
     suspend fun deleteAllCountries()
+
+    @Query("SELECT * FROM country_table ORDER BY name ASC")
+    suspend fun getAllCountriesOrderAsc():List<CountryEntity>
+
+    @Query("SELECT * FROM country_table ORDER BY name DESC")
+    suspend fun getAllCountriesOrderDesc():List<CountryEntity>
 }

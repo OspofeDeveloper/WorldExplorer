@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -22,31 +22,40 @@ class ListCountriesFragment : Fragment() {
     private var _binding: FragmentListCountriesBinding? = null
     private val binding get() = _binding!!
 
-    //If we put this code in onCreateView function we have problems when returning to this fragment from navigation
-    override fun onResume() {
-        super.onResume()
-        val orderByItems = resources.getStringArray(R.array.order_by_dropdown_options)
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.order_by_dropdown_menu_item, orderByItems)
-        binding.autoCompleteText.setAdapter(arrayAdapter)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         _binding = FragmentListCountriesBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        setupUI()
+        observeViewModel(view)
+    }
+
+    private fun observeViewModel(view: View) {
         viewModel.onCreate()
+
         viewModel.countryItemLiveData.observe(viewLifecycleOwner, Observer {countryList ->
             initRecyclerView(view, countryList)
         })
+    }
 
+    private fun setupUI() {
+
+        //Setting Exposed Dropdown Menu
+        val orderByItems = resources.getStringArray(R.array.order_by_dropdown_options)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.order_by_dropdown_menu_item, orderByItems)
+        binding.autoCompleteText.setAdapter(arrayAdapter)
+
+        binding.autoCompleteText.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
+            viewModel.getAllCountriesOrdered(position)
+        }
     }
 
     private fun initRecyclerView(view: View, countryList: List<CountryItem>) {
@@ -54,3 +63,14 @@ class ListCountriesFragment : Fragment() {
         binding.rvListCountries.adapter = ListCountriesAdapter(countryList)
     }
 }
+
+/*
+    //If we put this code in onCreateView function we have problems when returning to this fragment from navigation
+    override fun onResume() {
+        super.onResume()
+
+        val orderByItems = resources.getStringArray(R.array.order_by_dropdown_options)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.order_by_dropdown_menu_item, orderByItems)
+        binding.autoCompleteText.setAdapter(arrayAdapter)
+    }
+*/

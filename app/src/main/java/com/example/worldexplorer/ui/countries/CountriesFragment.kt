@@ -1,5 +1,6 @@
 package com.example.worldexplorer.ui.countries
 
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -47,8 +49,13 @@ class CountriesFragment : Fragment() {
     private fun initDropdownMenu() {
         val orderByItems = resources.getStringArray(R.array.order_by_dropdown_options)
 
-        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_item, orderByItems)
-        binding.autoCompleteText.setAdapter(arrayAdapter)
+        val arrayAdapter =   ArrayAdapter(requireContext(), R.layout.dropdown_menu_item, orderByItems)
+        binding.autoCompleteText.apply {
+            setAdapter(arrayAdapter)
+            setDropDownBackgroundDrawable(
+                ColorDrawable(ContextCompat.getColor(context, R.color.primaryDark))
+            )
+        }
     }
 
     private fun initUIState() {

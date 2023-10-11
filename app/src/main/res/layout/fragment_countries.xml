@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary"
     tools:context=".ui.countries.CountriesFragment">
 
     <android.widget.SearchView
@@ -21,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        app:boxBackgroundColor="@color/primaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/svCountries">
 
@@ -28,6 +30,7 @@
             android:id="@+id/autoCompleteText"
             android:inputType="none"
             android:text="@string/dropdown_menu_default"
+            android:textColor="@color/secondary"
             android:padding="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

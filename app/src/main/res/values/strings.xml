@@ -4,6 +4,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+    <!-- DropdownMenu -->
     <string name="dropdown_menu_default">Order by…</string>
 
     <string-array name="order_by_dropdown_options">

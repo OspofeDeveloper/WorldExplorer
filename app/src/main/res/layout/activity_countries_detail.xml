@@ -13,8 +13,17 @@
         android:layout_height="300dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/red" />
+        app:layout_constraintTop_toTopOf="parent" />
+    
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:src="@drawable/ic_back"
+        app:tint="@color/gold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/tvCountryTitle"
@@ -39,5 +48,15 @@
         app:layout_constraintTop_toBottomOf="@id/tvCountryTitle"
         tools:text="shdjhfjkashdfjkhsjkdfjksa sdkjfkjsa kdjfjksadfjksd
         kdjf kdsjfdjkshfkjsdsdh dsjkkasjsdhfjksdhk" />
+
+    <ProgressBar
+        android:id="@+id/pbDetailCountries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminateTint="@color/gold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCountryTitle"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

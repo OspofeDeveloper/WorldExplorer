@@ -2,10 +2,7 @@ package com.example.worldexplorer.ui.quiz
 
 import androidx.lifecycle.ViewModel
 import com.example.worldexplorer.data.providers.QuizProvider
-import com.example.worldexplorer.domain.model.QuizInfo
-import com.example.worldexplorer.domain.model.QuizInfo.Africa
-import com.example.worldexplorer.domain.model.QuizInfo.Asia
-import com.example.worldexplorer.domain.model.QuizInfo.Europe
+import com.example.worldexplorer.domain.quiz.model.QuizInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -24,10 +21,10 @@ import javax.inject.Inject
 @HiltViewModel
 class QuizViewModel @Inject constructor(quizProvider: QuizProvider) : ViewModel() {
 
-    private var _quizState = MutableStateFlow<List<QuizInfo>>(emptyList())
-    val quizState: StateFlow<List<QuizInfo>> = _quizState
+    private var _quiz = MutableStateFlow<List<QuizInfo>>(emptyList())
+    val quiz: StateFlow<List<QuizInfo>> = _quiz
 
     init {
-        _quizState.value = quizProvider.getQuizItems()
+        _quiz.value = quizProvider.getQuizItems()
     }
 }

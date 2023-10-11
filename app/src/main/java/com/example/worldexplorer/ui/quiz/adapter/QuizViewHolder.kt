@@ -4,7 +4,7 @@ import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.recyclerview.widget.RecyclerView
 import com.example.worldexplorer.databinding.ItemQuizBinding
-import com.example.worldexplorer.domain.model.QuizInfo
+import com.example.worldexplorer.domain.quiz.model.QuizInfo
 
 class QuizViewHolder(view: View):RecyclerView.ViewHolder(view) {
 

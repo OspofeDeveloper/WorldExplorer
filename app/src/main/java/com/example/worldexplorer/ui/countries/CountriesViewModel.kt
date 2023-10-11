@@ -19,15 +19,15 @@ class CountriesViewModel @Inject constructor(
     private val getAllCountriesOrderDescUseCase: GetAllCountriesOrderDescUseCase
 ) : ViewModel() {
 
-    private var _countriesState = MutableStateFlow<List<CountriesInfo>>(emptyList())
-    val countriesState: StateFlow<List<CountriesInfo>> = _countriesState
+    private var _state = MutableStateFlow<List<CountriesInfo>>(emptyList())
+    val state: StateFlow<List<CountriesInfo>> = _state
 
     init {
         viewModelScope.launch {
             val result = getAllCountriesUseCase("name,cca2")
 
             if (!result.isNullOrEmpty()) {
-                _countriesState.value = result
+                _state.value = result
             }
         }
     }
@@ -39,7 +39,7 @@ class CountriesViewModel @Inject constructor(
                 else -> getAllCountriesOrderDescUseCase()
             }
 
-            _countriesState.value = result
+            _state.value = result
         }
     }
 }

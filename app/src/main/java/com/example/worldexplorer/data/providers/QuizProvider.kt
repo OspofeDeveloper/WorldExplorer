@@ -1,7 +1,7 @@
 package com.example.worldexplorer.data.providers
 
-import com.example.worldexplorer.domain.model.QuizInfo
-import com.example.worldexplorer.domain.model.QuizInfo.*
+import com.example.worldexplorer.domain.quiz.model.QuizInfo
+import com.example.worldexplorer.domain.quiz.model.QuizInfo.*
 import javax.inject.Inject
 
 class QuizProvider @Inject constructor(){

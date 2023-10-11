@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.worldexplorer.R
-import com.example.worldexplorer.domain.model.QuizInfo
+import com.example.worldexplorer.domain.quiz.model.QuizInfo
 
 /*
     Inicializamos el adapter a una emptyList y le pasamos la lista de info en una función. Lo hacemos así y no le pasamos

@@ -11,7 +11,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.worldexplorer.databinding.FragmentQuizBinding
 import com.example.worldexplorer.ui.quiz.adapter.QuizAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +55,7 @@ class QuizFragment : Fragment() {
     private fun initUIState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                quizViewModel.quizState.collect {
+                quizViewModel.quiz.collect {
                     //Cambios en Quiz
                     quizAdapter.updateList(it)
                 }

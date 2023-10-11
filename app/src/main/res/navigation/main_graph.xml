@@ -8,5 +8,5 @@
         android:id="@+id/listCountriesFragment"
         android:name="com.example.worldexplorer.ui.countries.CountriesFragment"
         android:label="fragment_list_countries"
-        tools:layout="@layout/fragment_list_countries" />
+        tools:layout="@layout/fragment_countries" />
 </navigation>

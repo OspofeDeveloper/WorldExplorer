@@ -8,9 +8,11 @@ import com.example.worldexplorer.domain.countries.model.CountriesInfo
 
 class CountriesViewHolder(view: View): ViewHolder(view) {
     val binding = ItemCountriesBinding.bind(view)
-    fun render(item: CountriesInfo) {
+    fun render(item: CountriesInfo, onItemSelected: (CountriesInfo) -> Unit) {
         binding.tvCountryName.text = item.name
         binding.ivCountryFlag.load(item.flagImageUrl)
+
+        binding.parent.setOnClickListener { onItemSelected(item) }
     }
 
 }

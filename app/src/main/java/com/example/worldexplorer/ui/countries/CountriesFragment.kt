@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentCountriesBinding
@@ -24,7 +26,9 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class CountriesFragment : Fragment() {
+
     private val countriesViewModel: CountriesViewModel by viewModels()
+    private lateinit var countriesAdapter: CountriesAdapter
 
     private var _binding: FragmentCountriesBinding? = null
     private val binding get() = _binding!!
@@ -69,9 +73,15 @@ class CountriesFragment : Fragment() {
     }
 
     private fun initRecyclerView(countryList: List<CountriesInfo>) {
+        countriesAdapter = CountriesAdapter(countryList, onItemSelected = {
+            findNavController().navigate(
+                CountriesFragmentDirections.actionCountriesFragmentToCountriesDetailActivity()
+            )
+        })
+
         binding.rvListCountries.apply {
             layoutManager = GridLayoutManager(context, 2)
-            adapter = CountriesAdapter(countryList)
+            adapter = countriesAdapter
         }
     }
 

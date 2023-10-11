@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.worldexplorer.R
 import com.example.worldexplorer.domain.countries.model.CountriesInfo
 
-class CountriesAdapter(private val list: List<CountriesInfo>) : RecyclerView.Adapter<CountriesViewHolder>() {
+class CountriesAdapter(
+    private val list: List<CountriesInfo>,
+    private val onItemSelected: (CountriesInfo) -> Unit
+) : RecyclerView.Adapter<CountriesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountriesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return CountriesViewHolder(layoutInflater.inflate(R.layout.item_countries, parent, false))
@@ -16,6 +19,6 @@ class CountriesAdapter(private val list: List<CountriesInfo>) : RecyclerView.Ada
 
     override fun onBindViewHolder(holder: CountriesViewHolder, position: Int) {
         val item = list[position]
-        holder.render(item)
+        holder.render(item, onItemSelected)
     }
 }

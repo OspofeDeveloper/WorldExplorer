@@ -11,7 +11,8 @@ import com.example.worldexplorer.domain.model.QuizInfo
     la lista por parámetro para que el recyclerview se cree de primeras pero no se vea obligado a recibir los datos en el
     momento de crearse, sino que le es indiferente cuando le pasamos los datos
 */
-class QuizAdapter(private var quizList: List<QuizInfo> = emptyList(),
+class QuizAdapter(
+    private var quizList: List<QuizInfo> = emptyList(),
     private val onItemSelected: (QuizInfo) -> Unit) :
     RecyclerView.Adapter<QuizViewHolder>() {
 

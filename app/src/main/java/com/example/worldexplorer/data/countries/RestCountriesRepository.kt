@@ -1,9 +1,9 @@
-package com.example.worldexplorer.data
+package com.example.worldexplorer.data.countries
 
-import com.example.worldexplorer.data.database.dao.CountryDao
-import com.example.worldexplorer.data.database.entities.CountryEntity
-import com.example.worldexplorer.data.database.entities.toDatabase
-import com.example.worldexplorer.data.network.RestCountriesService
+import com.example.worldexplorer.data.countries.database.dao.CountryDao
+import com.example.worldexplorer.data.countries.database.entities.CountryEntity
+import com.example.worldexplorer.data.countries.database.entities.toDatabase
+import com.example.worldexplorer.data.countries.network.RestCountriesService
 import com.example.worldexplorer.domain.countries.model.CountriesInfo
 import com.example.worldexplorer.domain.countries.model.toDomain
 import javax.inject.Inject

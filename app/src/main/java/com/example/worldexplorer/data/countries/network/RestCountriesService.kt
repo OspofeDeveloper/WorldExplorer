@@ -1,6 +1,6 @@
-package com.example.worldexplorer.data.network
+package com.example.worldexplorer.data.countries.network
 
-import com.example.worldexplorer.data.model.CountryModel
+import com.example.worldexplorer.data.countries.model.CountryModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

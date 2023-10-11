@@ -2,7 +2,7 @@ package com.example.worldexplorer.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.worldexplorer.data.database.CountryDatabase
+import com.example.worldexplorer.data.countries.database.CountryDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,5 +22,5 @@ object RoomModule {
 
     @Singleton
     @Provides
-    fun provideCountryDao(db:CountryDatabase) = db.getCountryDao()
+    fun provideCountryDao(db: CountryDatabase) = db.getCountryDao()
 }

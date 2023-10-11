@@ -1,4 +1,4 @@
-package com.example.worldexplorer.data.database.entities
+package com.example.worldexplorer.data.countries.database.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

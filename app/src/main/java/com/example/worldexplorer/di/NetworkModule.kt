@@ -1,6 +1,6 @@
 package com.example.worldexplorer.di
 
-import com.example.worldexplorer.data.network.RestCountriesApiClient
+import com.example.worldexplorer.data.countries.network.RestCountriesApiClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,10 +1,10 @@
-package com.example.worldexplorer.data.database.dao
+package com.example.worldexplorer.data.countries.database.dao
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.example.worldexplorer.data.database.entities.CountryEntity
+import com.example.worldexplorer.data.countries.database.entities.CountryEntity
 
 @Dao
 interface CountryDao {

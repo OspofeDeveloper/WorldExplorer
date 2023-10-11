@@ -1,7 +1,7 @@
 package com.example.worldexplorer.domain.countries.model
 
-import com.example.worldexplorer.data.database.entities.CountryEntity
-import com.example.worldexplorer.data.model.CountryModel
+import com.example.worldexplorer.data.countries.database.entities.CountryEntity
+import com.example.worldexplorer.data.countries.model.CountryModel
 import java.text.Normalizer
 
 data class CountriesInfo (

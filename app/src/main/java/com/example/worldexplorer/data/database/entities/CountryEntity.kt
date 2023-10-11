@@ -3,7 +3,7 @@ package com.example.worldexplorer.data.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.worldexplorer.domain.countries.model.CountryItem
+import com.example.worldexplorer.domain.countries.model.CountriesInfo
 
 @Entity(tableName = "country_table")
 data class CountryEntity(
@@ -13,7 +13,7 @@ data class CountryEntity(
     @ColumnInfo(name = "name") val name: String
 )
 
-fun CountryItem.toDatabase(): CountryEntity {
+fun CountriesInfo.toDatabase(): CountryEntity {
     val cca2 = flagImageUrl.dropLast(4).takeLastWhile { it.isLetter() }
     return CountryEntity(name = name, cca2 = cca2)
 }

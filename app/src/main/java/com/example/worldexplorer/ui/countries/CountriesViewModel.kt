@@ -1,13 +1,14 @@
 package com.example.worldexplorer.ui.countries
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.worldexplorer.domain.countries.GetAllCountriesOrderAscUseCase
-import com.example.worldexplorer.domain.countries.GetAllCountriesOrderDescUseCase
-import com.example.worldexplorer.domain.countries.GetAllCountriesUseCase
-import com.example.worldexplorer.domain.countries.model.CountryItem
+import com.example.worldexplorer.domain.countries.usecases.GetAllCountriesOrderAscUseCase
+import com.example.worldexplorer.domain.countries.usecases.GetAllCountriesOrderDescUseCase
+import com.example.worldexplorer.domain.countries.usecases.GetAllCountriesUseCase
+import com.example.worldexplorer.domain.countries.model.CountriesInfo
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,25 +19,27 @@ class CountriesViewModel @Inject constructor(
     private val getAllCountriesOrderDescUseCase: GetAllCountriesOrderDescUseCase
 ) : ViewModel() {
 
-    val countryItemLiveData = MutableLiveData<List<CountryItem>>()
-    fun onCreate() {
+    private var _countriesState = MutableStateFlow<List<CountriesInfo>>(emptyList())
+    val countriesState: StateFlow<List<CountriesInfo>> = _countriesState
+
+    init {
         viewModelScope.launch {
             val result = getAllCountriesUseCase("name,cca2")
 
             if (!result.isNullOrEmpty()) {
-                countryItemLiveData.postValue(result)
+                _countriesState.value = result
             }
         }
     }
 
     fun getAllCountriesOrdered(position: Int) {
         viewModelScope.launch {
-            val result: List<CountryItem> = when (position) {
+            val result: List<CountriesInfo> = when (position) {
                 0 -> getAllCountriesOrderAscUseCase()
                 else -> getAllCountriesOrderDescUseCase()
             }
 
-            countryItemLiveData.postValue(result)
+            _countriesState.value = result
         }
     }
 }

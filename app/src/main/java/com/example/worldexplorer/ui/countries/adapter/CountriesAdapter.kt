@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.worldexplorer.R
-import com.example.worldexplorer.domain.countries.model.CountryItem
+import com.example.worldexplorer.domain.countries.model.CountriesInfo
 
-class CountriesAdapter(private val list: List<CountryItem>) : RecyclerView.Adapter<CountriesViewHolder>() {
+class CountriesAdapter(private val list: List<CountriesInfo>) : RecyclerView.Adapter<CountriesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountriesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return CountriesViewHolder(layoutInflater.inflate(R.layout.item_countries, parent, false))

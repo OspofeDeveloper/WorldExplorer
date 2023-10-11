@@ -8,16 +8,16 @@ import com.example.worldexplorer.R
     specify the name and image, the object already knows what is its name and image
 */
 sealed class QuizInfo(val name: Int, val image: Int){
-    object Europe:QuizInfo(R.string.europe, R.drawable.europe)
-    object Africa:QuizInfo(R.string.africa, R.drawable.africa)
-    object Asia:QuizInfo(R.string.asia, R.drawable.asia)
-    object America:QuizInfo(R.string.america, R.drawable.america)
-    object Oceania:QuizInfo(R.string.oceania, R.drawable.oceania)
-    object WesternAsia:QuizInfo(R.string.western_asia, R.drawable.western_asia)
-    object NorthernEurope:QuizInfo(R.string.northern_europe, R.drawable.northern_europe)
-    object NorthernAfrica:QuizInfo(R.string.northern_africa, R.drawable.northern_africa)
-    object EasternAfrica:QuizInfo(R.string.eastern_africa, R.drawable.eastern_africa)
-    object Caribbean:QuizInfo(R.string.caribbean, R.drawable.caribbean)
-    object SouthAmerica:QuizInfo(R.string.south_america, R.drawable.south_america)
-    object Earth:QuizInfo(R.string.earth, R.drawable.earth)
+    data object Europe:QuizInfo(R.string.europe, R.drawable.europe)
+    data object Africa:QuizInfo(R.string.africa, R.drawable.africa)
+    data object Asia:QuizInfo(R.string.asia, R.drawable.asia)
+    data object America:QuizInfo(R.string.america, R.drawable.america)
+    data object Oceania:QuizInfo(R.string.oceania, R.drawable.oceania)
+    data object WesternAsia:QuizInfo(R.string.western_asia, R.drawable.western_asia)
+    data object NorthernEurope:QuizInfo(R.string.northern_europe, R.drawable.northern_europe)
+    data object NorthernAfrica:QuizInfo(R.string.northern_africa, R.drawable.northern_africa)
+    data object EasternAfrica:QuizInfo(R.string.eastern_africa, R.drawable.eastern_africa)
+    data object Caribbean:QuizInfo(R.string.caribbean, R.drawable.caribbean)
+    data object SouthAmerica:QuizInfo(R.string.south_america, R.drawable.south_america)
+    data object Earth:QuizInfo(R.string.earth, R.drawable.earth)
 }

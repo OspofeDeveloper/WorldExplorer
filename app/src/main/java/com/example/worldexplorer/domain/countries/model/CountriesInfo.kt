@@ -14,6 +14,5 @@ fun CountryModel.toDomain() : CountriesInfo =
         "https://flagcdn.com/w320/${cca2.lowercase()}.png",
         Normalizer.normalize(name.common, Normalizer.Form.NFD))
 
-
 fun CountryEntity.toDomain() : CountriesInfo =
     CountriesInfo("https://flagcdn.com/w320/${cca2.lowercase()}.png", name)

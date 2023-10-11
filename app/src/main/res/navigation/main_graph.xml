@@ -28,5 +28,9 @@
         android:id="@+id/countriesDetailActivity"
         android:name="com.example.worldexplorer.ui.countriesDetail.CountriesDetailActivity"
         android:label="activity_countries_detail"
-        tools:layout="@layout/activity_countries_detail" />
+        tools:layout="@layout/activity_countries_detail" >
+        <argument
+            android:name="countryName"
+            app:argType="string" />
+    </activity>
 </navigation>

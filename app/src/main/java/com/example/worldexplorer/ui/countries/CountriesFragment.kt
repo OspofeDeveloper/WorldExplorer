@@ -75,7 +75,7 @@ class CountriesFragment : Fragment() {
     private fun initRecyclerView(countryList: List<CountriesInfo>) {
         countriesAdapter = CountriesAdapter(countryList, onItemSelected = {
             findNavController().navigate(
-                CountriesFragmentDirections.actionCountriesFragmentToCountriesDetailActivity()
+                CountriesFragmentDirections.actionCountriesFragmentToCountriesDetailActivity(it.name)
             )
         })
 

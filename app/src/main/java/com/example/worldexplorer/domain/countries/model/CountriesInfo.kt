@@ -1,4 +1,4 @@
-package com.example.worldexplorer.domain.listCountriesScreen.model
+package com.example.worldexplorer.domain.countries.model
 
 import com.example.worldexplorer.data.database.entities.CountryEntity
 import com.example.worldexplorer.data.model.CountryModel

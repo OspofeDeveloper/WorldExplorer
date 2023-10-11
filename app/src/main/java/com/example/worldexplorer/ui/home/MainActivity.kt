@@ -1,4 +1,4 @@
-package com.example.worldexplorer.ui.homeScreen
+package com.example.worldexplorer.ui.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

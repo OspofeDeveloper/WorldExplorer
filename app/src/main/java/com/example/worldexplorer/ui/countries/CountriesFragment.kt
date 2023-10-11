@@ -1,4 +1,4 @@
-package com.example.worldexplorer.ui.listCountriesScreen.view
+package com.example.worldexplorer.ui.countries
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,13 +12,13 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentListCountriesBinding
-import com.example.worldexplorer.domain.listCountriesScreen.model.CountryItem
-import com.example.worldexplorer.ui.listCountriesScreen.viewmodel.CountryViewModel
+import com.example.worldexplorer.domain.countries.model.CountryItem
+import com.example.worldexplorer.ui.countries.adapter.CountriesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ListCountriesFragment : Fragment() {
-    private val viewModel: CountryViewModel by viewModels()
+class CountriesFragment : Fragment() {
+    private val viewModel: CountriesViewModel by viewModels()
     private var _binding: FragmentListCountriesBinding? = null
     private val binding get() = _binding!!
 
@@ -60,7 +60,7 @@ class ListCountriesFragment : Fragment() {
 
     private fun initRecyclerView(view: View, countryList: List<CountryItem>) {
         binding.rvListCountries.layoutManager = GridLayoutManager(context, 2)
-        binding.rvListCountries.adapter = ListCountriesAdapter(countryList)
+        binding.rvListCountries.adapter = CountriesAdapter(countryList)
     }
 }
 

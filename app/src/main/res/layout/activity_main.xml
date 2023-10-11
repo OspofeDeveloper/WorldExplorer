@@ -5,11 +5,11 @@
     android:id="@+id/rootView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.homeScreen.MainActivity">
+    tools:context=".ui.home.MainActivity">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/listCountriesFragment"
-        android:name="com.example.worldexplorer.ui.listCountriesScreen.view.ListCountriesFragment"
+        android:name="com.example.worldexplorer.ui.countries.CountriesFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toTopOf="parent"

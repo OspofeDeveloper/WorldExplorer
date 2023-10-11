@@ -1,18 +1,18 @@
-package com.example.worldexplorer.ui.listCountriesScreen.viewmodel
+package com.example.worldexplorer.ui.countries
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.worldexplorer.domain.listCountriesScreen.GetAllCountriesOrderAscUseCase
-import com.example.worldexplorer.domain.listCountriesScreen.GetAllCountriesOrderDescUseCase
-import com.example.worldexplorer.domain.listCountriesScreen.GetAllCountriesUseCase
-import com.example.worldexplorer.domain.listCountriesScreen.model.CountryItem
+import com.example.worldexplorer.domain.countries.GetAllCountriesOrderAscUseCase
+import com.example.worldexplorer.domain.countries.GetAllCountriesOrderDescUseCase
+import com.example.worldexplorer.domain.countries.GetAllCountriesUseCase
+import com.example.worldexplorer.domain.countries.model.CountryItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CountryViewModel @Inject constructor(
+class CountriesViewModel @Inject constructor(
     private val getAllCountriesUseCase: GetAllCountriesUseCase,
     private val getAllCountriesOrderAscUseCase: GetAllCountriesOrderAscUseCase,
     private val getAllCountriesOrderDescUseCase: GetAllCountriesOrderDescUseCase

@@ -4,6 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary"
     tools:context=".ui.countriesDetail.CountriesDetailActivity">
+
+    <ImageView
+        android:id="@+id/ivCountryDetail"
+        android:layout_width="0dp"
+        android:layout_height="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/red" />
+
+    <TextView
+        android:id="@+id/tvCountryTitle"
+        style="@style/Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ivCountryDetail"
+        tools:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/tvBody"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        style="@style/Basic"
+        android:layout_margin="24dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvCountryTitle"
+        tools:text="shdjhfjkashdfjkhsjkdfjksa sdkjfkjsa kdjfjksadfjksd
+        kdjf kdsjfdjkshfkjsdsdh dsjkkasjsdhfjksdhk" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

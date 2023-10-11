@@ -1,6 +1,6 @@
 package com.example.worldexplorer.di
 
-import com.example.worldexplorer.data.countries.network.RestCountriesApiClient
+import com.example.worldexplorer.data.network.RestCountriesApiService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +24,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRestCountriesApiClient(retrofit: Retrofit) : RestCountriesApiClient {
-        return retrofit.create(RestCountriesApiClient::class.java)
+    fun provideRestCountriesApiService(retrofit: Retrofit): RestCountriesApiService {
+        return retrofit.create(RestCountriesApiService::class.java)
     }
 }

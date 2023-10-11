@@ -1,4 +1,4 @@
-package com.example.worldexplorer.ui.countriesDetail
+package com.example.worldexplorer.ui.detailcountries
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

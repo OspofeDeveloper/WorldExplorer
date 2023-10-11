@@ -2,14 +2,17 @@ package com.example.worldexplorer.ui.countries
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.worldexplorer.domain.countries.usecases.GetAllCountriesOrderAscUseCase
-import com.example.worldexplorer.domain.countries.usecases.GetAllCountriesOrderDescUseCase
-import com.example.worldexplorer.domain.countries.usecases.GetAllCountriesUseCase
-import com.example.worldexplorer.domain.countries.model.CountriesInfo
+import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesOrderAscUseCase
+import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesOrderDescUseCase
+import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesUseCase
+import com.example.worldexplorer.domain.models.countries.CountriesModel
+import com.example.worldexplorer.ui.detailcountries.CountriesDetailState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,27 +22,57 @@ class CountriesViewModel @Inject constructor(
     private val getAllCountriesOrderDescUseCase: GetAllCountriesOrderDescUseCase
 ) : ViewModel() {
 
-    private var _state = MutableStateFlow<List<CountriesInfo>>(emptyList())
-    val state: StateFlow<List<CountriesInfo>> = _state
+    private var _state = MutableStateFlow<CountriesState>(CountriesState.Loading)
+    val state: StateFlow<CountriesState> = _state
 
+    /**
+    Los Scopes nos permiten que el ciclo de vida de nuestra corrutina se adhiera al ciclo de
+    vida del elemento que queremos, en este caso el viewModel. Si queremos ejecuutar una corrutina
+    tiene que ir dentro del Scope.
+
+    Y cuando usamos el Dispatchers.IO lo que queremos es que lo que esta dentro este se ejecute
+    en un hilo secundario. Cualquier cosa que modifique la UI se hace en el hilo principal, pero
+    si imlementamos funcionalidades externas como recoger datos externos eso se hace en el hilo
+    secundario. En este caso lo que queremos que se ejecute en ese hilo secundario es la llamada al
+    caso de uso ya que este recoge datos externos, por eso lo llamamos dentro de Dispatchers.IO (a
+    demas hay diferentes tipos de Dispatchers pero el que se usa para operaciones de
+    lectura/escritura de datos desde o hacia disco es ese)
+     */
     init {
         viewModelScope.launch {
-            val result = getAllCountriesUseCase("name,cca2")
 
-            if (!result.isNullOrEmpty()) {
-                _state.value = result
+            _state.value = CountriesState.Loading
+
+            val result = withContext(Dispatchers.IO) {
+                getAllCountriesUseCase("name,cca2")
+            }
+
+            if (result.isNotEmpty()) {
+                _state.value = CountriesState.Success(result)
+            } else {
+                _state.value = CountriesState.Error("Ha ocurrido un error, intentelo mas tarde")
             }
         }
     }
 
     fun getAllCountriesOrdered(position: Int) {
         viewModelScope.launch {
-            val result: List<CountriesInfo> = when (position) {
-                0 -> getAllCountriesOrderAscUseCase()
-                else -> getAllCountriesOrderDescUseCase()
+            _state.value = CountriesState.Loading
+
+            val result = withContext(Dispatchers.IO) {
+                when (position) {
+                    0 -> getAllCountriesOrderAscUseCase()
+                    else -> getAllCountriesOrderDescUseCase()
+                }
             }
 
-            _state.value = result
+            if (result.isNotEmpty()) {
+                _state.value = CountriesState.Success(result)
+            } else {
+                _state.value = CountriesState.Error("Ha ocurrido un error, intentelo mas tarde")
+            }
+
+
         }
     }
 }

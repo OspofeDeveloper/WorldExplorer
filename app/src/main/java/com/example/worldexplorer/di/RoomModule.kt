@@ -2,7 +2,7 @@ package com.example.worldexplorer.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.worldexplorer.data.countries.database.CountryDatabase
+import com.example.worldexplorer.data.database.CountryDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

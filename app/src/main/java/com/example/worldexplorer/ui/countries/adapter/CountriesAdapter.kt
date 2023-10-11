@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.worldexplorer.R
-import com.example.worldexplorer.domain.countries.model.CountriesInfo
+import com.example.worldexplorer.domain.models.countries.CountriesModel
 
 class CountriesAdapter(
-    private val list: List<CountriesInfo>,
-    private val onItemSelected: (CountriesInfo) -> Unit
+    private val list: List<CountriesModel>,
+    private val onItemSelected: (CountriesModel) -> Unit
 ) : RecyclerView.Adapter<CountriesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountriesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

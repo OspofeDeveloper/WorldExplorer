@@ -1,4 +1,4 @@
-package com.example.worldexplorer.ui.countriesDetail
+package com.example.worldexplorer.ui.detailcountries
 
 /*
     En Loading definimos data object y en Error y Success un data class poque a las clases le

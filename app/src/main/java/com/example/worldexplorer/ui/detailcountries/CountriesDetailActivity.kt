@@ -1,4 +1,4 @@
-package com.example.worldexplorer.ui.countriesDetail
+package com.example.worldexplorer.ui.detailcountries
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,7 +10,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.navArgs
 import com.example.worldexplorer.databinding.ActivityCountriesDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -28,7 +27,12 @@ class CountriesDetailActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
+        initListeners()
         initUIState()
+    }
+
+    private fun initListeners() {
+        binding.ivBack.setOnClickListener { onBackPressed() }
     }
 
     private fun initUIState() {

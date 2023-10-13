@@ -2,6 +2,7 @@ package com.example.worldexplorer.domain
 
 import com.example.worldexplorer.data.database.entities.CountriesEntity
 import com.example.worldexplorer.domain.models.countries.CountriesModel
+import com.example.worldexplorer.domain.models.detailcountries.DetailCountriesModel
 
 //Cada repositorio
 interface RestCountriesRepository {
@@ -9,5 +10,6 @@ interface RestCountriesRepository {
     suspend fun getAllCountriesOrderAsc(): List<CountriesModel>
     suspend fun clearCountries()
     suspend fun insertCountries(countries:List<CountriesEntity>)
-    suspend fun getAllCountries(fields: String): List<CountriesModel>
+    suspend fun getAllCountries(): List<CountriesModel>
+    suspend fun getDetailCountries(cca2: String): DetailCountriesModel?
 }

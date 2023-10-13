@@ -22,12 +22,14 @@ import com.example.worldexplorer.domain.models.countries.CountriesModel
 import com.example.worldexplorer.ui.countries.adapter.CountriesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import java.text.Normalizer
 
 @AndroidEntryPoint
 class CountriesFragment : Fragment() {
 
     private val countriesViewModel: CountriesViewModel by viewModels()
     private lateinit var countriesAdapter: CountriesAdapter
+    private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
 
     private var _binding: FragmentCountriesBinding? = null
     private val binding get() = _binding!!
@@ -97,7 +99,7 @@ class CountriesFragment : Fragment() {
     private fun initRecyclerView(countryList: List<CountriesModel>) {
         countriesAdapter = CountriesAdapter(countryList, onItemSelected = {
             findNavController().navigate(
-                CountriesFragmentDirections.actionCountriesFragmentToCountriesDetailActivity(it.name)
+                CountriesFragmentDirections.actionCountriesFragmentToCountriesDetailActivity(it.cca2, it.name)
             )
         })
 

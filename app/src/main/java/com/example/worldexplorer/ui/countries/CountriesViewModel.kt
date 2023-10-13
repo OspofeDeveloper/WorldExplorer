@@ -5,8 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesOrderAscUseCase
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesOrderDescUseCase
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesUseCase
-import com.example.worldexplorer.domain.models.countries.CountriesModel
-import com.example.worldexplorer.ui.detailcountries.CountriesDetailState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -44,7 +42,7 @@ class CountriesViewModel @Inject constructor(
             _state.value = CountriesState.Loading
 
             val result = withContext(Dispatchers.IO) {
-                getAllCountriesUseCase("name,cca2")
+                getAllCountriesUseCase()
             }
 
             if (result.isNotEmpty()) {

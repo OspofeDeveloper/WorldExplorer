@@ -30,7 +30,10 @@
         android:label="activity_countries_detail"
         tools:layout="@layout/activity_countries_detail" >
         <argument
-            android:name="countryName"
+            android:name="cca2"
+            app:argType="string" />
+        <argument
+            android:name="name"
             app:argType="string" />
     </activity>
 </navigation>

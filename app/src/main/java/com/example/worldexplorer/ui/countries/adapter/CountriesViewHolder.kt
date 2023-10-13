@@ -10,7 +10,7 @@ class CountriesViewHolder(view: View): ViewHolder(view) {
     val binding = ItemCountriesBinding.bind(view)
     fun render(item: CountriesModel, onItemSelected: (CountriesModel) -> Unit) {
         binding.tvCountryName.text = item.name
-        binding.ivCountryFlag.load(item.flagImageUrl)
+        binding.ivCountryFlag.load("https://flagcdn.com/w320/${item.cca2.lowercase()}.png")
 
         binding.parent.setOnClickListener { onItemSelected(item) }
     }

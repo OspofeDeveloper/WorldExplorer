@@ -13,5 +13,8 @@ data class CountriesEntity(
     @ColumnInfo(name = "name") val name: String
 ) {
     fun toDomain() : CountriesModel =
-        CountriesModel("https://flagcdn.com/w320/${cca2.lowercase()}.png", name)
+        CountriesModel(
+            cca2 = cca2,
+            name = name,
+        )
 }

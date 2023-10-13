@@ -1,5 +1,6 @@
 package com.example.worldexplorer.data.network.responses.countries
 
+import com.example.worldexplorer.data.database.entities.CountriesEntity
 import com.example.worldexplorer.domain.models.countries.CountriesModel
 import com.google.gson.annotations.SerializedName
 import java.text.Normalizer
@@ -12,11 +13,11 @@ import java.text.Normalizer
 */
 data class CountryResponse(
     @SerializedName("cca2") val cca2: String,
-    @SerializedName("name") var name: Name,
+    @SerializedName("name") val name: Name
 ) {
     fun toDomain() : CountriesModel =
         CountriesModel(
-            "https://flagcdn.com/w320/${cca2.lowercase()}.png",
-            Normalizer.normalize(name.common, Normalizer.Form.NFD)
+            cca2 = cca2,
+            name = Normalizer.normalize(name.common, Normalizer.Form.NFD),
         )
 }

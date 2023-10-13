@@ -8,6 +8,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.navArgs
+import coil.load
 import com.example.worldexplorer.databinding.ActivityCountriesDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -24,6 +25,7 @@ class CountriesDetailActivity : AppCompatActivity() {
         binding = ActivityCountriesDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initUI()
+        countriesDetailViewModel.getCountriesDetail(args.cca2)
     }
 
     private fun initUI() {
@@ -42,7 +44,7 @@ class CountriesDetailActivity : AppCompatActivity() {
                     when (it) {
                         CountriesDetailState.Loading -> loadingState()
                         is CountriesDetailState.Error -> errorState()
-                        is CountriesDetailState.Success -> successState()
+                        is CountriesDetailState.Success -> successState(it)
                     }
                 }
             }
@@ -54,10 +56,14 @@ class CountriesDetailActivity : AppCompatActivity() {
     }
 
     private fun errorState() {
-        TODO("Not yet implemented")
+        binding.pbDetailCountries.isVisible = false
     }
 
-    private fun successState() {
-        TODO("Not yet implemented")
+    private fun successState(state: CountriesDetailState.Success) {
+        binding.pbDetailCountries.isVisible = false
+        binding.ivFlag.load("https://flagcdn.com/w320/${args.cca2.lowercase()}.png")
+
+        val title = "${args.name} (${state.detailCountry.cca3})"
+        binding.tvCountryTitle.text = title
     }
 }

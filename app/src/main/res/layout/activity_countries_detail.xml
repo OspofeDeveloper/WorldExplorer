@@ -8,13 +8,14 @@
     tools:context=".ui.detailcountries.CountriesDetailActivity">
 
     <ImageView
-        android:id="@+id/ivCountryDetail"
-        android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:id="@+id/ivFlag"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    
+        app:layout_constraintTop_toBottomOf="@id/ivBack"
+        tools:background="@color/red"/>
+
     <ImageView
         android:id="@+id/ivBack"
         android:layout_width="wrap_content"
@@ -30,9 +31,11 @@
         style="@style/Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivCountryDetail"
+        app:layout_constraintTop_toBottomOf="@id/ivFlag"
         tools:text="@string/app_name" />
 
     <TextView

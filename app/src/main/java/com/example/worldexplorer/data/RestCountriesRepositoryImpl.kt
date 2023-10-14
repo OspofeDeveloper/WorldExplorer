@@ -6,7 +6,6 @@ import com.example.worldexplorer.data.database.entities.CountriesEntity
 import com.example.worldexplorer.data.network.RestCountriesApiService
 import com.example.worldexplorer.domain.RestCountriesRepository
 import com.example.worldexplorer.domain.models.countries.CountriesModel
-import com.example.worldexplorer.domain.models.detailcountries.DetailCountriesModel
 import javax.inject.Inject
 
 class RestCountriesRepositoryImpl @Inject constructor(
@@ -53,12 +52,7 @@ class RestCountriesRepositoryImpl @Inject constructor(
         return countryItemDao.getAllCountriesOrderDesc().map { it.toDomain() }
     }
 
-    override suspend fun getDetailCountries(cca2: String): DetailCountriesModel? {
-        kotlin.runCatching { apiService.getDetailCountries(cca2) }
-            .onSuccess {
-                return it[0].toDomain()
-            }
-            .onFailure { Log.i("detail", "Ha ocurrido un error: ${it.message}") }
-        return null
+    override suspend fun getDetailCountries(cca2: String): CountriesModel {
+        return countryItemDao.getCountriesInfo(cca2).toDomain()
     }
 }

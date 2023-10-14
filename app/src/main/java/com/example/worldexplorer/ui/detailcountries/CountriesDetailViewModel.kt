@@ -29,12 +29,7 @@ class CountriesDetailViewModel @Inject constructor(
                 getDetailCountriesUseCase(countryName)
             }
 
-            if (result != null) {
-                _state.value = CountriesDetailState.Success(result)
-            } else {
-                _state.value = CountriesDetailState.Error("Ha ocurrido un error, intentelo mas tarde")
-                Log.i("detail", "Resultado: $result")
-            }
+            _state.value = CountriesDetailState.Success(result)
         }
     }
 }

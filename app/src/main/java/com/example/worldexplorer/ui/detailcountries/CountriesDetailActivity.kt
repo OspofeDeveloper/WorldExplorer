@@ -43,7 +43,6 @@ class CountriesDetailActivity : AppCompatActivity() {
                 countriesDetailViewModel.state.collect {
                     when (it) {
                         CountriesDetailState.Loading -> loadingState()
-                        is CountriesDetailState.Error -> errorState()
                         is CountriesDetailState.Success -> successState(it)
                     }
                 }
@@ -55,10 +54,6 @@ class CountriesDetailActivity : AppCompatActivity() {
         binding.pbDetailCountries.isVisible = true
     }
 
-    private fun errorState() {
-        binding.pbDetailCountries.isVisible = false
-    }
-
     private fun successState(state: CountriesDetailState.Success) {
         binding.pbDetailCountries.isVisible = false
         binding.ivFlag.load("https://flagcdn.com/w320/${args.cca2.lowercase()}.png")
@@ -66,9 +61,9 @@ class CountriesDetailActivity : AppCompatActivity() {
         state.detailCountry.apply {
             binding.tvCountryTitle.text = "${args.name} (${cca3})"
             binding.tvArea.text = area.toString()
-            binding.tvBorders.text = borders?.joinToString(separator = ", ")
-            binding.tvContinents.text = continents?.joinToString(separator = ", ")
-            binding.tvCapital.text = borders?.joinToString(separator = ", ")
+            binding.tvBorders.text = borders
+            binding.tvContinents.text = continents
+            binding.tvCapital.text = borders
             binding.tvPopulation.text = population.toString()
         }
 

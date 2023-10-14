@@ -1,6 +1,6 @@
 package com.example.worldexplorer.ui.detailcountries
 
-import com.example.worldexplorer.domain.models.detailcountries.DetailCountriesModel
+import com.example.worldexplorer.domain.models.countries.CountriesModel
 
 /*
     En Loading definimos data object y en Error y Success un data class poque a las clases le
@@ -8,6 +8,5 @@ import com.example.worldexplorer.domain.models.detailcountries.DetailCountriesMo
  */
 sealed class CountriesDetailState {
     data object Loading:CountriesDetailState()
-    data class Error(val error: String):CountriesDetailState()
-    data class Success(val detailCountry: DetailCountriesModel):CountriesDetailState()
+    data class Success(val detailCountry: CountriesModel):CountriesDetailState()
 }

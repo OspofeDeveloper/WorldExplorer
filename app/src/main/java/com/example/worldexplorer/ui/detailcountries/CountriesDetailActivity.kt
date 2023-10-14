@@ -1,8 +1,8 @@
 package com.example.worldexplorer.ui.detailcountries
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -63,7 +63,15 @@ class CountriesDetailActivity : AppCompatActivity() {
         binding.pbDetailCountries.isVisible = false
         binding.ivFlag.load("https://flagcdn.com/w320/${args.cca2.lowercase()}.png")
 
-        val title = "${args.name} (${state.detailCountry.cca3})"
-        binding.tvCountryTitle.text = title
+        state.detailCountry.apply {
+            binding.tvCountryTitle.text = "${args.name} (${cca3})"
+            binding.tvArea.text = area.toString()
+            binding.tvBorders.text = borders?.joinToString(separator = ", ")
+            binding.tvContinents.text = continents?.joinToString(separator = ", ")
+            binding.tvCapital.text = borders?.joinToString(separator = ", ")
+            binding.tvPopulation.text = population.toString()
+        }
+
+
     }
 }

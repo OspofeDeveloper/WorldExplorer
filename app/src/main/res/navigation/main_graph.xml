@@ -11,8 +11,8 @@
         android:label="fragment_countries"
         tools:layout="@layout/fragment_countries" >
         <action
-            android:id="@+id/action_countriesFragment_to_countriesDetailActivity"
-            app:destination="@id/countriesDetailActivity" />
+            android:id="@+id/action_countriesFragment_to_countriesDetailFragment"
+            app:destination="@id/countriesDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/quizFragment"
@@ -21,19 +21,19 @@
         tools:layout="@layout/fragment_quiz" />
     <fragment
         android:id="@+id/exchangeFragment"
-        android:name="com.example.worldexplorer.ui.exchange.ExchangeFragment"
+        android:name="com.example.worldexplorer.ui.travel.TravelFragment"
         android:label="fragment_converter"
-        tools:layout="@layout/fragment_exchange" />
-    <activity
-        android:id="@+id/countriesDetailActivity"
-        android:name="com.example.worldexplorer.ui.detailcountries.CountriesDetailActivity"
-        android:label="activity_countries_detail"
-        tools:layout="@layout/activity_countries_detail" >
-        <argument
-            android:name="cca2"
-            app:argType="string" />
+        tools:layout="@layout/fragment_travel" />
+    <fragment
+        android:id="@+id/countriesDetailFragment"
+        android:name="com.example.worldexplorer.ui.detailcountries.CountriesDetailFragment"
+        android:label="fragment_countries_detail"
+        tools:layout="@layout/fragment_countries_detail" >
         <argument
             android:name="name"
             app:argType="string" />
-    </activity>
+        <argument
+            android:name="cca2"
+            app:argType="string" />
+    </fragment>
 </navigation>

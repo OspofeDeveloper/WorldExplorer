@@ -16,9 +16,6 @@
         android:theme="@style/Theme.WorldExplorer"
         tools:targetApi="31">
         <activity
-            android:name=".ui.detailcountries.CountriesDetailActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.home.MainActivity"
             android:exported="true">
             <intent-filter>

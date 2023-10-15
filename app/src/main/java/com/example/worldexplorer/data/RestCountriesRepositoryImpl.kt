@@ -52,7 +52,7 @@ class RestCountriesRepositoryImpl @Inject constructor(
         return countryItemDao.getAllCountriesOrderDesc().map { it.toDomain() }
     }
 
-    override suspend fun getDetailCountries(cca2: String): CountriesModel {
-        return countryItemDao.getCountriesInfo(cca2).toDomain()
+    override suspend fun getDetailCountries(cca2: String): CountriesModel? {
+        return countryItemDao.getCountriesInfo(cca2)?.toDomain()
     }
 }

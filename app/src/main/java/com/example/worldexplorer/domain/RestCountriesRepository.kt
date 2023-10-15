@@ -10,5 +10,5 @@ interface RestCountriesRepository {
     suspend fun clearCountries()
     suspend fun insertCountries(countries:List<CountriesEntity>)
     suspend fun getAllCountries(): List<CountriesModel>
-    suspend fun getDetailCountries(cca2: String): CountriesModel
+    suspend fun getDetailCountries(cca2: String): CountriesModel?
 }

@@ -24,5 +24,5 @@ interface CountriesDao {
     @Query("SELECT * FROM country_table ORDER BY name DESC")
     suspend fun getAllCountriesOrderDesc():List<CountriesEntity>
     @Query("SELECT * FROM country_table WHERE cca2 = :cca2Code")
-    suspend fun getCountriesInfo(cca2Code: String): CountriesEntity
+    suspend fun getCountriesInfo(cca2Code: String): CountriesEntity?
 }

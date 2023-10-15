@@ -8,5 +8,6 @@ import com.example.worldexplorer.domain.models.countries.CountriesModel
  */
 sealed class CountriesDetailState {
     data object Loading:CountriesDetailState()
+    data class Error(val error: String):CountriesDetailState()
     data class Success(val detailCountry: CountriesModel):CountriesDetailState()
 }

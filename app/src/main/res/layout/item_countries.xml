@@ -6,7 +6,8 @@
     android:id="@+id/cvItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="4dp"
+    app:cardBackgroundColor="@color/primaryLight"
     app:cardCornerRadius="8dp"
     app:cardElevation="4dp"
     app:cardUseCompatPadding="true">
@@ -14,6 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/primaryLight"
         android:padding="8dp">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -29,6 +31,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/SubTitle"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
             android:paddingVertical="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

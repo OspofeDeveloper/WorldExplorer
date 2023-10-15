@@ -2,18 +2,21 @@ package com.example.worldexplorer.ui.countries
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.worldexplorer.R
@@ -29,7 +32,6 @@ class CountriesFragment : Fragment() {
 
     private val countriesViewModel: CountriesViewModel by viewModels()
     private lateinit var countriesAdapter: CountriesAdapter
-    private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
 
     private var _binding: FragmentCountriesBinding? = null
     private val binding get() = _binding!!
@@ -49,18 +51,20 @@ class CountriesFragment : Fragment() {
         initDropdownMenu()
         initListeners()
         initUIState()
+        setReturnAnimation()
     }
 
     private fun initListeners() {
-        binding.autoCompleteText.onItemClickListener = AdapterView.OnItemClickListener { _, _, position, _ ->
-            countriesViewModel.getAllCountriesOrdered(position)
-        }
+        binding.autoCompleteText.onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, position, _ ->
+                countriesViewModel.getAllCountriesOrdered(position)
+            }
     }
 
     private fun initDropdownMenu() {
         val orderByItems = resources.getStringArray(R.array.order_by_dropdown_options)
 
-        val arrayAdapter =   ArrayAdapter(requireContext(), R.layout.dropdown_menu_item, orderByItems)
+        val arrayAdapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_item, orderByItems)
         binding.autoCompleteText.apply {
             setAdapter(arrayAdapter)
             setDropDownBackgroundDrawable(
@@ -73,13 +77,24 @@ class CountriesFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 countriesViewModel.state.collect {
-                    when(it){
+                    when (it) {
                         CountriesState.Loading -> loadingState()
                         is CountriesState.Error -> errorState()
                         is CountriesState.Success -> successState(it)
                     }
                 }
             }
+        }
+    }
+
+    /** Retrasamos la transicion con postponeEnterTransition() hasta que el recyclerview
+     * esté listo paras dibujars y por lo tanto esté medido. Cuando esté lista se reanuda
+     * la transición. Tenemos que poner esto para que al volver atrás se haga también la
+     * transicion */
+    private fun setReturnAnimation() {
+        postponeEnterTransition()
+        binding.rvListCountries.doOnPreDraw {
+            startPostponedEnterTransition()
         }
     }
 
@@ -97,15 +112,25 @@ class CountriesFragment : Fragment() {
     }
 
     private fun initRecyclerView(countryList: List<CountriesModel>) {
-        countriesAdapter = CountriesAdapter(countryList, onItemSelected = {
-            findNavController().navigate(
-                CountriesFragmentDirections.actionCountriesFragmentToCountriesDetailFragment(it.name, it.cca2)
-            )
-        })
+        countriesAdapter =
+            CountriesAdapter(countryList, onItemSelected = { country, imageView, textView ->
+                val extras = FragmentNavigatorExtras(
+                        imageView to country.cca2,
+                        textView to country.name
+                )
+                findNavController().navigate(
+                    CountriesFragmentDirections.actionCountriesFragmentToCountriesDetailFragment(
+                        country.name,
+                        country.cca2
+                    ),
+                    extras
+                )
+            })
 
         binding.rvListCountries.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = countriesAdapter
+
         }
     }
 

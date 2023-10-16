@@ -10,6 +10,6 @@
         android:icon="@drawable/ic_quiz"/>
     <item
         android:id="@+id/exchangeFragment"
-        android:title="@string/exchange"
+        android:title="@string/travel"
         android:icon="@drawable/ic_money_exchange"/>
 </menu>

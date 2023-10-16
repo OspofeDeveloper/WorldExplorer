@@ -2,11 +2,15 @@ package com.example.worldexplorer.ui.home
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.commit
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.ActivityMainBinding
+import com.example.worldexplorer.ui.detailcountries.CountriesDetailFragment
+import com.example.worldexplorer.ui.detailcountries.CountriesDetailState
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +26,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
+        initListeners()
         initNavigation()
+    }
+
+    private fun initListeners() {
+        binding.bottomNavView.setOnItemReselectedListener {
+        }
     }
 
     private fun initNavigation() {

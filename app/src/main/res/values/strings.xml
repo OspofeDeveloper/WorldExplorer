@@ -16,9 +16,9 @@
     <!-- BottomBar -->
     <string name="countries">Countries</string>
     <string name="quiz">Quiz</string>
-    <string name="exchange">Exchange</string>
+    <string name="travel">Travel</string>
 
-    <!-- Quiz -->
+    <!-- Quiz Home-->
     <string name="earth">Earth</string>
     <string name="oceania">Oceania</string>
     <string name="america">America</string>
@@ -31,6 +31,9 @@
     <string name="eastern_africa">Eastern Africa</string>
     <string name="western_asia">Western Asia</string>
     <string name="south_america">South America</string>
+    
+    <!-- Quiz Detail -->
+    <string name="flagQuestion">Can you guess which country this flag belongs to?</string>
 
 
 </resources>

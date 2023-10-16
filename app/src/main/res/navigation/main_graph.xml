@@ -18,7 +18,11 @@
         android:id="@+id/quizFragment"
         android:name="com.example.worldexplorer.ui.quiz.QuizFragment"
         android:label="fragment_quiz"
-        tools:layout="@layout/fragment_quiz" />
+        tools:layout="@layout/fragment_quiz" >
+        <action
+            android:id="@+id/action_quizFragment_to_quizDetailFragment"
+            app:destination="@id/quizDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/exchangeFragment"
         android:name="com.example.worldexplorer.ui.travel.TravelFragment"
@@ -39,5 +43,14 @@
         <argument
             android:name="cca2"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizDetailFragment"
+        android:name="com.example.worldexplorer.ui.detailquiz.QuizDetailFragment"
+        android:label="fragment_quiz_detail"
+        tools:layout="@layout/fragment_quiz_detail" >
+        <argument
+            android:name="zone"
+            app:argType="integer" />
     </fragment>
 </navigation>

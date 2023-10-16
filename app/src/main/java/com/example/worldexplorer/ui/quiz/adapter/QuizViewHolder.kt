@@ -3,12 +3,12 @@ package com.example.worldexplorer.ui.quiz.adapter
 import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.recyclerview.widget.RecyclerView
-import com.example.worldexplorer.databinding.ItemQuizBinding
+import com.example.worldexplorer.databinding.ItemQuizRecyclerviewBinding
 import com.example.worldexplorer.domain.models.quiz.QuizModel
 
 class QuizViewHolder(view: View):RecyclerView.ViewHolder(view) {
 
-    private val binding = ItemQuizBinding.bind(view)
+    private val binding = ItemQuizRecyclerviewBinding.bind(view)
 
     fun render(quizInfo: QuizModel, onItemSelected: (QuizModel) -> Unit) {
         //Hay que recordar que los elementos de las vistas tienen contexto

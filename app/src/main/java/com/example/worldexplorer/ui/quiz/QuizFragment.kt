@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.worldexplorer.databinding.FragmentQuizBinding
 import com.example.worldexplorer.ui.quiz.adapter.QuizAdapter
@@ -40,7 +41,9 @@ class QuizFragment : Fragment() {
     //y binding.rvQuiz.adapter = QuizAdapter()" usamos ".apply"
     private fun initRecyclerView() {
         quizAdapter = QuizAdapter(onItemSelected = {
-            Toast.makeText(context, it.name ,Toast.LENGTH_LONG).show()
+            findNavController().navigate(
+                QuizFragmentDirections.actionQuizFragmentToQuizDetailFragment(it.name)
+            )
         })
 
         binding.rvQuiz.apply {

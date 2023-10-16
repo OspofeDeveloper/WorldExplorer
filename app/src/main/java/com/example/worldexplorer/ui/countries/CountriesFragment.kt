@@ -19,6 +19,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentCountriesBinding
 import com.example.worldexplorer.domain.models.countries.CountriesModel
@@ -32,19 +33,30 @@ class CountriesFragment : Fragment() {
 
     private val countriesViewModel: CountriesViewModel by viewModels()
     private lateinit var countriesAdapter: CountriesAdapter
-
     private var _binding: FragmentCountriesBinding? = null
     private val binding get() = _binding!!
 
-    /** If we put this code in onCreateView function we have problems when returning to this fragment from navigation */
-    override fun onResume() {
-        super.onResume()
-        initDropdownMenu()
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        // Inflate the layout for this fragment
+        _binding = FragmentCountriesBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initDropdownMenu()
+    }
+
+    override fun onPause() {
+        super.onPause()
     }
 
     private fun initUI() {
@@ -130,17 +142,6 @@ class CountriesFragment : Fragment() {
         binding.rvListCountries.apply {
             layoutManager = GridLayoutManager(context, 2)
             adapter = countriesAdapter
-
         }
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentCountriesBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
 }

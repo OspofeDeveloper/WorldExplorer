@@ -1,6 +1,5 @@
 package com.example.worldexplorer.ui.travel
 
-import android.graphics.drawable.AnimationDrawable
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -11,12 +10,16 @@ import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.airbnb.lottie.LottieAnimationView
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentTravelBinding
+import com.example.worldexplorer.ui.countries.CountriesFragmentDirections
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.internal.wait
 
 
 @AndroidEntryPoint
@@ -25,6 +28,14 @@ class TravelFragment : Fragment() {
     private var _binding: FragmentTravelBinding? = null
     private val binding get() = _binding!!
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentTravelBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initUI()
@@ -32,6 +43,14 @@ class TravelFragment : Fragment() {
 
     private fun initUI() {
         initListeners()
+        setReturnAnimation()
+    }
+
+    private fun setReturnAnimation() {
+        postponeEnterTransition()
+        binding.ivSurpriseFlag.doOnPreDraw {
+            startPostponedEnterTransition()
+        }
     }
 
     private fun initListeners() {
@@ -50,7 +69,7 @@ class TravelFragment : Fragment() {
 
             override fun onFinish() {
                 animation.speed = 0f
-                appearFlag()
+                growFlag()
             }
         }
 
@@ -62,33 +81,18 @@ class TravelFragment : Fragment() {
         timer.start()
     }
 
-    private fun appearFlag() {
-        val appearAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.appear)
+    private fun growFlag() {
+        val growAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.grow)
 
-        appearAnimation.setAnimationListener(object : Animation.AnimationListener {
+        growAnimation.setAnimationListener(object : Animation.AnimationListener {
             override fun onAnimationStart(animation: Animation?) {
                 binding.ivSurpriseFlag.isVisible = true
             }
 
             override fun onAnimationEnd(animation: Animation?) {
-                growFlag()
-            }
-
-            override fun onAnimationRepeat(animation: Animation?) {}
-        })
-
-        binding.ivSurpriseFlag.startAnimation(appearAnimation)
-    }
-
-    private fun growFlag() {
-        val growAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.grow)
-
-        growAnimation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation?) {}
-
-            override fun onAnimationEnd(animation: Animation?) {
-                binding.ivSurpriseFlag.isVisible = false
-                showCountryView()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    showCountryView()
+                }, 500)
             }
 
             override fun onAnimationRepeat(animation: Animation?) {}
@@ -98,34 +102,16 @@ class TravelFragment : Fragment() {
     }
 
     private fun showCountryView() {
-        val disappearAnimation = AlphaAnimation(1.0f, 0.0f)
-        disappearAnimation.duration = 200
-
-        val appearAnimation = AlphaAnimation(0.0f, 1.0f)
-        appearAnimation.duration = 1000
-
-        disappearAnimation.setAnimationListener(object : Animation.AnimationListener{
-            override fun onAnimationStart(animation: Animation?) {
-            }
-
-            override fun onAnimationEnd(animation: Animation?) {
-                binding.firstView.isVisible = false
-                binding.secondView.isVisible = true
-            }
-
-            override fun onAnimationRepeat(animation: Animation?) {
-            }
-        })
-
-        binding.firstView.startAnimation(disappearAnimation)
-        binding.secondView.startAnimation(appearAnimation)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentTravelBinding.inflate(layoutInflater, container, false)
-        return binding.root
+        binding.ivSurpriseFlag.transitionName = "ES"
+        val extras = FragmentNavigatorExtras(
+            binding.ivSurpriseFlag to "ES",
+        )
+        findNavController().navigate(
+            TravelFragmentDirections.actionExchangeFragmentToCountriesDetailFragment(
+                name = "Spain",
+                cca2 = "ES"
+            ),
+            extras
+        )
     }
 }

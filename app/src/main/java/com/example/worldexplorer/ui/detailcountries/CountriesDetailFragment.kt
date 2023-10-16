@@ -17,20 +17,34 @@ import com.example.worldexplorer.databinding.FragmentCountriesDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class CountriesDetailFragment : Fragment() {
 
     private var _binding: FragmentCountriesDetailBinding? = null
     private val binding get() = _binding!!
-
     private val countriesDetailViewModel: CountriesDetailViewModel by viewModels()
-
     private val args: CountriesDetailFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initAnimations()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        // Inflate the layout for this fragment
+        _binding = FragmentCountriesDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initUI()
+        countriesDetailViewModel.getCountriesDetail(args.cca2)
     }
 
     /** Configuramos una transición de entrada para elementos compartidos al ingresar al
@@ -43,12 +57,6 @@ class CountriesDetailFragment : Fragment() {
         )
         sharedElementEnterTransition = animation
         postponeEnterTransition(200, TimeUnit.MILLISECONDS)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initUI()
-        countriesDetailViewModel.getCountriesDetail(args.cca2)
     }
 
     /**Lo que tenga que ver con modificar elementos de la vista aqui, porque en onViewCreated
@@ -103,18 +111,9 @@ class CountriesDetailFragment : Fragment() {
             binding.tvArea.text = area.toString()
             binding.tvBorders.text = borders
             binding.tvContinents.text = continents
-            binding.tvCapital.text = borders
+            binding.tvCapital.text = capital
             binding.tvPopulation.text = population.toString()
         }
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentCountriesDetailBinding.inflate(inflater, container, false)
-        return binding.root
     }
 
 }

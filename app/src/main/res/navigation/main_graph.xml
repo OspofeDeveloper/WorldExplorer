@@ -23,7 +23,11 @@
         android:id="@+id/exchangeFragment"
         android:name="com.example.worldexplorer.ui.travel.TravelFragment"
         android:label="fragment_converter"
-        tools:layout="@layout/fragment_travel" />
+        tools:layout="@layout/fragment_travel" >
+        <action
+            android:id="@+id/action_exchangeFragment_to_countriesDetailFragment"
+            app:destination="@id/countriesDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/countriesDetailFragment"
         android:name="com.example.worldexplorer.ui.detailcountries.CountriesDetailFragment"

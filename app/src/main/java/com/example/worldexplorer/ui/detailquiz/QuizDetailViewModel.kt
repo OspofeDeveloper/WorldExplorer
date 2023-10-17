@@ -1,6 +1,5 @@
 package com.example.worldexplorer.ui.detailquiz
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.worldexplorer.domain.models.countries.CountriesModel
@@ -61,15 +60,16 @@ class QuizDetailViewModel @Inject constructor(
     private fun getQuizOptions(
         result: List<CountriesModel>,
         optionsId: List<Int>
-    ): Pair<String, List<String>> {
-        lateinit var finalOptions: Pair<String, List<String>>
-        var optionNames = mutableListOf<String>()
+    ): Pair<String, List<Pair<String, String>>> {
+
+        lateinit var finalOptions: Pair<String, List<Pair<String, String>>>
+        var optionNames = mutableListOf<Pair<String, String>>()
 
         optionsId.forEach {
-            optionNames.add(result[it].name)
+            optionNames.add(result[it].name to result[it].cca2.lowercase())
         }
 
-        finalOptions = result[optionsId[0]].cca2.lowercase() to optionNames
+        finalOptions = result[optionsId[0]].cca2.lowercase() to optionNames.shuffled()
         return finalOptions
     }
 }

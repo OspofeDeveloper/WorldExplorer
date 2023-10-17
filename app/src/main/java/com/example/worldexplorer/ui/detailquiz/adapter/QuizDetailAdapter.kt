@@ -6,17 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.TextView
 import com.example.worldexplorer.databinding.ItemQuizOptionBinding
 
 
 class QuizDetailAdapter(
     private val context: Context,
-    private val dataList: List<String>,
+    private val dataList: Pair<String, List<Pair<String, String>>>,
 ) :
     BaseAdapter() {
 
-    override fun getCount(): Int = dataList.size
+    override fun getCount(): Int = dataList.second.size
     override fun getItem(position: Int): Any? = null
     override fun getItemId(position: Int): Long = 0
 
@@ -33,11 +32,19 @@ class QuizDetailAdapter(
             binding = convertView.tag as ItemQuizOptionBinding
         }
 
-        binding.tvGridOption.text = dataList[position]
+        binding.tvGridOption.text = dataList.second[position].first
 
         val parentHeight = parent?.height ?: 0
-        val itemHeight = parentHeight / (dataList.size / 2) - 32
+        val itemHeight = parentHeight / (dataList.second.size / 2) - 32
         binding.tvGridOption.layoutParams.height = itemHeight
+
+        binding.cvGridOption.setOnClickListener {
+            if(dataList.first == dataList.second[position].second) {
+                binding.cvGridOption.setCardBackgroundColor(Color.GREEN)
+            } else {
+                binding.cvGridOption.setCardBackgroundColor(Color.RED)
+            }
+        }
 
         return binding.root
     }

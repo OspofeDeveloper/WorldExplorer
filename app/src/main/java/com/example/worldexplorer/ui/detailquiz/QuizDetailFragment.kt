@@ -1,7 +1,6 @@
 package com.example.worldexplorer.ui.detailquiz
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,10 +75,10 @@ class QuizDetailFragment : Fragment() {
     private fun successState(state: QuizDetailState.Success) {
         binding.pbQuizDetail.isVisible = false
         binding.ivFlagQuiz.load("https://flagcdn.com/w320/${state.quizOptions.first}.png")
-        initGridView(state.quizOptions.second)
+        initGridView(state.quizOptions)
     }
 
-    private fun initGridView(quizOptions: List<String>) {
+    private fun initGridView(quizOptions: Pair<String, List<Pair<String, String>>>) {
         binding.grid.adapter = QuizDetailAdapter(requireContext(), quizOptions)
     }
 }

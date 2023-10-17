@@ -5,6 +5,7 @@ import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -17,7 +18,6 @@ import com.example.worldexplorer.databinding.FragmentCountriesDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
-import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class CountriesDetailFragment : Fragment() {
@@ -85,7 +85,7 @@ class CountriesDetailFragment : Fragment() {
                 countriesDetailViewModel.state.collect {
                     when (it) {
                         CountriesDetailState.Loading -> loadingState()
-                        is CountriesDetailState.Error -> errorState()
+                        is CountriesDetailState.Error -> errorState(it.error)
                         is CountriesDetailState.Success -> successState(it)
                     }
                 }
@@ -97,9 +97,9 @@ class CountriesDetailFragment : Fragment() {
         binding.pbDetailCountries.isVisible = true
     }
 
-    private fun errorState() {
-        binding.pbDetailCountries.isVisible = true
-
+    private fun errorState(error: String) {
+        binding.pbDetailCountries.isVisible = false
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
     private fun successState(state: CountriesDetailState.Success) {

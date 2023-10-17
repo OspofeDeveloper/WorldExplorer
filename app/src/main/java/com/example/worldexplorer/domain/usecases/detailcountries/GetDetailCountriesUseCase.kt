@@ -9,7 +9,6 @@ class GetDetailCountriesUseCase @Inject constructor(
     private val repository: RestCountriesRepository
 ) {
     suspend operator fun invoke(cca2: String): CountriesModel? {
-        Log.d("detail", "cca2: $cca2")
         return repository.getDetailCountries(cca2)
     }
 }

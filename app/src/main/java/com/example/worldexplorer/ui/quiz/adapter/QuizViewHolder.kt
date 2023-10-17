@@ -3,12 +3,12 @@ package com.example.worldexplorer.ui.quiz.adapter
 import android.view.View
 import android.view.animation.LinearInterpolator
 import androidx.recyclerview.widget.RecyclerView
-import com.example.worldexplorer.databinding.ItemQuizRecyclerviewBinding
+import com.example.worldexplorer.databinding.ItemQuizTopicBinding
 import com.example.worldexplorer.domain.models.quiz.QuizModel
 
-class QuizViewHolder(view: View):RecyclerView.ViewHolder(view) {
+class QuizViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-    private val binding = ItemQuizRecyclerviewBinding.bind(view)
+    private val binding = ItemQuizTopicBinding.bind(view)
 
     fun render(quizInfo: QuizModel, onItemSelected: (QuizModel) -> Unit) {
         //Hay que recordar que los elementos de las vistas tienen contexto
@@ -25,7 +25,8 @@ class QuizViewHolder(view: View):RecyclerView.ViewHolder(view) {
     fun startRotationAnimation(view: View, newLambda: () -> Unit) {
         view.animate().apply {
             duration = 500
-            interpolator = LinearInterpolator() //Velocidad de la animacion a lo largo del tiempo, ahora va siempre igual de rapido
+            interpolator =
+                LinearInterpolator() //Velocidad de la animacion a lo largo del tiempo, ahora va siempre igual de rapido
             rotationBy(360f) //Rota sobre su propio eje 360 grados
             withEndAction { newLambda() } //El codigo de la lambda se ejecuta al acabar la animación
             start()

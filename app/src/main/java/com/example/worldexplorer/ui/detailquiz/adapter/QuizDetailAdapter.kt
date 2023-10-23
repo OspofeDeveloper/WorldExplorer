@@ -11,7 +11,7 @@ import com.example.worldexplorer.databinding.ItemQuizOptionBinding
 
 class QuizDetailAdapter(
     private val context: Context,
-    private val dataList: Pair<String, List<Pair<String, String>>>,
+    private val dataList: Pair<String, List<Pair<String, Boolean>>>
 ) :
     BaseAdapter() {
 
@@ -39,7 +39,7 @@ class QuizDetailAdapter(
         binding.tvGridOption.layoutParams.height = itemHeight
 
         binding.cvGridOption.setOnClickListener {
-            if(dataList.first == dataList.second[position].second) {
+            if(dataList.second[position].second) {
                 binding.cvGridOption.setCardBackgroundColor(Color.GREEN)
             } else {
                 binding.cvGridOption.setCardBackgroundColor(Color.RED)

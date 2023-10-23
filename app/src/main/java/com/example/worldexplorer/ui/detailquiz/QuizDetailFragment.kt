@@ -74,11 +74,14 @@ class QuizDetailFragment : Fragment() {
 
     private fun successState(state: QuizDetailState.Success) {
         binding.pbQuizDetail.isVisible = false
-        binding.ivFlagQuiz.load("https://flagcdn.com/w320/${state.quizOptions.first}.png")
-        initGridView(state.quizOptions)
+        binding.ivFlagQuiz.load("https://flagcdn.com/w320/${state.quizOptions[9].first}.png")
+        initGridView(state.quizOptions[9])
     }
 
-    private fun initGridView(quizOptions: Pair<String, List<Pair<String, String>>>) {
-        binding.grid.adapter = QuizDetailAdapter(requireContext(), quizOptions)
+    private fun initGridView(quizOptions: Pair<String, List<Pair<String, Boolean>>>) {
+        binding.grid.adapter = QuizDetailAdapter(
+            requireContext(),
+            quizOptions
+        )
     }
 }

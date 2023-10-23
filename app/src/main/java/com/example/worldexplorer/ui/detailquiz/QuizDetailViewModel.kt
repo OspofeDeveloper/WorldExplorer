@@ -1,5 +1,6 @@
 package com.example.worldexplorer.ui.detailquiz
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.worldexplorer.domain.models.countries.CountriesModel
@@ -31,13 +32,25 @@ class QuizDetailViewModel @Inject constructor(
             }
 
             if (result.isNotEmpty()) {
-                val optionsId = getRandomOptionsId(result.size)
-                val quizOptions = getQuizOptions(result, optionsId)
+                val optionsId = getRandomOptionsIdList(result.size)
+                val quizOptions = getQuizOptionsList(result, optionsId)
+                Log.d("OscarPozo", "quizOptions: $quizOptions")
                 _state.value = QuizDetailState.Success(quizOptions)
             } else {
                 _state.value = QuizDetailState.Error("Ha ocurrido un error, intentelo mas tarde")
             }
         }
+    }
+
+    private fun getRandomOptionsIdList(size: Int): List<List<Int>> {
+        var randomOptionsList = mutableListOf<List<Int>>()
+
+        for (i in 1..10) {
+            randomOptionsList.add(getRandomOptionsId(size))
+        }
+        Log.d("OscarPozo", "randomList: $randomOptionsList")
+        Log.d("OscarPozo", "correctOptions: $correctOptionsId")
+        return randomOptionsList
     }
 
     private fun getRandomOptionsId(size: Int): List<Int> {
@@ -57,16 +70,25 @@ class QuizDetailViewModel @Inject constructor(
         return options
     }
 
+    private fun getQuizOptionsList(
+        result: List<CountriesModel>,
+        optionsId: List<List<Int>>
+    ): List<Pair<String, List<Pair<String, Boolean>>>> {
+
+        return optionsId.map { getQuizOptions(result, it) }
+    }
+
     private fun getQuizOptions(
         result: List<CountriesModel>,
         optionsId: List<Int>
-    ): Pair<String, List<Pair<String, String>>> {
+    ): Pair<String, List<Pair<String, Boolean>>> {
+        lateinit var finalOptions: Pair<String, List<Pair<String, Boolean>>>
+        var optionNames = mutableListOf<Pair<String, Boolean>>()
 
-        lateinit var finalOptions: Pair<String, List<Pair<String, String>>>
-        var optionNames = mutableListOf<Pair<String, String>>()
+        optionNames.add(result[optionsId[0]].name to true)
 
-        optionsId.forEach {
-            optionNames.add(result[it].name to result[it].cca2.lowercase())
+        for (i in 1 until optionsId.size) {
+            optionNames.add(result[optionsId[i]].name to false)
         }
 
         finalOptions = result[optionsId[0]].cca2.lowercase() to optionNames.shuffled()

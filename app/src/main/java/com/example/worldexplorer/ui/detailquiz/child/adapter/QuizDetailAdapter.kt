@@ -1,4 +1,4 @@
-package com.example.worldexplorer.ui.detailquiz.adapter
+package com.example.worldexplorer.ui.detailquiz.child.adapter
 
 import android.content.Context
 import android.graphics.Color
@@ -11,11 +11,11 @@ import com.example.worldexplorer.databinding.ItemQuizOptionBinding
 
 class QuizDetailAdapter(
     private val context: Context,
-    private val dataList: Pair<String, List<Pair<String, Boolean>>>
+    private val dataList: List<Pair<String, Boolean>>
 ) :
     BaseAdapter() {
 
-    override fun getCount(): Int = dataList.second.size
+    override fun getCount(): Int = dataList.size
     override fun getItem(position: Int): Any? = null
     override fun getItemId(position: Int): Long = 0
 
@@ -32,14 +32,14 @@ class QuizDetailAdapter(
             binding = convertView.tag as ItemQuizOptionBinding
         }
 
-        binding.tvGridOption.text = dataList.second[position].first
+        binding.tvGridOption.text = dataList[position].first
 
         val parentHeight = parent?.height ?: 0
-        val itemHeight = parentHeight / (dataList.second.size / 2) - 32
+        val itemHeight = parentHeight / (dataList.size / 2) - 32
         binding.tvGridOption.layoutParams.height = itemHeight
 
         binding.cvGridOption.setOnClickListener {
-            if(dataList.second[position].second) {
+            if(dataList[position].second) {
                 binding.cvGridOption.setCardBackgroundColor(Color.GREEN)
             } else {
                 binding.cvGridOption.setCardBackgroundColor(Color.RED)

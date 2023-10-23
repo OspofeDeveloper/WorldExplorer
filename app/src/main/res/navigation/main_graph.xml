@@ -46,9 +46,9 @@
     </fragment>
     <fragment
         android:id="@+id/quizDetailFragment"
-        android:name="com.example.worldexplorer.ui.detailquiz.QuizDetailFragment"
+        android:name="com.example.worldexplorer.ui.detailquiz.parent.QuizDetailParentFragment"
         android:label="fragment_quiz_detail"
-        tools:layout="@layout/fragment_quiz_detail" >
+        tools:layout="@layout/fragment_quiz_detail_parent" >
         <argument
             android:name="zone"
             app:argType="integer" />

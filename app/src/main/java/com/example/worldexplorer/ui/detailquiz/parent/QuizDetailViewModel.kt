@@ -1,4 +1,4 @@
-package com.example.worldexplorer.ui.detailquiz
+package com.example.worldexplorer.ui.detailquiz.parent
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

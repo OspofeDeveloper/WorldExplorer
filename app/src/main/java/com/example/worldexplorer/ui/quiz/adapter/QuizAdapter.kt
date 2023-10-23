@@ -17,10 +17,8 @@ class QuizAdapter(
     RecyclerView.Adapter<QuizViewHolder>() {
 
 
-    /*
-        Esto no es optimo en el caso de que vayamos modificando el recyclerView poco a poco, pero como en nuestro caso
-        solo lo modificamos una vez y le pasamos los datos todos de golpe esta es la mejor forma
-    */
+    /** Esto no es optimo en el caso de que vayamos modificando el recyclerView poco a poco, pero como en nuestro caso
+    solo lo modificamos una vez y le pasamos los datos todos de golpe esta es la mejor forma */
     fun updateList(list:List<QuizModel>) {
         quizList = list
         notifyDataSetChanged()

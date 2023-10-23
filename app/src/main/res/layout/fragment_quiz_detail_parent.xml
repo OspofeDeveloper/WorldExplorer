@@ -7,6 +7,17 @@
     android:background="@color/primary"
     tools:context=".ui.detailquiz.parent.QuizDetailParentFragment">
 
+    <ProgressBar
+        android:id="@+id/pbLinearProgress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        style="?android:attr/progressBarStyleHorizontal"
+        app:layout_constraintTop_toBottomOf="@id/tvQuestion"
+        app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <TextView
         android:id="@+id/tvQuestion"
         style="@style/SubTitle"
@@ -26,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvQuestion"/>
+        app:layout_constraintTop_toBottomOf="@+id/pbLinearProgress"/>
 
     <ProgressBar
         android:id="@+id/pbQuizDetail"

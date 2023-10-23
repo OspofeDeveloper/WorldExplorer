@@ -36,8 +36,8 @@ class QuizFragment : Fragment() {
         initUIState()
     }
 
-    //En vez de poner dos veces binding.rvQuiz al hacer "binding.rvQuiz.layoutManager = LinearLayoutManager(context)
-    //y binding.rvQuiz.adapter = QuizAdapter()" usamos ".apply"
+    /** En vez de poner dos veces binding.rvQuiz al hacer "binding.rvQuiz.layoutManager = LinearLayoutManager(context)
+    y binding.rvQuiz.adapter = QuizAdapter()" usamos ".apply" */
     private fun initRecyclerView() {
         quizAdapter = QuizAdapter(onItemSelected = {
             findNavController().navigate(

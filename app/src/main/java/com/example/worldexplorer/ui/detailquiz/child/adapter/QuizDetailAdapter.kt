@@ -7,11 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.example.worldexplorer.databinding.ItemQuizOptionBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.internal.wait
 
 
 class QuizDetailAdapter(
     private val context: Context,
-    private val dataList: List<Pair<String, Boolean>>
+    private val dataList: List<Pair<String, Boolean>>,
+    private val onItemSelected: (Boolean) -> Unit
 ) :
     BaseAdapter() {
 
@@ -23,12 +31,12 @@ class QuizDetailAdapter(
         val binding: ItemQuizOptionBinding
 
         if (convertView == null) {
-            /** Si convertView es nulo, inflamos la vista utilizando ViewBinding*/
+            /** Si convertView es nulo, inflamos la vista utilizando ViewBinding */
             binding = ItemQuizOptionBinding.inflate(LayoutInflater.from(context), parent, false)
             binding.root.tag = binding
-            /**Guardamos la referencia al ViewBinding en la etiqueta de la vista*/
+            /** Guardamos la referencia al ViewBinding en la etiqueta de la vista */
         } else {
-            /**Si convertView no es nulo, recuperamos el ViewBinding de la etiqueta*/
+            /** Si convertView no es nulo, recuperamos el ViewBinding de la etiqueta */
             binding = convertView.tag as ItemQuizOptionBinding
         }
 
@@ -41,8 +49,16 @@ class QuizDetailAdapter(
         binding.cvGridOption.setOnClickListener {
             if(dataList[position].second) {
                 binding.cvGridOption.setCardBackgroundColor(Color.GREEN)
+                CoroutineScope(Dispatchers.Main).launch {
+                    delay(1000)
+                    onItemSelected(dataList[position].second)
+                }
             } else {
                 binding.cvGridOption.setCardBackgroundColor(Color.RED)
+                CoroutineScope(Dispatchers.Main).launch {
+                    delay(1000)
+                    onItemSelected(dataList[position].second)
+                }
             }
         }
 

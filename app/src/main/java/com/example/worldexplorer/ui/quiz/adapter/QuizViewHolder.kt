@@ -25,8 +25,7 @@ class QuizViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun startRotationAnimation(view: View, newLambda: () -> Unit) {
         view.animate().apply {
             duration = 500
-            interpolator =
-                LinearInterpolator() //Velocidad de la animacion a lo largo del tiempo, ahora va siempre igual de rapido
+            interpolator = LinearInterpolator() //Velocidad de la animacion a lo largo del tiempo, ahora va siempre igual de rapido
             rotationBy(360f) //Rota sobre su propio eje 360 grados
             withEndAction { newLambda() } //El codigo de la lambda se ejecuta al acabar la animación
             start()

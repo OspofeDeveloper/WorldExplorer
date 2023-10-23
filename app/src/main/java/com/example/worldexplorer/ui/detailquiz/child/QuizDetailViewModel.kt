@@ -1,4 +1,4 @@
-package com.example.worldexplorer.ui.detailquiz.parent
+package com.example.worldexplorer.ui.detailquiz.child
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+import javax.inject.Singleton
 import kotlin.random.Random
 
 @HiltViewModel
@@ -21,6 +22,7 @@ class QuizDetailViewModel @Inject constructor(
 
     private var _state = MutableStateFlow<QuizDetailState>(QuizDetailState.Loading)
     val state: StateFlow<QuizDetailState> = _state
+
     private var correctOptionsId = mutableListOf<Int>()
 
     fun getQuizInformation() {
@@ -34,7 +36,6 @@ class QuizDetailViewModel @Inject constructor(
             if (result.isNotEmpty()) {
                 val optionsId = getRandomOptionsIdList(result.size)
                 val quizOptions = getQuizOptionsList(result, optionsId)
-                Log.d("OscarPozo", "quizOptions: $quizOptions")
                 _state.value = QuizDetailState.Success(quizOptions)
             } else {
                 _state.value = QuizDetailState.Error("Ha ocurrido un error, intentelo mas tarde")
@@ -48,8 +49,6 @@ class QuizDetailViewModel @Inject constructor(
         for (i in 1..10) {
             randomOptionsList.add(getRandomOptionsId(size))
         }
-        Log.d("OscarPozo", "randomList: $randomOptionsList")
-        Log.d("OscarPozo", "correctOptions: $correctOptionsId")
         return randomOptionsList
     }
 
@@ -74,7 +73,6 @@ class QuizDetailViewModel @Inject constructor(
         result: List<CountriesModel>,
         optionsId: List<List<Int>>
     ): List<Pair<String, List<Pair<String, Boolean>>>> {
-
         return optionsId.map { getQuizOptions(result, it) }
     }
 

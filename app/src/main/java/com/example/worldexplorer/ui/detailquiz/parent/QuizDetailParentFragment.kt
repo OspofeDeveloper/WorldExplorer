@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.add
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
@@ -19,12 +19,11 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.worldexplorer.R
-import com.example.worldexplorer.databinding.FragmentQuizDetailChildBinding
 import com.example.worldexplorer.databinding.FragmentQuizDetailParentBinding
-import com.example.worldexplorer.ui.detailquiz.child.FLAG_CODE
-import com.example.worldexplorer.ui.detailquiz.child.OPTIONS
+import com.example.worldexplorer.ui.detailquiz.child.QUESTION_INDEX
 import com.example.worldexplorer.ui.detailquiz.child.QuizDetailChildFragment
-import com.example.worldexplorer.ui.detailquiz.child.adapter.QuizDetailAdapter
+import com.example.worldexplorer.ui.detailquiz.child.QuizDetailState
+import com.example.worldexplorer.ui.detailquiz.child.QuizDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -33,9 +32,15 @@ class QuizDetailParentFragment : Fragment() {
 
     private var _binding: FragmentQuizDetailParentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: QuizDetailViewModel by viewModels()
+    private val viewModel: QuizDetailViewModel by activityViewModels()
     private val args: QuizDetailParentFragmentArgs by navArgs()
-    private var questionNumber = 0
+    private var questionNumber: Int = 0
+    private var currentProgress: Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.getQuizInformation()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,11 +49,6 @@ class QuizDetailParentFragment : Fragment() {
         // Inflate the layout for this fragment
         _binding = FragmentQuizDetailParentBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.getQuizInformation()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,16 +61,6 @@ class QuizDetailParentFragment : Fragment() {
         initUIState()
     }
 
-    private fun initListeners() {
-        /** Set the listener on the child fragmentManager.*/
-        childFragmentManager.setFragmentResultListener("requestKey", viewLifecycleOwner) { _, bundle ->
-            val result = bundle.getBoolean("bundleKey")
-            Log.d("Oscar", "result: $result")
-            questionNumber++
-            initUIState()
-        }
-    }
-
     private fun initUIState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -78,11 +68,27 @@ class QuizDetailParentFragment : Fragment() {
                     when (it) {
                         is QuizDetailState.Error -> errorState(it.error)
                         QuizDetailState.Loading -> loadState()
-                        is QuizDetailState.Success -> successState(it)
+                        is QuizDetailState.Success -> successState()
                     }
                 }
             }
         }
+    }
+
+    private fun initListeners() {
+        /** Set the listener on the child fragmentManager.*/
+        childFragmentManager.setFragmentResultListener("requestKey", viewLifecycleOwner
+        ) { _, bundle ->
+            val result = bundle.getBoolean("bundleKey")
+            questionNumber++
+            updateProgressBar()
+            initChildFragment()
+        }
+    }
+
+    private fun updateProgressBar() {
+        currentProgress += 10
+        binding.pbLinearProgress.progress = currentProgress
     }
 
     private fun loadState() {
@@ -94,15 +100,21 @@ class QuizDetailParentFragment : Fragment() {
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
-    private fun successState(state: QuizDetailState.Success) {
+    private fun successState() {
         binding.pbQuizDetail.isVisible = false
+        initProgressBar()
+        initChildFragment()
+    }
 
+    private fun initProgressBar() {
+        binding.pbLinearProgress.max = 100
+    }
+
+    private fun initChildFragment() {
         /** Creamos el bundle con los valores que le pasamos al fragmnto hijo*/
         val bundle = bundleOf(
-            FLAG_CODE to state.quizOptions[questionNumber].first,
-            OPTIONS to state.quizOptions[questionNumber].second
+            QUESTION_INDEX to questionNumber.toString()
         )
-        Log.d("Oscar", "Iteracion numero $questionNumber")
 
         /** Creamos el fragmento hijo con los datos que queremos */
         childFragmentManager.commit {

@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         style="?android:attr/progressBarStyleHorizontal"
+        android:progressTint="@color/gold"
         app:layout_constraintTop_toBottomOf="@id/tvQuestion"
         app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,7 +21,7 @@
 
     <TextView
         android:id="@+id/tvQuestion"
-        style="@style/SubTitle"
+        style="@style/Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"

@@ -11,5 +11,6 @@
     <color name="gold">#ffe78f</color>
     <color name="black_alpha">#98000000</color>
 
-    <color name="red">#FF0000</color>
+    <color name="error">#CC0000</color>
+    <color name="correct">#00C000</color>
 </resources>

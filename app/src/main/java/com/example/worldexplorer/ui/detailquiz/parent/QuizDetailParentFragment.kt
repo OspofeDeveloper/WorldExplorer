@@ -1,7 +1,6 @@
 package com.example.worldexplorer.ui.detailquiz.parent
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,18 +11,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
-import coil.load
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentQuizDetailParentBinding
-import com.example.worldexplorer.ui.detailquiz.child.QUESTION_INDEX
+import com.example.worldexplorer.ui.detailquiz.QuizDetailState
+import com.example.worldexplorer.ui.detailquiz.QuizDetailViewModel
 import com.example.worldexplorer.ui.detailquiz.child.QuizDetailChildFragment
-import com.example.worldexplorer.ui.detailquiz.child.QuizDetailState
-import com.example.worldexplorer.ui.detailquiz.child.QuizDetailViewModel
+import com.example.worldexplorer.util.Constants.QUESTION_INDEX
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -46,7 +43,6 @@ class QuizDetailParentFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentQuizDetailParentBinding.inflate(inflater, container, false)
         return binding.root
     }

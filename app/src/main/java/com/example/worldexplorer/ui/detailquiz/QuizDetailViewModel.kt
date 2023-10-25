@@ -1,6 +1,5 @@
-package com.example.worldexplorer.ui.detailquiz.child
+package com.example.worldexplorer.ui.detailquiz
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.worldexplorer.domain.models.countries.CountriesModel
@@ -12,7 +11,6 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
-import javax.inject.Singleton
 import kotlin.random.Random
 
 @HiltViewModel

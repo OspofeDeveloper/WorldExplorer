@@ -1,4 +1,4 @@
-package com.example.worldexplorer.ui.detailquiz.child
+package com.example.worldexplorer.ui.detailquiz
 
 sealed class QuizDetailState {
     data object Loading: QuizDetailState()

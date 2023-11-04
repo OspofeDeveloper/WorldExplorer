@@ -31,7 +31,9 @@
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/earth_rotation"
             app:lottie_speed="0"
-            tools:src="@color/red" />
+            tools:src="@color/error" />
+
+
 
         <ImageView
             android:id="@+id/ivSurpriseFlag"

@@ -61,13 +61,15 @@ class QuizDetailAdapter(
         }
     }
 
-    /** Esperamos 1seg para que el usuario vea la respuesta y cargamos la siguiente pregunta */
-    private fun delayedCallbackOnMain(isCorrectAnswer: Boolean) {
-        /** Usamos Dispatchers.Main porque lo ejecutamos en el hilo principal */
-        CoroutineScope(Dispatchers.Main).launch {
-            delay(1000)
-            onItemSelected(isCorrectAnswer)
-        }
+    /** Cambiamos el color de la respuesta marcada para ver si es correcta o no */
+    private fun ItemQuizOptionBinding.setAnswerFeedbackColors(isCorrectAnswer: Boolean) {
+        cvGridOption.setCardBackgroundColor(
+            ContextCompat.getColor(
+                context,
+                if (isCorrectAnswer) R.color.correct else R.color.error
+            )
+        )
+        tvGridOption.setTextColor(Color.WHITE)
     }
 
     /** Desactivamos interaccion cvGridOption para no poder pulsar 2 veces y haga crash
@@ -92,15 +94,13 @@ class QuizDetailAdapter(
         }
     }
 
-    /** Cambiamos el color de la respuesta marcada para ver si es correcta o no */
-    private fun ItemQuizOptionBinding.setAnswerFeedbackColors(isCorrectAnswer: Boolean) {
-        cvGridOption.setCardBackgroundColor(
-            ContextCompat.getColor(
-                context,
-                if (isCorrectAnswer) R.color.correct else R.color.error
-            )
-        )
-        tvGridOption.setTextColor(Color.WHITE)
+    /** Esperamos 1seg para que el usuario vea la respuesta y cargamos la siguiente pregunta */
+    private fun delayedCallbackOnMain(isCorrectAnswer: Boolean) {
+        /** Usamos Dispatchers.Main porque lo ejecutamos en el hilo principal */
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(0)
+            onItemSelected(isCorrectAnswer)
+        }
     }
 
     /**  Iniciamos cada opcion con su medida y texto correspondiente*/

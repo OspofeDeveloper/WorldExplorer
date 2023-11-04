@@ -4,15 +4,15 @@ pluginManagement {
         mavenCentral()
         gradlePluginPortal()
     }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
+    dependencyResolutionManagement {
+        repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+        repositories {
+            google()
+            mavenCentral()
+        }
     }
-}
 
-rootProject.name = "World Explorer"
-include(":app")
+    rootProject.name = "World Explorer"
+    include(":app")
+}
  

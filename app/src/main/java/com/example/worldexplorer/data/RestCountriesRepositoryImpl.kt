@@ -55,4 +55,8 @@ class RestCountriesRepositoryImpl @Inject constructor(
     override suspend fun getDetailCountries(cca2: String): CountriesModel? {
         return countryItemDao.getCountriesInfo(cca2)?.toDomain()
     }
+
+    override suspend fun getCountriesByRegion(region: String): List<CountriesModel> {
+        return countryItemDao.getCountriesByRegion(region).map { it.toDomain() }
+    }
 }

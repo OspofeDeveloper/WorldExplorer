@@ -1,9 +1,11 @@
 package com.example.worldexplorer.ui.detailquiz
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.worldexplorer.domain.models.countries.CountriesModel
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesUseCase
+import com.example.worldexplorer.domain.usecases.quiz.GetCountriesByRegionUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +17,8 @@ import kotlin.random.Random
 
 @HiltViewModel
 class QuizDetailViewModel @Inject constructor(
-    private val getAllCountriesUseCase: GetAllCountriesUseCase
+    private val getAllCountriesUseCase: GetAllCountriesUseCase,
+    private val getCountriesByRegionUseCase: GetCountriesByRegionUseCase
 ) : ViewModel() {
 
     private var _state = MutableStateFlow<QuizDetailState>(QuizDetailState.Loading)
@@ -23,12 +26,16 @@ class QuizDetailViewModel @Inject constructor(
 
     private var correctOptionsId = mutableListOf<Int>()
 
-    fun getQuizInformation() {
+    fun getQuizInformation(region: String) {
         viewModelScope.launch {
             _state.value = QuizDetailState.Loading
 
             val result = withContext(Dispatchers.IO) {
-                getAllCountriesUseCase()
+                if (region == "Earth") {
+                    getAllCountriesUseCase()
+                } else {
+                    getCountriesByRegionUseCase(region)
+                }
             }
 
             if (result.isNotEmpty()) {

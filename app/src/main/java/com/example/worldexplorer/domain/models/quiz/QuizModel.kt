@@ -16,11 +16,13 @@ sealed class QuizModel(val name: Int, val image: Int) {
     data object Asia : QuizModel(R.string.asia, R.drawable.asia)
     data object America : QuizModel(R.string.america, R.drawable.america)
     data object Oceania : QuizModel(R.string.oceania, R.drawable.oceania)
+    data object Earth : QuizModel(R.string.earth, R.drawable.earth)
+
+    /**
     data object WesternAsia : QuizModel(R.string.western_asia, R.drawable.western_asia)
     data object NorthernEurope : QuizModel(R.string.northern_europe, R.drawable.northern_europe)
     data object NorthernAfrica : QuizModel(R.string.northern_africa, R.drawable.northern_africa)
     data object EasternAfrica : QuizModel(R.string.eastern_africa, R.drawable.eastern_africa)
     data object Caribbean : QuizModel(R.string.caribbean, R.drawable.caribbean)
-    data object SouthAmerica : QuizModel(R.string.south_america, R.drawable.south_america)
-    data object Earth : QuizModel(R.string.earth, R.drawable.earth)
+    data object SouthAmerica : QuizModel(R.string.south_america, R.drawable.south_america)*/
 }

@@ -17,6 +17,7 @@ data class CountriesEntity(
     @ColumnInfo(name = "cca3") val cca3: String?,
     @ColumnInfo(name = "continents") val continents: String?,
     @ColumnInfo(name = "population") val population: Int?,
+    @ColumnInfo(name = "region") val region: String?,
 ) {
     fun toDomain(): CountriesModel =
         CountriesModel(
@@ -27,6 +28,7 @@ data class CountriesEntity(
             capital = capital,
             cca3 = cca3,
             continents = continents,
-            population = population
+            population = population,
+            region = region
         )
 }

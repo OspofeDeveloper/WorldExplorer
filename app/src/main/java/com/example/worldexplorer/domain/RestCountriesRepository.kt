@@ -16,4 +16,6 @@ interface RestCountriesRepository {
     suspend fun getAllCountries(): List<CountriesModel>
 
     suspend fun getDetailCountries(cca2: String): CountriesModel?
+
+    suspend fun getCountriesByRegion(region: String): List<CountriesModel>
 }

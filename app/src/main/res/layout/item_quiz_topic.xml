@@ -11,7 +11,7 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/ivQuizItem"
         android:layout_width="match_parent"
-        android:layout_height="190dp"
+        android:layout_height="160dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>

@@ -19,6 +19,7 @@ data class CountryResponse(
     @SerializedName("cca3") var cca3: String?,
     @SerializedName("continents") var continents: List<String>?,
     @SerializedName("population") var population: Int?,
+    @SerializedName("region") var region: String?
 ) {
     fun toDomain(): CountriesModel =
         CountriesModel(
@@ -29,6 +30,7 @@ data class CountryResponse(
             capital = capital?.joinToString(separator = ", "),
             cca3 = cca3,
             continents = continents?.joinToString(separator = ", "),
-            population = population
+            population = population,
+            region = region
         )
 }

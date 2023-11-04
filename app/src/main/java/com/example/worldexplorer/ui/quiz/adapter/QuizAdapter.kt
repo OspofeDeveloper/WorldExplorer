@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.worldexplorer.R
 import com.example.worldexplorer.domain.models.quiz.QuizModel
 
-/*
+/**
     Inicializamos el adapter a una emptyList y le pasamos la lista de info en una función. Lo hacemos así y no le pasamos
     la lista por parámetro para que el recyclerview se cree de primeras pero no se vea obligado a recibir los datos en el
     momento de crearse, sino que le es indiferente cuando le pasamos los datos

@@ -11,7 +11,7 @@ class QuizViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private val binding = ItemQuizTopicBinding.bind(view)
 
     fun render(quizInfo: QuizModel, onItemSelected: (QuizModel) -> Unit) {
-        //Hay que recordar que los elementos de las vistas tienen contexto
+        /** Hay que recordar que los elementos de las vistas tienen contexto */
         val context = binding.tvQuizItem.context
 
         binding.ivQuizItem.setImageResource(quizInfo.image)

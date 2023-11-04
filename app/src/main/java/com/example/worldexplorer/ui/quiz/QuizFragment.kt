@@ -1,6 +1,7 @@
 package com.example.worldexplorer.ui.quiz
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -58,7 +59,7 @@ class QuizFragment : Fragment() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 quizViewModel.quiz.collect {
-                    //Cambios en Quiz
+                    /** Si hay cambios en Quiz le notificamos al adapter*/
                     quizAdapter.updateList(it)
                 }
             }

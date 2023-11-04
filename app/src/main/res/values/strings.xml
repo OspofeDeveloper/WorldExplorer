@@ -34,6 +34,7 @@
 
     <!-- Quiz Detail -->
     <string name="flagQuestion">Can you guess which country this flag belongs to?</string>
+    <string name="final_results">FINAL RESULT</string>
 
 
 </resources>

@@ -113,6 +113,7 @@ class QuizDetailParentFragment : Fragment() {
     private fun displayFinalAnimation() {
         binding.apply {
             finalLottieQuiz.isVisible = true
+            tvFinalResult.isVisible = true
             tvScore.text = "$correctanswers/10"
             pbResult.isVisible = true
 

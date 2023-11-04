@@ -51,9 +51,9 @@ class QuizFragment : Fragment() {
         }
     }
 
-    //Siempre que lanzamos corrutinas en fragment lo hacemos con lifecycleScope ya que asi la corrutina se adhiere
-    //al ciclo de vida del Fragment. Con "repeatOnLifecycle(Lifecycle.State.STARTED" indicamos que se suscriba al viewmodel
-    //cuando empiece el ciclo de vida
+    /** Siempre que lanzamos corrutinas en fragment lo hacemos con lifecycleScope ya que asi la corrutina se adhiere
+    al ciclo de vida del Fragment. Con "repeatOnLifecycle(Lifecycle.State.STARTED" indicamos que se suscriba al viewmodel
+    cuando empiece el ciclo de vida */
     private fun initUIState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

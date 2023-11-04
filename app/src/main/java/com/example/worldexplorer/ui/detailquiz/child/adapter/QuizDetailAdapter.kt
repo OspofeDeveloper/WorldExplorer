@@ -98,7 +98,7 @@ class QuizDetailAdapter(
     private fun delayedCallbackOnMain(isCorrectAnswer: Boolean) {
         /** Usamos Dispatchers.Main porque lo ejecutamos en el hilo principal */
         CoroutineScope(Dispatchers.Main).launch {
-            delay(0)
+            delay(1000)
             onItemSelected(isCorrectAnswer)
         }
     }

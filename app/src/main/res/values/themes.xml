@@ -23,6 +23,10 @@
     </style>
 
     <style name="BigTitle" parent="Title">
+        <item name="android:textSize">40sp</item>
+    </style>
+
+    <style name="ExtraBigTitle" parent="Title">
         <item name="android:textSize">60sp</item>
     </style>
 

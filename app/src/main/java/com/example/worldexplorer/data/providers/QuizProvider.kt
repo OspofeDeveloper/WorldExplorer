@@ -23,13 +23,16 @@ class QuizProvider @Inject constructor() {
             Africa,
             Asia,
             America,
-            Oceania,
-            Caribbean,
-            EasternAfrica,
-            NorthernAfrica,
-            NorthernEurope,
-            SouthAmerica,
-            WesternAsia
+            Oceania
         )
     }
+
+    /**
+    Caribbean,
+    EasternAfrica,
+    NorthernAfrica,
+    NorthernEurope,
+    SouthAmerica,
+    WesternAsia
+     */
 }

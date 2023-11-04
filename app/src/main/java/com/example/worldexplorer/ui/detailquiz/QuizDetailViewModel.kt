@@ -34,6 +34,7 @@ class QuizDetailViewModel @Inject constructor(
                 if (region == "Earth") {
                     getAllCountriesUseCase()
                 } else {
+                    Log.d("Argumentos", "Args: $region")
                     getCountriesByRegionUseCase(region)
                 }
             }

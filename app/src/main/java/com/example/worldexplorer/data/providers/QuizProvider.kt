@@ -2,7 +2,7 @@ package com.example.worldexplorer.data.providers
 
 import com.example.worldexplorer.domain.models.quiz.QuizModel
 import com.example.worldexplorer.domain.models.quiz.QuizModel.Africa
-import com.example.worldexplorer.domain.models.quiz.QuizModel.America
+import com.example.worldexplorer.domain.models.quiz.QuizModel.Americas
 import com.example.worldexplorer.domain.models.quiz.QuizModel.Asia
 import com.example.worldexplorer.domain.models.quiz.QuizModel.Earth
 import com.example.worldexplorer.domain.models.quiz.QuizModel.Europe
@@ -16,8 +16,8 @@ class QuizProvider @Inject constructor() {
             Europe,
             Africa,
             Asia,
-            America,
-            Oceania
+            Oceania,
+            Americas,
         )
     }
 

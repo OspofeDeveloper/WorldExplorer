@@ -1,8 +1,13 @@
 package com.example.worldexplorer.ui.detailcountries
 
+import android.graphics.Bitmap
+import android.graphics.Color
+import android.graphics.drawable.GradientDrawable
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.palette.graphics.Palette
+import com.example.worldexplorer.R
 import com.example.worldexplorer.domain.usecases.detailcountries.GetDetailCountriesUseCase
 import com.example.worldexplorer.ui.countries.CountriesState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -32,7 +37,8 @@ class CountriesDetailViewModel @Inject constructor(
             if (result != null) {
                 _state.value = CountriesDetailState.Success(result)
             } else {
-                _state.value = CountriesDetailState.Error("Ha ocurrido un error, intentelo mas tarde")
+                _state.value =
+                    CountriesDetailState.Error("Ha ocurrido un error, intentelo mas tarde")
                 Log.i("detail", "Resultado: $result")
             }
         }

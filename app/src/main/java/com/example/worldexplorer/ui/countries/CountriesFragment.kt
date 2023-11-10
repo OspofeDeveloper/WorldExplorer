@@ -1,6 +1,7 @@
 package com.example.worldexplorer.ui.countries
 
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -18,6 +20,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
+import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.worldexplorer.R
@@ -125,19 +128,23 @@ class CountriesFragment : Fragment() {
 
     private fun initRecyclerView(countryList: List<CountriesModel>) {
         countriesAdapter =
-            CountriesAdapter(countryList, onItemSelected = { country, imageView, textView ->
-                val extras = FragmentNavigatorExtras(
-                        imageView to country.cca2,
-                        textView to country.name
-                )
-                findNavController().navigate(
-                    CountriesFragmentDirections.actionCountriesFragmentToCountriesDetailFragment(
-                        country.name,
-                        country.cca2
-                    ),
-                    extras
-                )
-            })
+            CountriesAdapter(
+                context,
+                countryList,
+                onItemSelected = { country, imageView, textView ->
+                    val extras = FragmentNavigatorExtras(
+                            imageView to country.cca2,
+                            textView to country.name
+                    )
+                    findNavController().navigate(
+                        CountriesFragmentDirections.actionCountriesFragmentToCountriesDetailFragment(
+                            country.name,
+                            country.cca2
+                        ),
+                        extras
+                    )
+                }
+            )
 
         binding.rvListCountries.apply {
             layoutManager = GridLayoutManager(context, 2)

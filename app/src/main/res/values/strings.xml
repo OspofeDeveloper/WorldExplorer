@@ -36,5 +36,8 @@
     <string name="flagQuestion">Can you guess which country this flag belongs to?</string>
     <string name="final_results">FINAL RESULT</string>
 
+    <!-- Country Detail -->
+    <string name="country_stats">Country Stats:</string>
+
 
 </resources>

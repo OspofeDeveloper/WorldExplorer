@@ -6,8 +6,11 @@
     <color name="primary">#1f1f1f</color>
     <color name="primaryDark">#181818</color>
     <color name="primaryLight">#323232</color>
+    <color name="primarySuperLight">#535353</color>
+    <color name="primaryUltraLight">#8C8C8C</color>
     <color name="secondary">#ee9361</color>
-    <color name="accent">#FFFFFF</color>
+    <color name="secondaryDark">#AE440C</color>
+    <color name="accent">#DBDBDB</color>
     <color name="gold">#ffe78f</color>
     <color name="black_alpha">#98000000</color>
 

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/cvGridOption"
-    app:cardBackgroundColor="@color/primary"
+    app:cardBackgroundColor="@color/primaryLight"
     android:elevation="4dp"
     app:cardCornerRadius="25dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"

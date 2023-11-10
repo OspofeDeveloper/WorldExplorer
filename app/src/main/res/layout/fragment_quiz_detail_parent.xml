@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary"
+    android:background="@drawable/main_background"
     tools:context=".ui.detailquiz.parent.QuizDetailParentFragment">
 
     <ProgressBar
@@ -67,7 +67,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvFinalResult"
-        app:layout_constraintVertical_bias="0.33"
+        app:layout_constraintVertical_bias="0.29"
         tools:progress="70"
         tools:visibility="visible"/>
 
@@ -96,8 +96,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:lottie_autoPlay="true"
         app:lottie_speed="2.5"
-        app:lottie_rawRes="@raw/quiz_ended"
-        tools:visibility="visible"/>
+        app:lottie_rawRes="@raw/quiz_ended" />
 
     <ProgressBar
         android:id="@+id/pbQuizDetail"

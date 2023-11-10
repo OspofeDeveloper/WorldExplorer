@@ -1,11 +1,15 @@
 package com.example.worldexplorer.ui.detailcountries
 
+import android.graphics.Bitmap
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -13,7 +17,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
+import androidx.palette.graphics.Palette
 import coil.load
+import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentCountriesDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -104,7 +110,7 @@ class CountriesDetailFragment : Fragment() {
 
     private fun successState(state: CountriesDetailState.Success) {
         binding.pbDetailCountries.isVisible = false
-        binding.ivFlag.load("https://flagcdn.com/w320/${args.cca2.lowercase()}.png")
+        setBackgroundColor()
 
         state.detailCountry.apply {
             binding.tvCountryTitle.text = args.name
@@ -113,6 +119,32 @@ class CountriesDetailFragment : Fragment() {
             binding.tvContinents.text = continents
             binding.tvCapital.text = capital
             binding.tvPopulation.text = population.toString()
+        }
+    }
+
+    private fun setBackgroundColor() {
+        binding.ivFlag.load("https://flagcdn.com/w320/${args.cca2.lowercase()}.png") {
+            // Disable hardware bitmaps as Palette needs to read the image's pixels.
+            allowHardware(false)
+            listener(
+                onSuccess = { _, result ->
+                    // Create the palette on a background thread.
+                    Palette.Builder(result.drawable.toBitmap()).generate { palette ->
+                        // Consume the palette.
+                        val drawable = GradientDrawable(
+                            GradientDrawable.Orientation.TOP_BOTTOM,
+                            palette?.dominantSwatch?.let {
+                                intArrayOf(
+                                    ContextCompat.getColor(requireContext(), R.color.primary),
+                                    it.rgb,
+                                    ContextCompat.getColor(requireContext(), R.color.accent),
+                                )
+                            }
+                        )
+                        binding.clFragmentCountries.background = drawable
+                    }
+                }
+            )
         }
     }
 

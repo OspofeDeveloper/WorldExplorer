@@ -18,7 +18,6 @@ class CountriesAdapter(
         val layoutInflater = LayoutInflater.from(parent.context)
         return CountriesViewHolder(layoutInflater.inflate(R.layout.item_countries, parent, false))
     }
-
     override fun getItemCount(): Int = list.size
 
     override fun onBindViewHolder(holder: CountriesViewHolder, position: Int) {

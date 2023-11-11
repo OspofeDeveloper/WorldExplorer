@@ -53,7 +53,19 @@ class RestCountriesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getDetailCountries(cca2: String): CountriesModel? {
-        return countryItemDao.getCountriesInfo(cca2)?.toDomain()
+        lateinit var newBorder : String
+        val bordersCca2: MutableList<String> = mutableListOf()
+        val countryInfo: CountriesEntity? = countryItemDao.getCountriesInfo(cca2)
+
+        countryInfo?.borders?.let {borders ->
+            borders.split(",")?.forEach {singleBorder ->
+                newBorder = countryItemDao.getBorderCca2(singleBorder)
+                bordersCca2.add(newBorder)
+            }
+            countryInfo.borders = bordersCca2.joinToString(",")
+        }
+
+        return countryInfo?.toDomain()
     }
 
     override suspend fun getCountriesByRegion(region: String): List<CountriesModel> {

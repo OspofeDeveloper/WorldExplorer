@@ -27,6 +27,9 @@ interface CountriesDao {
     @Query("SELECT * FROM country_table WHERE cca2 = :cca2Code")
     suspend fun getCountriesInfo(cca2Code: String): CountriesEntity?
 
+    @Query("SELECT cca2 FROM country_table WHERE cca3 = :cca3Code")
+    suspend fun getBorderCca2(cca3Code: String): String
+
     @Query("SELECT * FROM country_table WHERE region = :region")
     suspend fun getCountriesByRegion(region: String):List<CountriesEntity>
 }

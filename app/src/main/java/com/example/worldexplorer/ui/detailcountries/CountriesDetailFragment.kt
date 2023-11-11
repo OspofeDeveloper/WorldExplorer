@@ -1,9 +1,9 @@
 package com.example.worldexplorer.ui.detailcountries
 
-import android.graphics.Bitmap
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.transition.TransitionInflater
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,9 +18,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentCountriesDetailBinding
+import com.example.worldexplorer.ui.detailcountries.adapter.CountriesDetailAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
@@ -31,6 +34,7 @@ class CountriesDetailFragment : Fragment() {
     private var _binding: FragmentCountriesDetailBinding? = null
     private val binding get() = _binding!!
     private val countriesDetailViewModel: CountriesDetailViewModel by viewModels()
+    private lateinit var countriesDetailAdapter: CountriesDetailAdapter
     private val args: CountriesDetailFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,12 +117,40 @@ class CountriesDetailFragment : Fragment() {
         setBackgroundColor()
 
         state.detailCountry.apply {
+            initRecyclerView(borders, args.name)
+
             binding.tvCountryTitle.text = args.name
             binding.tvArea.text = area.toString()
-            binding.tvBorders.text = borders
             binding.tvContinents.text = continents
             binding.tvCapital.text = capital
             binding.tvPopulation.text = population.toString()
+        }
+        /**binding.tvBorders.text = borders*/
+
+    }
+
+    private fun initRecyclerView(borders: List<String>?, country: String) {
+        borders?.let {
+            binding.rvListBorders.isVisible = true
+            countriesDetailAdapter = CountriesDetailAdapter(it)
+
+            binding.rvListBorders.apply {
+                layoutManager = if (it.size > 1) {
+                    Log.d("Oscar", "Grid: $it")
+                    GridLayoutManager(context, it.size / 2)
+                } else {
+                    Log.d("Oscar", "Linear: $it")
+                    LinearLayoutManager(context)
+                }
+
+                adapter = countriesDetailAdapter
+            }
+        } ?: run {
+            Log.d("Oscar", "$borders")
+            binding.tvIslandExplanation.apply {
+                isVisible = true
+                text = getString(R.string.island_explanation, country)
+            }
         }
     }
 

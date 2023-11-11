@@ -38,6 +38,8 @@
 
     <!-- Country Detail -->
     <string name="country_stats">Country Stats:</string>
+    <string name="borders">Borders:</string>
+    <string name="island_explanation">%s is an island, therefore \nit has no borders</string>
 
 
 </resources>

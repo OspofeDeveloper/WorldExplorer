@@ -39,7 +39,9 @@
     <!-- Country Detail -->
     <string name="country_stats">Country Stats:</string>
     <string name="borders">Borders:</string>
-    <string name="island_explanation">%s is an island, therefore \nit has no borders</string>
+    <string name="total_population">Population:   %s</string>
+    <string name="total_area">Area:   %s km2</string>
+    <string name="island_explanation">%s\n has no borders</string>
 
 
 </resources>

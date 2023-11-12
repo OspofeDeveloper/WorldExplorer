@@ -6,17 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import coil.Coil
 import coil.load
 import com.example.worldexplorer.databinding.ItemDetailCountriesBinding
-import com.example.worldexplorer.databinding.ItemQuizOptionBinding
 
 class CountriesDetailAdapter(
     private val context: Context,
-    private val borders: List<String>
+    private val borderNames: List<String>,
+    private val borderCca2: List<String>
 ) : BaseAdapter() {
 
-    override fun getCount(): Int = borders.size
+    override fun getCount(): Int = borderNames.size
     override fun getItem(position: Int): Any? = null
     override fun getItemId(position: Int): Long = 0
 
@@ -33,9 +32,9 @@ class CountriesDetailAdapter(
             binding = convertView.tag as ItemDetailCountriesBinding
         }
 
-        binding.ivBorderCountryFlag.load("https://flagcdn.com/w320/${borders[position].lowercase()}.png")
-        binding.tvCountryName.text = "Pais $position"
-        Log.d("Oscar", "https://flagcdn.com/w320/${borders[position].lowercase()}.png")
+        binding.ivBorderCountryFlag.load("https://flagcdn.com/w320/${borderCca2[position].lowercase()}.png")
+        binding.tvCountryName.text = borderNames[position]
+        Log.d("Oscar", "https://flagcdn.com/w320/${borderCca2[position].lowercase()}.png")
 
         return binding.root
     }

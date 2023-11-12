@@ -2,6 +2,7 @@ package com.example.worldexplorer.ui.countries
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.worldexplorer.domain.models.countries.CountriesModel
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesOrderAscUseCase
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesOrderDescUseCase
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesUseCase
@@ -22,6 +23,9 @@ class CountriesViewModel @Inject constructor(
 
     private var _state = MutableStateFlow<CountriesState>(CountriesState.Loading)
     val state: StateFlow<CountriesState> = _state
+
+    private var _maxStats = MutableStateFlow<Pair<Int, Double>>(Pair(0, 0.0))
+    val maxStats : StateFlow<Pair<Int, Double>> = _maxStats
 
     /**
     Los Scopes nos permiten que el ciclo de vida de nuestra corrutina se adhiera al ciclo de
@@ -46,7 +50,8 @@ class CountriesViewModel @Inject constructor(
             }
 
             if (result.isNotEmpty()) {
-                _state.value = CountriesState.Success(result)
+                val maxStats = getMaxCountriesStats(result)
+                _state.value = CountriesState.Success(result, maxStats)
             } else {
                 _state.value = CountriesState.Error("Ha ocurrido un error, intentelo mas tarde")
             }
@@ -65,12 +70,18 @@ class CountriesViewModel @Inject constructor(
             }
 
             if (result.isNotEmpty()) {
-                _state.value = CountriesState.Success(result)
+                val maxStats = getMaxCountriesStats(result)
+                _state.value = CountriesState.Success(result, maxStats)
             } else {
                 _state.value = CountriesState.Error("Ha ocurrido un error, intentelo mas tarde")
             }
-
-
         }
+    }
+
+    private fun getMaxCountriesStats(result: List<CountriesModel>) : Pair<Int, Double> {
+        val maxPopulation = result.maxBy { it.population!! }.population!!
+        val maxArea = result.maxBy { it.area!! }.area!!
+
+        return maxPopulation to maxArea
     }
 }

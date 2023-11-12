@@ -1,5 +1,9 @@
 package com.example.worldexplorer.ui.detailcountries
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.transition.TransitionInflater
@@ -7,6 +11,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -25,11 +30,14 @@ import com.example.worldexplorer.ui.detailcountries.adapter.CountriesDetailAdapt
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
+import kotlin.reflect.typeOf
 
 @AndroidEntryPoint
 class CountriesDetailFragment : Fragment() {
 
     private var _binding: FragmentCountriesDetailBinding? = null
+    private var borderNames: MutableList<String> = mutableListOf()
+    private var borderCca2: MutableList<String> = mutableListOf()
     private val binding get() = _binding!!
     private val countriesDetailViewModel: CountriesDetailViewModel by viewModels()
     private val args: CountriesDetailFragmentArgs by navArgs()
@@ -114,23 +122,69 @@ class CountriesDetailFragment : Fragment() {
         setBackgroundColor()
 
         state.detailCountry.apply {
-            initGridView(borders, args.name)
-
             binding.tvCountryTitle.text = args.name
-            binding.tvArea.text = area.toString()
             binding.tvContinents.text = continents
             binding.tvCapital.text = capital
-            binding.tvPopulation.text = population.toString()
-        }
-        /**binding.tvBorders.text = borders*/
 
+            initCountryStats(population, area)
+            initGridView(borders, args.name)
+        }
     }
+
+    private fun initCountryStats(population: Int?, area: Double?) {
+        setTextPopulationAnimation(population!!)
+        setTextPopulationAnimation(area!!)
+        setProgressbarAnimation(binding.pbPopulation)
+        setProgressbarAnimation(binding.pbArea)
+    }
+
+    private fun setProgressbarAnimation(progressbar: ProgressBar) {
+        val animator = ObjectAnimator.ofInt(progressbar, "progress", 0, 100)
+
+        animator.apply {
+            duration = 1000
+            start()
+        }
+    }
+
+    private fun <T : Number> setTextPopulationAnimation(finalValue: T) {
+        when (finalValue) {
+            is Int -> {
+                val animator = ValueAnimator.ofInt(0, finalValue)
+
+                animator.addUpdateListener { animation ->
+                    val value = animation.animatedValue as Int
+                    binding.tvPopulation.text =  getString(R.string.total_population, value.toString())
+                }
+
+                animator.duration = 1000
+                animator.start()
+            }
+            is Double -> {
+                val animator = ValueAnimator.ofFloat(0f, finalValue.toFloat())
+
+                animator.addUpdateListener { animation ->
+                    val value = animation.animatedValue as Float
+                    binding.tvArea.text = getString(R.string.total_area, (value/1000).toString())
+                }
+
+                animator.duration = 1000
+                animator.start()
+            }
+            else -> throw IllegalArgumentException("Unsupported type: ${finalValue::class.java.simpleName}")
+        }
+    }
+
 
     private fun initGridView(borders: List<String>?, country: String) {
         borders?.let {
+            it.forEachIndexed { index, item ->
+                if (index % 2 == 0) borderNames.add(item) else borderCca2.add(item)
+            }
+
             binding.gvListBorders.apply {
                 isVisible = true
-                adapter = CountriesDetailAdapter(requireContext(), it)
+                adapter = CountriesDetailAdapter(requireContext(), borderNames, borderCca2)
             }
         } ?: run {
             binding.tvIslandExplanation.apply {

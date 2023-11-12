@@ -11,7 +11,7 @@ data class CountriesModel(
     var cca3: String?,
     var continents: String?,
     var population: Int?,
-    var region: String?,
+    var region: String?
 ) {
     fun toDatabase(): CountriesEntity {
         return CountriesEntity(

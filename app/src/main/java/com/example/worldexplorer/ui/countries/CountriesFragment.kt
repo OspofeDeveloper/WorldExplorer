@@ -2,6 +2,7 @@ package com.example.worldexplorer.ui.countries
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentCountriesBinding
-import com.example.worldexplorer.domain.models.countries.CountriesModel
 import com.example.worldexplorer.ui.countries.adapter.CountriesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -117,14 +117,14 @@ class CountriesFragment : Fragment() {
 
     private fun successState(state: CountriesState.Success) {
         binding.pbCountries.isVisible = false
-        initRecyclerView(state.countries)
+        initRecyclerView(state)
     }
 
-    private fun initRecyclerView(countryList: List<CountriesModel>) {
+    private fun initRecyclerView(state: CountriesState.Success) {
         countriesAdapter =
             CountriesAdapter(
                 context,
-                countryList,
+                state.countries,
                 onItemSelected = { country, imageView, textView ->
                     val extras = FragmentNavigatorExtras(
                             imageView to country.cca2,
@@ -133,7 +133,7 @@ class CountriesFragment : Fragment() {
                     findNavController().navigate(
                         CountriesFragmentDirections.actionCountriesFragmentToCountriesDetailFragment(
                             country.name,
-                            country.cca2
+                            country.cca2,
                         ),
                         extras
                     )

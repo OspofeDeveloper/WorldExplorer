@@ -14,9 +14,9 @@ class RestCountriesRepositoryImpl @Inject constructor(
 ) : RestCountriesRepository {
 
     /**
-        En el caso de hacer peticiones a una API de internet metemos la función en un bloque
-        try catch que nos proporciona kotlin para controlar si la respuesta de la API ha ido de
-        forma correcta
+    En el caso de hacer peticiones a una API de internet metemos la función en un bloque
+    try catch que nos proporciona kotlin para controlar si la respuesta de la API ha ido de
+    forma correcta
      */
     override suspend fun getAllCountries(): List<CountriesModel> {
         kotlin.runCatching { apiService.getAllCountries() }
@@ -33,8 +33,8 @@ class RestCountriesRepositoryImpl @Inject constructor(
     }
 
     /**
-        En el caso de hacer operaciones sobre Room no hace falta meter el codigo dentro de un bloque
-        try/catch ya que este no hace operaiones en la red, sino de forma local
+    En el caso de hacer operaciones sobre Room no hace falta meter el codigo dentro de un bloque
+    try/catch ya que este no hace operaiones en la red, sino de forma local
      */
     override suspend fun insertCountries(countries:List<CountriesEntity>) {
         countryItemDao.insertAll(countries)
@@ -53,18 +53,26 @@ class RestCountriesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getDetailCountries(cca2: String): CountriesModel? {
-        var newBorder : String
+        var borderCca2 : String
+        var borderName : String
         val bordersCca2: MutableList<String> = mutableListOf()
         val countryInfo: CountriesEntity? = countryItemDao.getCountriesInfo(cca2)
 
         countryInfo?.borders?.let {borders ->
+
             borders.split(",").forEach {singleBorder ->
-                newBorder = countryItemDao.getBorderCca2(singleBorder)
-                if(!newBorder.isNullOrEmpty()) { bordersCca2.add(newBorder) }
+
+                borderCca2 = countryItemDao.getBorderCca2(singleBorder)
+                borderName = countryItemDao.getBorderName(singleBorder)
+
+                if(!borderName.isNullOrEmpty() && !borderCca2.isNullOrEmpty()) {
+                    bordersCca2.add(borderName)
+                    bordersCca2.add(borderCca2)
+                }
             }
+
             countryInfo.borders = bordersCca2.joinToString(",")
         }
-        Log.d("Pozo", "$bordersCca2")
         return countryInfo?.toDomain()
     }
 

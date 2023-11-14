@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         style="@style/BigTitle"
         android:layout_margin="24dp"
-        android:text="@string/final_results"
+        android:text="@string/final_results_title"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -112,6 +112,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/guideline1"
         app:layout_constraintBottom_toBottomOf="@id/guideline3"/>
+
+    <Button
+        android:id="@+id/btBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/primaryLight"
+        style="@style/NotBoldSubTitle"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="16dp"
+        android:text="Back to Quiz Home"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="@id/guideline2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline4"
+        app:layout_constraintEnd_toEndOf="@id/guideline5"
+        tools:visibility="visible"
+        tools:text="Back to Quiz Home"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"

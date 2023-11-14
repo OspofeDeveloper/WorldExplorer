@@ -90,6 +90,15 @@ class QuizDetailParentFragment : Fragment() {
     }
 
     private fun initListeners() {
+        initChildFragmentListener()
+        initBackButtonListener()
+    }
+
+    private fun initBackButtonListener() {
+        binding.btBack.setOnClickListener { requireActivity().onBackPressed() }
+    }
+
+    private fun initChildFragmentListener() {
         /** Set the listener on the child fragmentManager.*/
         childFragmentManager.setFragmentResultListener("requestKey", viewLifecycleOwner
         ) { _, bundle ->
@@ -115,8 +124,9 @@ class QuizDetailParentFragment : Fragment() {
         binding.apply {
             finalLottieQuiz.isVisible = true
             tvFinalResult.isVisible = true
-            tvScore.text = "$correctanswers/10"
+            tvScore.text = getString(R.string.final_results_score, correctanswers.toString())
             pbResult.isVisible = true
+            btBack.isVisible = true
 
             val animator = ObjectAnimator.ofInt(pbResult, "progress", 0, correctanswers * 7)
 

@@ -43,25 +43,4 @@
         <item name="android:textStyle">normal</item>
     </style>
 
-    <!-- Mobile Small Screens (sw320dp)-->
-    <style name="Basic320dp" parent="Basic">
-        <item name="android:textSize">14sp</item> <!-- Reducción del 20% desde 17sp -->
-    </style>
-
-    <style name="Title320dp" parent="Basic">
-        <item name="android:textSize">24sp</item> <!-- Reducción del 20% desde 30sp -->
-    </style>
-
-    <style name="BigTitle320dp" parent="Title">
-        <item name="android:textSize">32sp</item> <!-- Reducción del 20% desde 40sp -->
-    </style>
-
-    <style name="ExtraBigTitle320dp" parent="Title">
-        <item name="android:textSize">48sp</item> <!-- Reducción del 20% desde 60sp -->
-    </style>
-
-    <style name="SubTitle320dp" parent="Title">
-        <item name="android:textSize">20sp</item> <!-- Reducción del 20% desde 25sp -->
-    </style>
-
 </resources>

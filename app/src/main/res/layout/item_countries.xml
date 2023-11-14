@@ -21,11 +21,13 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivCountryFlag"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:elevation="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_margin="12dp"
             android:background="@drawable/image_border"
+            app:layout_constraintDimensionRatio="3:2"
+            android:scaleType="fitXY"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

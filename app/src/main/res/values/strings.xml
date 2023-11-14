@@ -9,8 +9,8 @@
     <string name="dropdown_menu_default">Order by…</string>
 
     <string-array name="order_by_dropdown_options">
-        <item name="dropdown_menu_ascending_a_z">Ascending (A-Z)</item>
-        <item name="dropdown_menu_descending_z_a">Descending (Z-A)</item>
+        <item name="dropdown_menu_ascending_a_z">Ascend (A-Z)</item>
+        <item name="dropdown_menu_descending_z_a">Descend (Z-A)</item>
     </string-array>
 
     <!-- BottomBar -->

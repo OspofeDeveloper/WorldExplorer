@@ -10,7 +10,7 @@
     </item>
     <item>
         <rotate
-            android:fromDegrees="145"
+            android:fromDegrees="140"
             android:toDegrees="145">
             <shape
                 android:shape="ring"

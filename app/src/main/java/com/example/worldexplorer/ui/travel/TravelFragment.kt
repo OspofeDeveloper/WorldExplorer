@@ -60,7 +60,7 @@ class TravelFragment : Fragment() {
     }
 
     private fun rotateEarth() {
-        val timer = object : CountDownTimer(2700, 50) {
+        val timer = object : CountDownTimer(2000, 50) {
             val animation = binding.animationEarth
 
             override fun onTick(millisUntilFinished: Long) {

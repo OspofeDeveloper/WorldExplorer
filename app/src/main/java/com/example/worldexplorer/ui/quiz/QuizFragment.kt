@@ -40,11 +40,13 @@ class QuizFragment : Fragment() {
     /** En vez de poner dos veces binding.rvQuiz al hacer "binding.rvQuiz.layoutManager = LinearLayoutManager(context)
     y binding.rvQuiz.adapter = QuizAdapter()" usamos ".apply" */
     private fun initRecyclerView() {
-        quizAdapter = QuizAdapter(onItemSelected = {
-            findNavController().navigate(
-                QuizFragmentDirections.actionQuizFragmentToQuizDetailFragment(it.name)
-            )
-        })
+        quizAdapter = QuizAdapter(
+            onItemSelected = {
+                findNavController().navigate(
+                    QuizFragmentDirections.actionQuizFragmentToQuizDetailFragment(it.name)
+                )
+            }
+        )
 
         binding.rvQuiz.apply {
             layoutManager = GridLayoutManager(context, 2)

@@ -10,11 +10,14 @@
         android:id="@+id/ivFlagQuiz"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="32dp"
+        android:layout_marginVertical="12dp"
+        android:scaleType="fitXY"
+        app:layout_constraintDimensionRatio="3:2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/cvGrid"/>
+        app:layout_constraintBottom_toTopOf="@id/guideline1"
+        tools:background="@color/primary"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvGrid"
@@ -22,13 +25,12 @@
         android:layout_height="0dp"
         android:layout_margin="16dp"
         android:elevation="4dp"
-        app:layout_constraintHeight_percent="0.55"
         app:cardBackgroundColor="@color/primaryUltraLight"
         app:cardCornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivFlagQuiz">
+        app:layout_constraintTop_toBottomOf="@id/guideline1">
 
         <GridView
             android:id="@+id/grid"
@@ -42,5 +44,12 @@
             android:visibility="visible" />
 
     </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

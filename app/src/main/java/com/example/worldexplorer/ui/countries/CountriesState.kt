@@ -6,5 +6,5 @@ import com.example.worldexplorer.ui.detailcountries.CountriesDetailState
 sealed class CountriesState {
     data object Loading: CountriesState()
     data class Error(val error: String): CountriesState()
-    data class Success(val countries: List<CountriesModel>, val maxStats: Pair<Int, Double>): CountriesState()
+    data class Success(val countries: List<CountriesModel>): CountriesState()
 }

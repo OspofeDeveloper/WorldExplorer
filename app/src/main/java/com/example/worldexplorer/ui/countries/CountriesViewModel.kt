@@ -24,9 +24,6 @@ class CountriesViewModel @Inject constructor(
     private var _state = MutableStateFlow<CountriesState>(CountriesState.Loading)
     val state: StateFlow<CountriesState> = _state
 
-    private var _maxStats = MutableStateFlow<Pair<Int, Double>>(Pair(0, 0.0))
-    val maxStats : StateFlow<Pair<Int, Double>> = _maxStats
-
     /**
     Los Scopes nos permiten que el ciclo de vida de nuestra corrutina se adhiera al ciclo de
     vida del elemento que queremos, en este caso el viewModel. Si queremos ejecuutar una corrutina
@@ -50,8 +47,7 @@ class CountriesViewModel @Inject constructor(
             }
 
             if (result.isNotEmpty()) {
-                val maxStats = getMaxCountriesStats(result)
-                _state.value = CountriesState.Success(result, maxStats)
+                _state.value = CountriesState.Success(result)
             } else {
                 _state.value = CountriesState.Error("Ha ocurrido un error, intentelo mas tarde")
             }
@@ -70,18 +66,14 @@ class CountriesViewModel @Inject constructor(
             }
 
             if (result.isNotEmpty()) {
-                val maxStats = getMaxCountriesStats(result)
-                _state.value = CountriesState.Success(result, maxStats)
+                _state.value = CountriesState.Success(result)
             } else {
                 _state.value = CountriesState.Error("Ha ocurrido un error, intentelo mas tarde")
             }
         }
     }
 
-    private fun getMaxCountriesStats(result: List<CountriesModel>) : Pair<Int, Double> {
-        val maxPopulation = result.maxBy { it.population!! }.population!!
-        val maxArea = result.maxBy { it.area!! }.area!!
+    fun getCountrySearch(countryName: String) {
 
-        return maxPopulation to maxArea
     }
 }

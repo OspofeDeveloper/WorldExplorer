@@ -2,15 +2,16 @@ package com.example.worldexplorer.ui.countries
 
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -21,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentCountriesBinding
+import com.example.worldexplorer.domain.models.countries.CountriesModel
 import com.example.worldexplorer.ui.countries.adapter.CountriesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -52,22 +54,21 @@ class CountriesFragment : Fragment() {
         initDropdownMenu()
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
-
     private fun initUI() {
+        initKeyboard()
         initDropdownMenu()
-        initListeners()
         initUIState()
         setReturnAnimation()
     }
 
-    private fun initListeners() {
-        binding.autoCompleteText.onItemClickListener =
-            AdapterView.OnItemClickListener { _, _, position, _ ->
-                countriesViewModel.getAllCountriesOrdered(position)
-            }
+    /** Usamos setSoftInputMode para controlar cómo se ajusta la ventana cuando el teclado virtual
+     *  (soft keyboard) se muestra. Cuando se establece en SOFT_INPUT_ADJUST_PAN, la ventana de la
+     *  aplicación se ajusta de manera que el contenido de la ventana no se redimensiona
+     *  automáticamente para acomodar el teclado virtual. En su lugar, el sistema de Android
+     *  intenta hacer que el contenido visible se desplace para que el foco actual (generalmente un
+     *  campo de entrada) sea visible*/
+    private fun initKeyboard() {
+        activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
 
     private fun initDropdownMenu() {
@@ -117,7 +118,30 @@ class CountriesFragment : Fragment() {
 
     private fun successState(state: CountriesState.Success) {
         binding.pbCountries.isVisible = false
+        initListeners(state.countries)
         initRecyclerView(state)
+    }
+
+    private fun initListeners(countries: List<CountriesModel>) {
+        initSearchEditTextListener(countries)
+        initDropdownMenuListener()
+    }
+
+    private fun initSearchEditTextListener(countries: List<CountriesModel>) {
+        binding.etSearchCountries.addTextChangedListener { userFilter ->
+            val countriesFiltered =
+                countries.filter { country ->
+                    country.name.lowercase().contains(userFilter.toString().lowercase())
+                }
+            countriesAdapter.updateCountries(countriesFiltered)
+        }
+    }
+
+    private fun initDropdownMenuListener() {
+        binding.autoCompleteText.onItemClickListener =
+            AdapterView.OnItemClickListener { _, _, position, _ ->
+                countriesViewModel.getAllCountriesOrdered(position)
+            }
     }
 
     private fun initRecyclerView(state: CountriesState.Success) {
@@ -127,8 +151,8 @@ class CountriesFragment : Fragment() {
                 state.countries,
                 onItemSelected = { country, imageView, textView ->
                     val extras = FragmentNavigatorExtras(
-                            imageView to country.cca2,
-                            textView to country.name
+                        imageView to country.cca2,
+                        textView to country.name
                     )
                     findNavController().navigate(
                         CountriesFragmentDirections.actionCountriesFragmentToCountriesDetailFragment(

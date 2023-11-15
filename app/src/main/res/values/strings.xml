@@ -4,21 +4,20 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-
-    <!-- DropdownMenu -->
+    <!-- Countries Fragment -->
     <string name="dropdown_menu_default">Order by…</string>
-
     <string-array name="order_by_dropdown_options">
         <item name="dropdown_menu_ascending_a_z">Ascend (A-Z)</item>
         <item name="dropdown_menu_descending_z_a">Descend (Z-A)</item>
     </string-array>
+    <string name="search_country_hint">Search country…</string>
 
-    <!-- BottomBar -->
+    <!-- MainActivity -->
     <string name="countries">Countries</string>
     <string name="quiz">Quiz</string>
     <string name="travel">Travel</string>
 
-    <!-- Quiz Home-->
+    <!-- Quiz Fragment-->
     <string name="earth">Earth</string>
     <string name="oceania">Oceania</string>
     <string name="america">Americas</string>
@@ -32,17 +31,20 @@
     <string name="western_asia">Western Asia</string>
     <string name="south_america">South America</string>
 
-    <!-- Quiz Detail -->
+    <!-- Quiz Detail Fragment-->
     <string name="flagQuestion">Can you guess which country this flag belongs to?</string>
     <string name="final_results_title">FINAL RESULT</string>
     <string name="final_results_score">"%s/10"</string>
 
-    <!-- Country Detail -->
+    <!-- Country Detail Fragment -->
     <string name="country_stats">Country Stats:</string>
     <string name="borders">Borders:</string>
     <string name="total_population">Population:   %s</string>
     <string name="total_area">Area:   %s km2</string>
     <string name="island_explanation">%s\n has no borders</string>
+
+    <!-- Travel Fragment -->
+    <string name="travel_title">Embark on your next adventure with a tap on the world</string>
 
 
 </resources>

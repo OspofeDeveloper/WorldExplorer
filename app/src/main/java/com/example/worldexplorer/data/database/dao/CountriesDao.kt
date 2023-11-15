@@ -35,4 +35,10 @@ interface CountriesDao {
 
     @Query("SELECT * FROM country_table WHERE region = :region")
     suspend fun getCountriesByRegion(region: String):List<CountriesEntity>
+
+    @Query("SELECT name FROM country_table WHERE cca2 = :cca2")
+    suspend fun getNameFromCca2(cca2: String): String
+
+    @Query("SELECT cca2 FROM country_table ORDER BY RANDOM() LIMIT 1")
+    suspend fun getRandomCca2(): String
 }

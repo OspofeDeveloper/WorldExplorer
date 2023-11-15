@@ -18,4 +18,6 @@ interface RestCountriesRepository {
     suspend fun getDetailCountries(cca2: String): CountriesModel?
 
     suspend fun getCountriesByRegion(region: String): List<CountriesModel>
+
+    suspend fun getRandomCountryNameCca2(): Pair<String,String>
 }

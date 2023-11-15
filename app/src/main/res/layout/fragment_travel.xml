@@ -8,45 +8,30 @@
     android:background="@drawable/main_background"
     tools:context=".ui.travel.TravelFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/firstView"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationEarth"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/earth_rotation"
+        app:lottie_speed="0"
+        tools:src="@color/error" />
+
+    <ImageView
+        android:id="@+id/ivSurpriseFlag"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animationEarth"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/earth_rotation"
-            app:lottie_speed="0"
-            tools:src="@color/error" />
-
-
-
-        <ImageView
-            android:id="@+id/ivSurpriseFlag"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/spain_flag"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

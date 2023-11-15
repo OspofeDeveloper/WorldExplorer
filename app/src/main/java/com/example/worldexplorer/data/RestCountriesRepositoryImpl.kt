@@ -79,4 +79,13 @@ class RestCountriesRepositoryImpl @Inject constructor(
     override suspend fun getCountriesByRegion(region: String): List<CountriesModel> {
         return countryItemDao.getCountriesByRegion(region).map { it.toDomain() }
     }
+
+    override suspend fun getRandomCountryNameCca2(): Pair<String,String> {
+        val cca2: String = countryItemDao.getRandomCca2()
+        val name: String = countryItemDao.getNameFromCca2(cca2)
+
+        return Pair(name, cca2)
+    }
+
+
 }

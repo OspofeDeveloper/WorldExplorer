@@ -2,12 +2,9 @@ package com.example.worldexplorer.ui.detailcountries
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.transition.TransitionInflater
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +27,6 @@ import com.example.worldexplorer.ui.detailcountries.adapter.CountriesDetailAdapt
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
-import kotlin.reflect.typeOf
 
 @AndroidEntryPoint
 class CountriesDetailFragment : Fragment() {

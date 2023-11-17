@@ -48,6 +48,9 @@ dependencies {
     val retrofit2Version = "2.9.0"
     val roomVersion = "2.5.2"
 
+    //Recyclerview
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+
     //Navigation Components
     implementation("androidx.navigation:navigation-fragment-ktx:$navVersion")
     implementation("androidx.navigation:navigation-ui-ktx:$navVersion")

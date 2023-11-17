@@ -106,7 +106,7 @@
         android:layout_marginHorizontal="8dp"
         android:visibility="invisible"
         app:lottie_autoPlay="true"
-        app:lottie_speed="2.5"
+        app:lottie_speed="1.5"
         app:lottie_rawRes="@raw/quiz_ended"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

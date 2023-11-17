@@ -14,10 +14,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
 import com.example.worldexplorer.databinding.FragmentQuizDetailChildBinding
-import com.example.worldexplorer.ui.detailquiz.QuizDetailState
 import com.example.worldexplorer.ui.detailquiz.QuizDetailViewModel
 import com.example.worldexplorer.ui.detailquiz.child.adapter.QuizDetailAdapter
 import com.example.worldexplorer.util.Constants.QUESTION_INDEX
+import com.example.worldexplorer.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -57,9 +57,9 @@ class QuizDetailChildFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.state.collect {
                     when (it) {
-                        is QuizDetailState.Error -> errorState(it.error)
-                        QuizDetailState.Loading -> loadState()
-                        is QuizDetailState.Success -> successState(it)
+                        is Resource.Error -> errorState(it.error)
+                        is Resource.Loading -> loadState()
+                        is Resource.Success -> successState(it.data)
                     }
                 }
             }
@@ -70,9 +70,9 @@ class QuizDetailChildFragment : Fragment() {
 
     private fun errorState(error: String) = Toast.makeText(context, error, Toast.LENGTH_LONG).show()
 
-    private fun successState(state: QuizDetailState.Success) {
-        binding.ivFlagQuiz.load("https://flagcdn.com/w320/${state.quizOptions[questionIndex!!].first}.png")
-        initGridView(state.quizOptions[questionIndex!!].second)
+    private fun successState(quizOptions: List<Pair<String, List<Pair<String, Boolean>>>>) {
+        binding.ivFlagQuiz.load("https://flagcdn.com/w320/${quizOptions[questionIndex!!].first}.png")
+        initGridView(quizOptions[questionIndex!!].second)
     }
 
     private fun initGridView(quizOptions: List<Pair<String, Boolean>>) {

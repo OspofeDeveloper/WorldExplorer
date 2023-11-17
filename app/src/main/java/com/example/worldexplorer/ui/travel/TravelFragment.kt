@@ -22,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentTravelBinding
+import com.example.worldexplorer.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -94,18 +95,18 @@ class TravelFragment : Fragment() {
                  ** recolectar cuando el ciclo de vida está en STOPPED. */
                 travelViewModel.state.collect {
                     when (it) {
-                        TravelState.Loading -> loadingState()
-                        is TravelState.Error -> errorState(it.error)
-                        is TravelState.Success -> successState(it)
+                        is Resource.Loading -> loadingState()
+                        is Resource.Error -> errorState(it.error)
+                        is Resource.Success -> successState(it.data)
                     }
                 }
             }
         }
     }
 
-    private fun successState(it: TravelState.Success) {
-        binding.ivSurpriseFlag.load("https://flagcdn.com/w320/${it.travelInfo.second.lowercase()}.png")
-        rotateEarth(it.travelInfo)
+    private fun successState(travelInfo: Pair<String, String>) {
+        binding.ivSurpriseFlag.load("https://flagcdn.com/w320/${travelInfo.second.lowercase()}.png")
+        rotateEarth(travelInfo)
     }
 
     private fun loadingState() {}

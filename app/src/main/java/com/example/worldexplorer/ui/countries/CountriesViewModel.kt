@@ -6,6 +6,7 @@ import com.example.worldexplorer.domain.models.countries.CountriesModel
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesOrderAscUseCase
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesOrderDescUseCase
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesUseCase
+import com.example.worldexplorer.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,8 +22,9 @@ class CountriesViewModel @Inject constructor(
     private val getAllCountriesOrderDescUseCase: GetAllCountriesOrderDescUseCase
 ) : ViewModel() {
 
-    private var _state = MutableStateFlow<CountriesState>(CountriesState.Loading)
-    val state: StateFlow<CountriesState> = _state
+    private var _state = MutableStateFlow<Resource<List<CountriesModel>>>(Resource.Loading())
+    val state: StateFlow<Resource<List<CountriesModel>>> = _state
+
 
     /**
     Los Scopes nos permiten que el ciclo de vida de nuestra corrutina se adhiera al ciclo de
@@ -40,23 +42,23 @@ class CountriesViewModel @Inject constructor(
     init {
         viewModelScope.launch {
 
-            _state.value = CountriesState.Loading
+            _state.value = Resource.Loading()
 
             val result = withContext(Dispatchers.IO) {
                 getAllCountriesUseCase()
             }
 
             if (result.isNotEmpty()) {
-                _state.value = CountriesState.Success(result)
+                _state.value = Resource.Success(result)
             } else {
-                _state.value = CountriesState.Error("Ha ocurrido un error, intentelo mas tarde")
+                _state.value = Resource.Error("Ha ocurrido un error, intentelo mas tarde")
             }
         }
     }
 
     fun getAllCountriesOrdered(position: Int) {
         viewModelScope.launch {
-            _state.value = CountriesState.Loading
+            _state.value = Resource.Loading()
 
             val result = withContext(Dispatchers.IO) {
                 when (position) {
@@ -66,14 +68,10 @@ class CountriesViewModel @Inject constructor(
             }
 
             if (result.isNotEmpty()) {
-                _state.value = CountriesState.Success(result)
+                _state.value = Resource.Success(result)
             } else {
-                _state.value = CountriesState.Error("Ha ocurrido un error, intentelo mas tarde")
+                _state.value = Resource.Error("Ha ocurrido un error, intentelo mas tarde")
             }
         }
-    }
-
-    fun getCountrySearch(countryName: String) {
-
     }
 }

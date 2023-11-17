@@ -23,7 +23,9 @@ import androidx.palette.graphics.Palette
 import coil.load
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentCountriesDetailBinding
+import com.example.worldexplorer.domain.models.countries.CountriesModel
 import com.example.worldexplorer.ui.detailcountries.adapter.CountriesDetailAdapter
+import com.example.worldexplorer.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
@@ -95,9 +97,9 @@ class CountriesDetailFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 countriesDetailViewModel.state.collect {
                     when (it) {
-                        CountriesDetailState.Loading -> loadingState()
-                        is CountriesDetailState.Error -> errorState(it.error)
-                        is CountriesDetailState.Success -> successState(it)
+                        is Resource.Loading -> loadingState()
+                        is Resource.Error -> errorState(it.error)
+                        is Resource.Success -> successState(it.data)
                     }
                 }
             }
@@ -113,11 +115,11 @@ class CountriesDetailFragment : Fragment() {
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
-    private fun successState(state: CountriesDetailState.Success) {
+    private fun successState(detailCountry: CountriesModel) {
         binding.pbDetailCountries.isVisible = false
         setBackgroundColor()
 
-        state.detailCountry.apply {
+        detailCountry.apply {
             binding.tvCountryTitle.text = args.name
             binding.tvContinents.text = continents
             binding.tvCapital.text = capital
@@ -150,23 +152,26 @@ class CountriesDetailFragment : Fragment() {
 
                 animator.addUpdateListener { animation ->
                     val value = animation.animatedValue as Int
-                    binding.tvPopulation.text =  getString(R.string.total_population, value.toString())
+                    binding.tvPopulation.text =
+                        getString(R.string.total_population, value.toString())
                 }
 
                 animator.duration = 1000
                 animator.start()
             }
+
             is Double -> {
                 val animator = ValueAnimator.ofFloat(0f, finalValue.toFloat())
 
                 animator.addUpdateListener { animation ->
                     val value = animation.animatedValue as Float
-                    binding.tvArea.text = getString(R.string.total_area, (value/1000).toString())
+                    binding.tvArea.text = getString(R.string.total_area, (value / 1000).toString())
                 }
 
                 animator.duration = 1000
                 animator.start()
             }
+
             else -> throw IllegalArgumentException("Unsupported type: ${finalValue::class.java.simpleName}")
         }
     }

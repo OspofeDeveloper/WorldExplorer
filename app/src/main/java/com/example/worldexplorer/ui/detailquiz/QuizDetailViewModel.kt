@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.worldexplorer.domain.models.countries.CountriesModel
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesUseCase
 import com.example.worldexplorer.domain.usecases.quiz.GetCountriesByRegionUseCase
+import com.example.worldexplorer.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,14 +22,14 @@ class QuizDetailViewModel @Inject constructor(
     private val getCountriesByRegionUseCase: GetCountriesByRegionUseCase
 ) : ViewModel() {
 
-    private var _state = MutableStateFlow<QuizDetailState>(QuizDetailState.Loading)
-    val state: StateFlow<QuizDetailState> = _state
+    private var _state = MutableStateFlow<Resource<List<Pair<String, List<Pair<String, Boolean>>>>>>(Resource.Loading())
+    val state: StateFlow<Resource<List<Pair<String, List<Pair<String, Boolean>>>>>> = _state
 
     private var correctOptionsId = mutableListOf<Int>()
 
     fun getQuizInformation(region: String) {
         viewModelScope.launch {
-            _state.value = QuizDetailState.Loading
+            _state.value = Resource.Loading()
 
             val result = withContext(Dispatchers.IO) {
                 if (region == "Earth") {
@@ -42,9 +43,9 @@ class QuizDetailViewModel @Inject constructor(
             if (result.isNotEmpty()) {
                 val optionsId = getRandomOptionsIdList(result.size)
                 val quizOptions = getQuizOptionsList(result, optionsId)
-                _state.value = QuizDetailState.Success(quizOptions)
+                _state.value = Resource.Success(quizOptions)
             } else {
-                _state.value = QuizDetailState.Error("Ha ocurrido un error, intentelo mas tarde")
+                _state.value = Resource.Error("Ha ocurrido un error, intentelo mas tarde")
             }
         }
     }

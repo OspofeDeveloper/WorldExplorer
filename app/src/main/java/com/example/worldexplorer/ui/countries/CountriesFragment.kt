@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
@@ -20,10 +21,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentCountriesBinding
 import com.example.worldexplorer.domain.models.countries.CountriesModel
 import com.example.worldexplorer.ui.countries.adapter.CountriesAdapter
+import com.example.worldexplorer.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -88,9 +91,9 @@ class CountriesFragment : Fragment() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 countriesViewModel.state.collect {
                     when (it) {
-                        CountriesState.Loading -> loadingState()
-                        is CountriesState.Error -> errorState()
-                        is CountriesState.Success -> successState(it)
+                        is Resource.Loading -> loadingState()
+                        is Resource.Error -> errorState(it.error)
+                        is Resource.Success -> successState(it.data)
                     }
                 }
             }
@@ -112,14 +115,15 @@ class CountriesFragment : Fragment() {
         binding.pbCountries.isVisible = true
     }
 
-    private fun errorState() {
+    private fun errorState(error: String) {
         binding.pbCountries.isVisible = false
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
-    private fun successState(state: CountriesState.Success) {
+    private fun successState(countries: List<CountriesModel>) {
         binding.pbCountries.isVisible = false
-        initListeners(state.countries)
-        initRecyclerView(state)
+        initListeners(countries)
+        initRecyclerView(countries)
     }
 
     private fun initListeners(countries: List<CountriesModel>) {
@@ -144,11 +148,11 @@ class CountriesFragment : Fragment() {
             }
     }
 
-    private fun initRecyclerView(state: CountriesState.Success) {
+    private fun initRecyclerView(countries: List<CountriesModel>) {
         countriesAdapter =
             CountriesAdapter(
                 context,
-                state.countries,
+                countries,
                 onItemSelected = { country, imageView, textView ->
                     val extras = FragmentNavigatorExtras(
                         imageView to country.cca2,
@@ -163,6 +167,8 @@ class CountriesFragment : Fragment() {
                     )
                 }
             )
+        countriesAdapter.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
 
         binding.rvListCountries.apply {
             layoutManager = GridLayoutManager(context, 2)

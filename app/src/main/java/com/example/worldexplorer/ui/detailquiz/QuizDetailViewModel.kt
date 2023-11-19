@@ -1,5 +1,6 @@
 package com.example.worldexplorer.ui.detailquiz
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.worldexplorer.domain.models.detailquiz.QuizDetailModel
@@ -34,11 +35,16 @@ class QuizDetailViewModel @Inject constructor(
             }
 
             if (result != null) {
+                Log.d("Pozo", "correctCca2: $correctCca2List")
                 correctCca2List.add(result.cca2)
                 _state.value = Resource.Success(result)
             } else {
                 _state.value = Resource.Error("Ha ocurrido un error, intentelo mas tarde")
             }
         }
+    }
+
+    fun restartListCorrectAnswers() {
+        correctCca2List.clear()
     }
 }

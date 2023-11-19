@@ -53,6 +53,7 @@ class QuizDetailParentFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         restartResult()
+        viewModel.restartListCorrectAnswers()
     }
 
     private fun restartResult() {

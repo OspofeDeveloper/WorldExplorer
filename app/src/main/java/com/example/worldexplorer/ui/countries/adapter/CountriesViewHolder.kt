@@ -12,15 +12,15 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.ItemCountriesBinding
-import com.example.worldexplorer.domain.models.countries.CountriesModel
+import com.example.worldexplorer.domain.models.countries.CountryBasicModel
 
 
 class CountriesViewHolder(view: View) : ViewHolder(view) {
     val binding = ItemCountriesBinding.bind(view)
     fun render(
         context: Context?,
-        item: CountriesModel,
-        onItemSelected: (CountriesModel, ImageView, TextView) -> Unit
+        item: CountryBasicModel,
+        onItemSelected: (CountryBasicModel, ImageView, TextView) -> Unit
     ) {
         binding.apply {
             tvCountryName.text = item.name
@@ -40,7 +40,7 @@ class CountriesViewHolder(view: View) : ViewHolder(view) {
 
     }
 
-    private fun setBackgroundColor(item: CountriesModel, context: Context) {
+    private fun setBackgroundColor(item: CountryBasicModel, context: Context) {
         binding.ivCountryFlag.load("https://flagcdn.com/w320/${item.cca2.lowercase()}.png") {
             // Disable hardware bitmaps as Palette needs to read the image's pixels.
             allowHardware(false)

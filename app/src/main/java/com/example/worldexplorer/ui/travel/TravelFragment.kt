@@ -65,7 +65,7 @@ class TravelFragment : Fragment() {
 
     private fun initListeners() {
         binding.animationEarth.setOnClickListener {
-            travelViewModel.getRandomCountry()
+            /**travelViewModel.getRandomCountry()*/
         }
     }
 

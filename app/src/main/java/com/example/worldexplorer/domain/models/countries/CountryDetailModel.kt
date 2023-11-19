@@ -1,29 +1,24 @@
 package com.example.worldexplorer.domain.models.countries
 
-import com.example.worldexplorer.data.database.entities.CountriesEntity
+import com.example.worldexplorer.data.database.entities.CountryDetailEntity
 
-data class CountriesModel(
+data class CountryDetailModel(
     var cca2: String,
-    var name: String,
     var area: Double?,
-    var borders: List<String>?,
     var capital: String?,
     var cca3: String?,
     var continents: String?,
     var population: Int?,
     var region: String?
 ) {
-    fun toDatabase(): CountriesEntity {
-        return CountriesEntity(
+    fun toDatabase(): CountryDetailEntity =
+        CountryDetailEntity(
             cca2 = cca2,
-            name = name,
             area = area,
-            borders = borders?.joinToString(","),
             capital = capital,
             cca3 = cca3,
             continents = continents,
             population = population,
             region = region
         )
-    }
 }

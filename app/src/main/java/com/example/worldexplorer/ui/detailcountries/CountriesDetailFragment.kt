@@ -22,8 +22,9 @@ import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
 import coil.load
 import com.example.worldexplorer.R
+import com.example.worldexplorer.data.database.entities.BorderEntity
+import com.example.worldexplorer.data.database.entities.relations.CountryDetailWithBorder
 import com.example.worldexplorer.databinding.FragmentCountriesDetailBinding
-import com.example.worldexplorer.domain.models.countries.CountriesModel
 import com.example.worldexplorer.ui.detailcountries.adapter.CountriesDetailAdapter
 import com.example.worldexplorer.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,9 +34,9 @@ import java.util.concurrent.TimeUnit
 @AndroidEntryPoint
 class CountriesDetailFragment : Fragment() {
 
-    private var _binding: FragmentCountriesDetailBinding? = null
     private var borderNames: MutableList<String> = mutableListOf()
     private var borderCca2: MutableList<String> = mutableListOf()
+    private var _binding: FragmentCountriesDetailBinding? = null
     private val binding get() = _binding!!
     private val countriesDetailViewModel: CountriesDetailViewModel by viewModels()
     private val args: CountriesDetailFragmentArgs by navArgs()
@@ -99,7 +100,7 @@ class CountriesDetailFragment : Fragment() {
                     when (it) {
                         is Resource.Loading -> loadingState()
                         is Resource.Error -> errorState(it.error)
-                        is Resource.Success -> successState(it.data)
+                        is Resource.Success -> successState(it.data.first())
                     }
                 }
             }
@@ -115,17 +116,17 @@ class CountriesDetailFragment : Fragment() {
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
-    private fun successState(detailCountry: CountriesModel) {
+    private fun successState(data: CountryDetailWithBorder) {
         binding.pbDetailCountries.isVisible = false
         setBackgroundColor()
 
-        detailCountry.apply {
+        data.apply {
             binding.tvCountryTitle.text = args.name
-            binding.tvContinents.text = continents
-            binding.tvCapital.text = capital
+            binding.tvContinents.text = countryDetail.continents
+            binding.tvCapital.text = countryDetail.continents
 
-            initCountryStats(population, area)
-            initGridView(borders, args.name)
+            initCountryStats(countryDetail.population, countryDetail.area)
+            initGridView(border, args.name)
         }
     }
 
@@ -177,20 +178,20 @@ class CountriesDetailFragment : Fragment() {
     }
 
 
-    private fun initGridView(borders: List<String>?, country: String) {
-        borders?.let {
-            it.forEachIndexed { index, item ->
-                if (index % 2 == 0) borderNames.add(item) else borderCca2.add(item)
-            }
-
-            binding.gvListBorders.apply {
-                isVisible = true
-                adapter = CountriesDetailAdapter(requireContext(), borderNames, borderCca2)
-            }
-        } ?: run {
+    private fun initGridView(borders: List<BorderEntity>, country: String) {
+        if (borders.isEmpty()) {
             binding.tvIslandExplanation.apply {
                 isVisible = true
                 text = getString(R.string.island_explanation, country)
+            }
+        } else {
+            borders.forEach {
+                borderCca2.add(it.cca2)
+                borderNames.add(it.name)
+            }
+            binding.gvListBorders.apply {
+                isVisible = true
+                adapter = CountriesDetailAdapter(requireContext(), borderNames, borderCca2)
             }
         }
     }

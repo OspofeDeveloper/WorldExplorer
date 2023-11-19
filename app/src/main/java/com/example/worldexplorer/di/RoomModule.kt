@@ -2,7 +2,7 @@ package com.example.worldexplorer.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.worldexplorer.data.database.CountryDatabase
+import com.example.worldexplorer.data.database.WorldExplorerDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,13 +14,13 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RoomModule {
 
-    private const val COUNTRY_DATABASE_NAME = "country_database"
+    private const val WORLD_EXPLORER_DATABASE_NAME = "world_explorer_database"
     @Singleton
     @Provides
     fun provideRoom(@ApplicationContext context: Context) =
-        Room.databaseBuilder(context, CountryDatabase::class.java, COUNTRY_DATABASE_NAME).build()
+        Room.databaseBuilder(context, WorldExplorerDatabase::class.java, WORLD_EXPLORER_DATABASE_NAME).build()
 
     @Singleton
     @Provides
-    fun provideCountryDao(db: CountryDatabase) = db.getCountryDao()
+    fun provideWorldExplorerDao(db: WorldExplorerDatabase) = db.getWorldExplorerDao()
 }

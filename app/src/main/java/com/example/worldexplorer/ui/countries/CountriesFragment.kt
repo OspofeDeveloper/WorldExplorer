@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentCountriesBinding
-import com.example.worldexplorer.domain.models.countries.CountriesModel
+import com.example.worldexplorer.domain.models.countries.CountryBasicModel
 import com.example.worldexplorer.ui.countries.adapter.CountriesAdapter
 import com.example.worldexplorer.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
@@ -120,18 +120,18 @@ class CountriesFragment : Fragment() {
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
-    private fun successState(countries: List<CountriesModel>) {
+    private fun successState(countries: List<CountryBasicModel>) {
         binding.pbCountries.isVisible = false
         initListeners(countries)
         initRecyclerView(countries)
     }
 
-    private fun initListeners(countries: List<CountriesModel>) {
+    private fun initListeners(countries: List<CountryBasicModel>) {
         initSearchEditTextListener(countries)
         initDropdownMenuListener()
     }
 
-    private fun initSearchEditTextListener(countries: List<CountriesModel>) {
+    private fun initSearchEditTextListener(countries: List<CountryBasicModel>) {
         binding.etSearchCountries.addTextChangedListener { userFilter ->
             val countriesFiltered =
                 countries.filter { country ->
@@ -148,7 +148,7 @@ class CountriesFragment : Fragment() {
             }
     }
 
-    private fun initRecyclerView(countries: List<CountriesModel>) {
+    private fun initRecyclerView(countries: List<CountryBasicModel>) {
         countriesAdapter =
             CountriesAdapter(
                 context,

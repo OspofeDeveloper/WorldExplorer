@@ -1,11 +1,13 @@
 package com.example.worldexplorer.ui.countries
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.worldexplorer.domain.models.countries.CountriesModel
+import com.example.worldexplorer.domain.models.countries.CountryBasicModel
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesOrderAscUseCase
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesOrderDescUseCase
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesUseCase
+import com.example.worldexplorer.domain.usecases.countries.InitDataFromApiUseCase
 import com.example.worldexplorer.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -17,13 +19,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CountriesViewModel @Inject constructor(
+    private val initDataFromApiUseCase: InitDataFromApiUseCase,
     private val getAllCountriesUseCase: GetAllCountriesUseCase,
     private val getAllCountriesOrderAscUseCase: GetAllCountriesOrderAscUseCase,
     private val getAllCountriesOrderDescUseCase: GetAllCountriesOrderDescUseCase
 ) : ViewModel() {
 
-    private var _state = MutableStateFlow<Resource<List<CountriesModel>>>(Resource.Loading())
-    val state: StateFlow<Resource<List<CountriesModel>>> = _state
+    private var _state = MutableStateFlow<Resource<List<CountryBasicModel>>>(Resource.Loading())
+    val state: StateFlow<Resource<List<CountryBasicModel>>> = _state
 
 
     /**
@@ -41,8 +44,23 @@ class CountriesViewModel @Inject constructor(
      */
     init {
         viewModelScope.launch {
-
             _state.value = Resource.Loading()
+
+            val result = withContext(Dispatchers.IO) {
+                initDataFromApiUseCase()
+            }
+
+            Log.d("Pozo", "$result")
+            if(result) {
+                getAllCountries()
+            } else {
+                _state.value = Resource.Error("Ha ocurrido un error, intentelo mas tarde")
+            }
+        }
+    }
+
+    private fun getAllCountries() {
+        viewModelScope.launch {
 
             val result = withContext(Dispatchers.IO) {
                 getAllCountriesUseCase()

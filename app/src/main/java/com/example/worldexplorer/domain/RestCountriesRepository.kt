@@ -1,23 +1,28 @@
 package com.example.worldexplorer.domain
 
-import com.example.worldexplorer.data.database.entities.CountriesEntity
-import com.example.worldexplorer.domain.models.countries.CountriesModel
+import com.example.worldexplorer.data.database.entities.CountryBasicEntity
+import com.example.worldexplorer.data.database.entities.relations.CountryDetailWithBorder
+import com.example.worldexplorer.domain.models.countries.CountryBasicModel
 
 //Cada repositorio
 interface RestCountriesRepository {
-    suspend fun getAllCountriesOrderDesc(): List<CountriesModel>
 
-    suspend fun getAllCountriesOrderAsc(): List<CountriesModel>
+    /** Inicializamos los datos de la app en Room */
+    suspend fun initWorldExplorerDatabase(): Boolean
 
-    suspend fun clearCountries()
+    /** Country Screen operations */
+    suspend fun getCountryBasic(): List<CountryBasicModel>
 
-    suspend fun insertCountries(countries:List<CountriesEntity>)
+    suspend fun getAllCountriesBasicOrderDesc(): List<CountryBasicModel>
 
-    suspend fun getAllCountries(): List<CountriesModel>
+    suspend fun getAllCountriesBasicOrderAsc(): List<CountryBasicModel>
 
-    suspend fun getDetailCountries(cca2: String): CountriesModel?
+    /** Detail Country Screen operations */
+    suspend fun getDetailCountries(cca2: String): List<CountryDetailWithBorder>
 
-    suspend fun getCountriesByRegion(region: String): List<CountriesModel>
+    /** Quiz Screen operations
+    suspend fun getCountriesByRegion(region: String): List<CountryBasicModel>
 
-    suspend fun getRandomCountryNameCca2(): Pair<String,String>
+    /** Travek Screen operations */
+    suspend fun getRandomCountryNameCca2(): Pair<String,String> */
 }

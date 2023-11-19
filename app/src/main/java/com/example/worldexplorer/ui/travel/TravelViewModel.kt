@@ -20,7 +20,7 @@ class TravelViewModel @Inject constructor(
     private var _state = MutableStateFlow<Resource<Pair<String, String>>>(Resource.Loading())
     val state: StateFlow<Resource<Pair<String, String>>> = _state
 
-    fun getRandomCountry() {
+    /**fun getRandomCountry() {
         viewModelScope.launch {
             _state.value = Resource.Loading()
 
@@ -35,7 +35,7 @@ class TravelViewModel @Inject constructor(
                     Resource.Error("Ha ocurrido un error, intentelo mas tarde")
             }
         }
-    }
+    }*/
 
     fun restartViewModel() {
         _state.value = Resource.Loading()

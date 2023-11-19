@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetRandomCca2UseCase @Inject constructor(
     private val repository: RestCountriesRepository
 ) {
-    suspend operator fun invoke(): Pair<String,String> = repository.getRandomCountryNameCca2()
+    /**suspend operator fun invoke(): Pair<String,String> = repository.getRandomCountryNameCca2()*/
 }

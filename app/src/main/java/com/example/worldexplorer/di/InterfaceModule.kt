@@ -1,7 +1,7 @@
 package com.example.worldexplorer.di
 
 import com.example.worldexplorer.data.RestCountriesRepositoryImpl
-import com.example.worldexplorer.data.database.dao.CountriesDao
+import com.example.worldexplorer.data.database.dao.WorldExplorerDao
 import com.example.worldexplorer.data.network.RestCountriesApiService
 import com.example.worldexplorer.domain.RestCountriesRepository
 import dagger.Module
@@ -15,7 +15,7 @@ object InterfaceModule {
     @Provides
     fun provideRestCountriesRepository(
         apiService: RestCountriesApiService,
-        countriesDao: CountriesDao
+        countriesDao: WorldExplorerDao
     ): RestCountriesRepository {
         return RestCountriesRepositoryImpl(apiService, countriesDao)
     }

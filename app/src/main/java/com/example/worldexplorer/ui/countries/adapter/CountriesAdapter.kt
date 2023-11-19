@@ -7,12 +7,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.worldexplorer.R
-import com.example.worldexplorer.domain.models.countries.CountriesModel
+import com.example.worldexplorer.domain.models.countries.CountryBasicModel
 
 class CountriesAdapter(
     private val context: Context?,
-    private var countriesList: List<CountriesModel>,
-    private val onItemSelected: (CountriesModel, ImageView, TextView) -> Unit,
+    private var countriesList: List<CountryBasicModel>,
+    private val onItemSelected: (CountryBasicModel, ImageView, TextView) -> Unit,
 ) : RecyclerView.Adapter<CountriesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountriesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -25,7 +25,7 @@ class CountriesAdapter(
         holder.render(context, item, onItemSelected)
     }
 
-    fun updateCountries(list: List<CountriesModel>) {
+    fun updateCountries(list: List<CountryBasicModel>) {
         this.countriesList = list
         notifyDataSetChanged()
     }

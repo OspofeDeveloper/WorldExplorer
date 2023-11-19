@@ -3,7 +3,7 @@ package com.example.worldexplorer.data.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.worldexplorer.domain.models.countries.CountryDetailModel
+import com.example.worldexplorer.domain.models.detailcountries.CountryDetailModel
 
 @Entity(tableName = "country_detail_table")
 data class CountryDetailEntity(
@@ -15,15 +15,4 @@ data class CountryDetailEntity(
     @ColumnInfo(name = "continents") val continents: String?,
     @ColumnInfo(name = "population") val population: Int?,
     @ColumnInfo(name = "region") val region: String?,
-) {
-    fun toDomain(): CountryDetailModel =
-        CountryDetailModel(
-            cca2 = cca2,
-            area = area,
-            capital = capital,
-            cca3 = cca3,
-            continents = continents,
-            population = population,
-            region = region
-        )
-}
+)

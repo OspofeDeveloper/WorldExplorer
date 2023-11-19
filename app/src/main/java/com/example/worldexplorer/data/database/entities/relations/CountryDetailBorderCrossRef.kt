@@ -1,8 +1,6 @@
 package com.example.worldexplorer.data.database.entities.relations
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
-import com.example.worldexplorer.domain.models.countries.BorderModel
 
 /** Creamos esta clase como una clase de soporte entre CountryDetail y Borders, por lo que cada
  *  vez que insertamos un nuevo país o un , ya que entre

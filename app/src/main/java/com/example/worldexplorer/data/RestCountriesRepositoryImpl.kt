@@ -2,13 +2,12 @@ package com.example.worldexplorer.data
 
 import android.util.Log
 import com.example.worldexplorer.data.database.dao.WorldExplorerDao
-import com.example.worldexplorer.data.database.entities.CountryBasicEntity
 import com.example.worldexplorer.data.database.entities.relations.CountryDetailBorderCrossRef
 import com.example.worldexplorer.data.database.entities.relations.CountryDetailWithBorder
 import com.example.worldexplorer.data.network.RestCountriesApiService
 import com.example.worldexplorer.domain.RestCountriesRepository
-import com.example.worldexplorer.domain.models.countries.BorderModel
 import com.example.worldexplorer.domain.models.countries.CountryBasicModel
+import com.example.worldexplorer.domain.models.detailcountries.CountryDetailModel
 import javax.inject.Inject
 
 class RestCountriesRepositoryImpl @Inject constructor(
@@ -70,8 +69,8 @@ class RestCountriesRepositoryImpl @Inject constructor(
 
 
     /** Detail Country Screen */
-    override suspend fun getDetailCountries(cca2: String): List<CountryDetailWithBorder> {
-        return worldExplorerDao.getBordersOfCountryDetail(cca2)
+    override suspend fun getDetailCountries(cca2: String): CountryDetailModel {
+        return worldExplorerDao.getBordersOfCountryDetail(cca2).toDomain()
     }
 
 

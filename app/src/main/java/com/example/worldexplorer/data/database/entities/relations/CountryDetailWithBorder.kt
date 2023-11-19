@@ -5,7 +5,7 @@ import androidx.room.Junction
 import androidx.room.Relation
 import com.example.worldexplorer.data.database.entities.BorderEntity
 import com.example.worldexplorer.data.database.entities.CountryDetailEntity
-import com.example.worldexplorer.domain.models.countries.CountryDetailModel
+import com.example.worldexplorer.domain.models.detailcountries.CountryDetailModel
 
 /** En las relaciones many-to-many a parte de tener la clase auxiliar CountryDetailBorderCrossRef
  * para encapsular las primaryKeys de ambas tablas necesitamos crear las relaciones al igual que
@@ -35,6 +35,8 @@ data class CountryDetailWithBorder(
             capital = countryDetail.capital,
             continents = countryDetail.continents,
             population = countryDetail.population,
-            region = countryDetail.region
+            region = countryDetail.region,
+            cca2Borders = border.map { it.cca2 },
+            nameBorders = border.map { it.name }
         )
 }

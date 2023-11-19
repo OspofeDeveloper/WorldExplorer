@@ -1,4 +1,4 @@
-package com.example.worldexplorer.domain.models.countries
+package com.example.worldexplorer.domain.models.detailcountries
 
 import com.example.worldexplorer.data.database.entities.BorderEntity
 import com.example.worldexplorer.data.database.entities.CountryBasicEntity

@@ -52,10 +52,15 @@ interface WorldExplorerDao {
     suspend fun getCountryBasicAndCountryDetailWithCca2(cca2: String): CountryBasicAndCountryDetail*/
 
     /** En el caso de querer el CountryDetail a partir de cca2 hago la petición para eso, y como le
-     *  digo que me devuelva CountryDetailWithBorder, Room me busca y devuelve también los Border */
+     *  digo que me devuelva CountryDetailWithBorder, Room me busca y devuelve también los Border.
+     *
+     *  (en este caso como yo se que solo me va a devolver un elemento en country_detail_table ya
+     *  que los cca2 son unicos, indico que me devuelve CountryDetailWithBorder. En caso de que
+     *  tuviese que filtrar por un parámetro que no es único como el continente, ahi la peticion me
+     *  devolverá List<CountryDetailWithBorder>) */
     @Transaction
     @Query("SELECT * FROM country_detail_table WHERE cca2 = :cca2")
-    suspend fun getBordersOfCountryDetail(cca2: String): List<CountryDetailWithBorder>
+    suspend fun getBordersOfCountryDetail(cca2: String): CountryDetailWithBorder
 
 
     /** Operaciones de Country Fragment*/

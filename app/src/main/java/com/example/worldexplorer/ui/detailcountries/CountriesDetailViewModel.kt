@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.worldexplorer.data.database.entities.relations.CountryDetailWithBorder
+import com.example.worldexplorer.domain.models.detailcountries.CountryDetailModel
 import com.example.worldexplorer.domain.usecases.detailcountries.GetDetailCountriesUseCase
 import com.example.worldexplorer.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,8 +20,8 @@ class CountriesDetailViewModel @Inject constructor(
     private val getDetailCountriesUseCase: GetDetailCountriesUseCase
 ) : ViewModel() {
 
-    private var _state = MutableStateFlow<Resource<List<CountryDetailWithBorder>>>(Resource.Loading())
-    val state: StateFlow<Resource<List<CountryDetailWithBorder>>> = _state
+    private var _state = MutableStateFlow<Resource<CountryDetailModel>>(Resource.Loading())
+    val state: StateFlow<Resource<CountryDetailModel>> = _state
 
     fun getCountriesDetail(cca2: String) {
         viewModelScope.launch {

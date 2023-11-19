@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.worldexplorer.domain.models.countries.CountryBasicModel
+import com.example.worldexplorer.domain.models.detailquiz.QuizDetailModel
+import com.example.worldexplorer.domain.models.detailquiz.QuizOptionModel
 
 @Entity(tableName = "country_basic_table")
 data class CountryBasicEntity(

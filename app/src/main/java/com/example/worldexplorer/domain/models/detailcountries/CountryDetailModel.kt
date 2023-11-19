@@ -1,7 +1,5 @@
 package com.example.worldexplorer.domain.models.detailcountries
 
-import com.example.worldexplorer.data.database.entities.CountryDetailEntity
-
 data class CountryDetailModel(
     var cca2: String,
     var area: Double?,

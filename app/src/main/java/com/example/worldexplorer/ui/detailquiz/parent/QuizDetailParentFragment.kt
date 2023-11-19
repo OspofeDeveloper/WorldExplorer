@@ -37,11 +37,6 @@ class QuizDetailParentFragment : Fragment() {
     private var questionNumber: Int = 0
     private var currentProgress: Int = 0
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        viewModel.getQuizInformation(getString(args.region))
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,27 +60,27 @@ class QuizDetailParentFragment : Fragment() {
     }
 
     private fun initUI() {
+        initChildFragment()
         initListeners()
-        initUIState()
     }
 
-    private fun initUIState() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.state.collect {
-                    when (it) {
-                        is Resource.Error -> errorState(it.error)
-                        is Resource.Loading -> loadState()
-                        is Resource.Success -> successState()
-                    }
-                }
-            }
+    private fun initChildFragment() {
+        viewModel.getQuizInformation(getString(args.region))
+
+        /** Creamos el bundle con los valores que le pasamos al fragmnto child */
+        val bundle = bundleOf(
+            QUESTION_INDEX to questionNumber.toString()
+        )
+
+        /** Creamos el fragmento hijo con los datos que queremos */
+        childFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace<QuizDetailChildFragment>(R.id.fragmentContainerView, args = bundle)
         }
     }
-
     private fun initListeners() {
-        initChildFragmentListener()
         initBackButtonListener()
+        initChildFragmentListener()
     }
 
     private fun initBackButtonListener() {
@@ -114,6 +109,11 @@ class QuizDetailParentFragment : Fragment() {
         }
     }
 
+    private fun updateProgressBar() {
+        currentProgress += 10
+        binding.pbLinearProgress.progress = currentProgress
+    }
+
     private fun displayFinalAnimation() {
         binding.apply {
             finalLottieQuiz.isVisible = true
@@ -128,43 +128,6 @@ class QuizDetailParentFragment : Fragment() {
                 duration = 1000
                 start()
             }
-        }
-    }
-
-    private fun updateProgressBar() {
-        currentProgress += 10
-        binding.pbLinearProgress.progress = currentProgress
-    }
-
-    private fun loadState() {
-        binding.pbQuizDetail.isVisible = true
-    }
-
-    private fun errorState(error: String) {
-        binding.pbQuizDetail.isVisible = false
-        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
-    }
-
-    private fun successState() {
-        binding.pbQuizDetail.isVisible = false
-        initProgressBar()
-        initChildFragment()
-    }
-
-    private fun initProgressBar() {
-        binding.pbLinearProgress.max = 100
-    }
-
-    private fun initChildFragment() {
-        /** Creamos el bundle con los valores que le pasamos al fragmnto hijo*/
-        val bundle = bundleOf(
-            QUESTION_INDEX to questionNumber.toString()
-        )
-
-        /** Creamos el fragmento hijo con los datos que queremos */
-        childFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace<QuizDetailChildFragment>(R.id.fragmentContainerView, args = bundle)
         }
     }
 }

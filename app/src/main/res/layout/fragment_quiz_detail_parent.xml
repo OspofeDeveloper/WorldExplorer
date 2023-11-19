@@ -28,6 +28,7 @@
         android:layout_margin="8dp"
         style="?android:attr/progressBarStyleHorizontal"
         android:progressTint="@color/gold"
+        android:max="100"
         app:layout_constraintTop_toBottomOf="@id/tvQuestion"
         app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,18 +43,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pbLinearProgress"
-        tools:visibility="gone"/>
-
-    <ProgressBar
-        android:id="@+id/pbQuizDetail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminateTint="@color/gold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvQuestion"
         tools:visibility="gone"/>
 
     <TextView

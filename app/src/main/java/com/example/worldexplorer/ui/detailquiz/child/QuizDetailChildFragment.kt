@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.setFragmentResult
@@ -14,6 +15,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import coil.load
 import com.example.worldexplorer.databinding.FragmentQuizDetailChildBinding
+import com.example.worldexplorer.domain.models.detailquiz.QuizDetailModel
+import com.example.worldexplorer.domain.models.detailquiz.QuizOptionModel
 import com.example.worldexplorer.ui.detailquiz.QuizDetailViewModel
 import com.example.worldexplorer.ui.detailquiz.child.adapter.QuizDetailAdapter
 import com.example.worldexplorer.util.Constants.QUESTION_INDEX
@@ -68,14 +71,19 @@ class QuizDetailChildFragment : Fragment() {
 
     private fun loadState() {}
 
-    private fun errorState(error: String) = Toast.makeText(context, error, Toast.LENGTH_LONG).show()
-
-    private fun successState(quizOptions: List<Pair<String, List<Pair<String, Boolean>>>>) {
-        binding.ivFlagQuiz.load("https://flagcdn.com/w320/${quizOptions[questionIndex!!].first}.png")
-        initGridView(quizOptions[questionIndex!!].second)
+    private fun errorState(error: String) {
+        binding.pbQuizDetail.isVisible = false
+        Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
-    private fun initGridView(quizOptions: List<Pair<String, Boolean>>) {
+    private fun successState(quizOptions: QuizDetailModel) {
+        binding.pbQuizDetail.isVisible = false
+        binding.ivFlagQuiz.load("https://flagcdn.com/w320/${quizOptions.cca2.lowercase()}.png")
+
+        initGridView(quizOptions.options)
+    }
+
+    private fun initGridView(quizOptions: List<QuizOptionModel>) {
         binding.grid.adapter = QuizDetailAdapter(
             requireContext(),
             quizOptions,

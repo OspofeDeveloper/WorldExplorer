@@ -27,7 +27,7 @@ data class WorldExplorerResponse(
     fun toCountryBasicEntity(): CountryBasicEntity =
         CountryBasicEntity(
             cca2 = cca2,
-            name = Normalizer.normalize(name.common, Normalizer.Form.NFD),
+            name = Normalizer.normalize(name.common, Normalizer.Form.NFD)
         )
 
     fun toCountryDetailEntity(): CountryDetailEntity =

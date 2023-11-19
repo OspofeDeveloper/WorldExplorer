@@ -9,6 +9,7 @@ import android.widget.BaseAdapter
 import androidx.core.content.ContextCompat
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.ItemQuizOptionBinding
+import com.example.worldexplorer.domain.models.detailquiz.QuizOptionModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -17,12 +18,12 @@ import kotlinx.coroutines.launch
 
 class QuizDetailAdapter(
     private val context: Context,
-    private val dataList: List<Pair<String, Boolean>>,
+    private val dataList: List<QuizOptionModel>,
     private val onItemSelected: (Boolean) -> Unit,
 ) :
     BaseAdapter() {
 
-    override fun getCount(): Int = dataList.size
+    override fun getCount(): Int = dataList.size /** Numero de opciones (4) */
     override fun getItem(position: Int): Any? = null
     override fun getItemId(position: Int): Long = 0
 
@@ -45,12 +46,29 @@ class QuizDetailAdapter(
         return binding.root
     }
 
+    /**  Iniciamos cada opcion con su medida y texto correspondiente*/
+    private fun initGridOption(
+        binding: ItemQuizOptionBinding,
+        position: Int,
+        parent: ViewGroup?
+    ) {
+        val countryName = dataList[position].name /** Nombre de la opcion*/
+
+        val parentHeight = parent?.height ?: 0
+        val itemsPerRow = 2
+        val totalVerticalSpace = 32
+        val itemHeight = parentHeight / (dataList.size / itemsPerRow) - totalVerticalSpace
+
+        binding.tvGridOption.text = countryName
+        binding.tvGridOption.layoutParams.height = itemHeight
+    }
+
     private fun initListeners(
         binding: ItemQuizOptionBinding,
         position: Int,
         parent: ViewGroup?
     ) {
-        val isCorrectAnswer = dataList[position].second
+        val isCorrectAnswer = dataList[position].isCorrect /** Booleano isCorrect */
 
         binding.apply {
             cvGridOption.setOnClickListener {
@@ -80,7 +98,7 @@ class QuizDetailAdapter(
                 parent?.getChildAt(i)?.isEnabled = false
 
                 if (!isCorrectAnswer) {
-                    if (dataList[i].second) {
+                    if (dataList[i].isCorrect) {
                         val childBinding = parent?.getChildAt(i)?.tag as ItemQuizOptionBinding
                         childBinding.apply {
                             cvGridOption.setCardBackgroundColor(
@@ -101,22 +119,5 @@ class QuizDetailAdapter(
             delay(1000)
             onItemSelected(isCorrectAnswer)
         }
-    }
-
-    /**  Iniciamos cada opcion con su medida y texto correspondiente*/
-    private fun initGridOption(
-        binding: ItemQuizOptionBinding,
-        position: Int,
-        parent: ViewGroup?
-    ) {
-        val countryName = dataList[position].first
-
-        val parentHeight = parent?.height ?: 0
-        val itemsPerRow = 2
-        val totalVerticalSpace = 32
-        val itemHeight = parentHeight / (dataList.size / itemsPerRow) - totalVerticalSpace
-
-        binding.tvGridOption.text = countryName
-        binding.tvGridOption.layoutParams.height = itemHeight
     }
 }

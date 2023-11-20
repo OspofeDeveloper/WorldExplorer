@@ -29,13 +29,13 @@ data class CountryDetailWithBorder(
 ) {
     fun toDomain() : CountryDetailModel =
         CountryDetailModel(
-            cca2 = countryDetail.cca2,
             cca3 = countryDetail.cca3,
             area = countryDetail.area,
             capital = countryDetail.capital,
             continents = countryDetail.continents,
             population = countryDetail.population,
             region = countryDetail.region,
+            imageUrl = "https://flagcdn.com/w320/${countryDetail.cca2.lowercase()}.png",
             cca2Borders = border.map { it.cca2 },
             nameBorders = border.map { it.name }
         )

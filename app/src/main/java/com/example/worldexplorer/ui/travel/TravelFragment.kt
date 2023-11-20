@@ -106,7 +106,7 @@ class TravelFragment : Fragment() {
     }
 
     private fun successState(cca2Travel: CountryBasicModel) {
-        binding.ivSurpriseFlag.load("https://flagcdn.com/w320/${cca2Travel.cca2.lowercase()}.png")
+        binding.ivSurpriseFlag.load(cca2Travel.imageUrl)
         rotateEarth(cca2Travel)
     }
 

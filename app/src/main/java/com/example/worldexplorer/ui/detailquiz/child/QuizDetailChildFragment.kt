@@ -80,7 +80,7 @@ class QuizDetailChildFragment : Fragment() {
 
     private fun successState(quizOptions: QuizDetailModel) {
         binding.pbQuizDetail.isVisible = false
-        binding.ivFlagQuiz.load("https://flagcdn.com/w320/${quizOptions.cca2.lowercase()}.png")
+        binding.ivFlagQuiz.load(quizOptions.imageUrl)
 
         initGridView(quizOptions.options)
     }

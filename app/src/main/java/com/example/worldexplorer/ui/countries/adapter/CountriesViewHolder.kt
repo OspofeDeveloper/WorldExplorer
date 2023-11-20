@@ -41,7 +41,7 @@ class CountriesViewHolder(view: View) : ViewHolder(view) {
     }
 
     private fun setBackgroundColor(item: CountryBasicModel, context: Context) {
-        binding.ivCountryFlag.load("https://flagcdn.com/w320/${item.cca2.lowercase()}.png") {
+        binding.ivCountryFlag.load(item.imageUrl) {
             // Disable hardware bitmaps as Palette needs to read the image's pixels.
             allowHardware(false)
             listener(

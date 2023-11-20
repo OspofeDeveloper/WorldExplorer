@@ -115,7 +115,7 @@ class CountriesDetailFragment : Fragment() {
 
     private fun successState(data: CountryDetailModel) {
         binding.pbDetailCountries.isVisible = false
-        setBackgroundColor()
+        setBackgroundColor(data.imageUrl)
 
         data.apply {
             binding.tvCountryTitle.text = args.name
@@ -188,8 +188,8 @@ class CountriesDetailFragment : Fragment() {
         }
     }
 
-    private fun setBackgroundColor() {
-        binding.ivFlag.load("https://flagcdn.com/w320/${args.cca2.lowercase()}.png") {
+    private fun setBackgroundColor(imageUrl: String) {
+        binding.ivFlag.load(imageUrl) {
             // Disable hardware bitmaps as Palette needs to read the image's pixels.
             allowHardware(false)
             listener(

@@ -20,6 +20,7 @@ data class CountryEntity(
     fun toCountryBasicModel() : CountryBasicModel =
         CountryBasicModel(
             cca2 = cca2,
-            name = name
+            name = name,
+            imageUrl = "https://flagcdn.com/w320/${cca2.lowercase()}.png"
         )
 }

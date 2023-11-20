@@ -41,7 +41,7 @@ class QuizDetailViewModel @Inject constructor(
 
             if (result != null) {
                 Log.d("Pozo", "correctCca2: $correctCca2List")
-                correctCca2List.add(result.cca2)
+                correctCca2List.add(result.imageUrl)
                 _state.value = Resource.Success(result)
             } else {
                 _state.value = Resource.Error("Ha ocurrido un error, intentelo mas tarde")

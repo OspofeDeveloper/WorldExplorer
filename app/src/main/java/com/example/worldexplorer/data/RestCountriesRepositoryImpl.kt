@@ -94,7 +94,7 @@ class RestCountriesRepositoryImpl @Inject constructor(
         }
 
         return QuizDetailModel(
-            cca2 = result.first().cca2,
+            imageUrl = "https://flagcdn.com/w320/${result.first().cca2.lowercase()}.png",
             options = listOptions.shuffled()
         )
     }

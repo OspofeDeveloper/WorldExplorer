@@ -9,7 +9,7 @@ data class CountryBasicAndCountryDetail (
     /** @Embedded se utiliza para indicar que la propiedad countryBasic debe ser tratada
      *  como una parte incrustada de la entidad principal, es decir, que las columnas de
      *  CountriyBasicEntity estan y se pueden modificar dentro de CountryBasicWithCountryDetail*/
-    @Embedded val countryBasic: CountryBasicEntity,
+    @Embedded val countryDetail: CountryDetailEntity,
 
     /**@Relation se utiliza para indicar que la propiedad countryDetail está relacionada con
      * CountryBasicEntity, es decir, que ambas tablas tienen relacion entre ellas.
@@ -20,5 +20,5 @@ data class CountryBasicAndCountryDetail (
         parentColumn = "cca2",
         entityColumn = "cca2"
     )
-    val countryDetail: CountryDetailEntity
+    val countryBasic: CountryBasicEntity
 )

@@ -22,7 +22,7 @@ interface RestCountriesRepository {
 
     /** Quiz Screen operations */
     suspend fun getQuizOptionsGlobal(correctCca2List: List<String>) : QuizDetailModel
-    suspend fun getQuizOptionsByRegion(region: String): List<CountryBasicModel>
+    suspend fun getQuizOptionsByRegion(correctCca2List: List<String>, region: String): QuizDetailModel
     suspend fun convertToQuizDetailModel(result: List<CountryBasicEntity>): QuizDetailModel
 
     /** Travek Screen operations

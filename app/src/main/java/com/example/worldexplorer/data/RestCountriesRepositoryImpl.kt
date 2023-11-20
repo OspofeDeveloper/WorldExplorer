@@ -82,8 +82,11 @@ class RestCountriesRepositoryImpl @Inject constructor(
         return convertToQuizDetailModel(result)
     }
 
-    override suspend fun getQuizOptionsByRegion(region: String): List<CountryBasicModel> {
-        return listOf(CountryBasicModel("hola", "hola"))
+    override suspend fun getQuizOptionsByRegion(correctCca2List: List<String>, region: String)
+    : QuizDetailModel {
+        val result = worldExplorerDao.getQuizOptionsByRegion(correctCca2List, region).map { it.countryBasic }
+        Log.d("Pozo", "result: $result")
+        return convertToQuizDetailModel(result)
     }
 
     override suspend fun convertToQuizDetailModel(result: List<CountryBasicEntity>): QuizDetailModel {

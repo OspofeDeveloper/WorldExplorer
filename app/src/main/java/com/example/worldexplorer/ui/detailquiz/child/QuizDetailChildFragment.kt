@@ -69,7 +69,9 @@ class QuizDetailChildFragment : Fragment() {
         }
     }
 
-    private fun loadState() {}
+    private fun loadState() {
+        binding.pbQuizDetail.isVisible = true
+    }
 
     private fun errorState(error: String) {
         binding.pbQuizDetail.isVisible = false

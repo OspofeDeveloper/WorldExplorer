@@ -31,7 +31,12 @@ class QuizDetailViewModel @Inject constructor(
             _state.value = Resource.Loading()
 
             val result = withContext(Dispatchers.IO) {
-                getQuizOptionsGlobalUseCase(correctCca2List)
+                if(region == "Earth") {
+                    getQuizOptionsGlobalUseCase(correctCca2List)
+                } else {
+                    getQuizOptionsByRegionUseCase(correctCca2List, region)
+                }
+
             }
 
             if (result != null) {

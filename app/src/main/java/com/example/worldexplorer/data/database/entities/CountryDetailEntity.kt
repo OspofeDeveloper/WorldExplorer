@@ -3,7 +3,6 @@ package com.example.worldexplorer.data.database.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.worldexplorer.domain.models.detailcountries.CountryDetailModel
 
 @Entity(tableName = "country_detail_table")
 data class CountryDetailEntity(

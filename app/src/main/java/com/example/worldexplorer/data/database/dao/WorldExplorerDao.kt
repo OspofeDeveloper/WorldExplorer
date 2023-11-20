@@ -6,10 +6,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import com.example.worldexplorer.data.database.entities.BorderEntity
-import com.example.worldexplorer.data.database.entities.CountryBasicEntity
-import com.example.worldexplorer.data.database.entities.CountryDetailEntity
-import com.example.worldexplorer.data.database.entities.relations.BorderWithCountryDetail
-import com.example.worldexplorer.data.database.entities.relations.CountryBasicAndCountryDetail
+import com.example.worldexplorer.data.database.entities.CountryEntity
 import com.example.worldexplorer.data.database.entities.relations.CountryDetailBorderCrossRef
 import com.example.worldexplorer.data.database.entities.relations.CountryDetailWithBorder
 
@@ -17,11 +14,9 @@ import com.example.worldexplorer.data.database.entities.relations.CountryDetailW
 interface WorldExplorerDao {
 
     /** Insert Queries */
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllCountryBasic(countries: List<CountryBasicEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllCountryDetail(countries: List<CountryDetailEntity>)
+    suspend fun insertAllCountry(countries: List<CountryEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllBorders(borders: List<BorderEntity>)
@@ -31,11 +26,8 @@ interface WorldExplorerDao {
 
 
     /** Delete Queries */
-    @Query("DELETE FROM country_basic_table")
-    suspend fun deleteAllCountryBasic()
-
-    @Query("DELETE FROM country_detail_table")
-    suspend fun deleteAllCountryDetail()
+    @Query("DELETE FROM country_table")
+    suspend fun deleteAllCountry()
 
     @Query("DELETE FROM borders_table")
     suspend fun deleteAllBorder()
@@ -56,29 +48,29 @@ interface WorldExplorerDao {
      *  tuviese que filtrar por un parámetro que no es único como el continente, ahi la peticion me
      *  devolverá List<CountryDetailWithBorder>) */
     @Transaction
-    @Query("SELECT * FROM country_detail_table WHERE cca2 = :cca2")
+    @Query("SELECT * FROM country_table WHERE cca2 = :cca2")
     suspend fun getBordersOfCountryDetail(cca2: String): CountryDetailWithBorder
 
 
     /** Peticiones para Country Fragment*/
-    @Query("SELECT * FROM country_basic_table")
-    suspend fun getAllBasicCountries(): List<CountryBasicEntity>
+    @Query("SELECT name, cca2 FROM country_table")
+    suspend fun getAllBasicCountries(): List<CountryEntity>
 
-    @Query("SELECT * FROM country_basic_table ORDER BY name ASC")
-    suspend fun getAllCountriesBasicOrderAsc(): List<CountryBasicEntity>
+    @Query("SELECT name, cca2 FROM country_table ORDER BY name ASC")
+    suspend fun getAllCountriesBasicOrderAsc(): List<CountryEntity>
 
-    @Query("SELECT * FROM country_basic_table ORDER BY name DESC")
-    suspend fun getAllCountriesBasicOrderDesc(): List<CountryBasicEntity>
+    @Query("SELECT * FROM country_table ORDER BY name DESC")
+    suspend fun getAllCountriesBasicOrderDesc(): List<CountryEntity>
 
     /** Peticiones para Quiz Detail Fragment */
-    @Query("SELECT * FROM country_basic_table WHERE cca2 NOT IN (:correctCca2List) ORDER BY RANDOM() LIMIT 4")
-    suspend fun getQuizOptionsGlobal(correctCca2List: List<String>): List<CountryBasicEntity>
+    @Query("SELECT name, cca2 FROM country_table WHERE cca2 NOT IN (:correctCca2List) ORDER BY RANDOM() LIMIT 4")
+    suspend fun getQuizOptionsGlobal(correctCca2List: List<String>): List<CountryEntity>
 
-    /** Operaciones anteriores
+    @Transaction
+    @Query("SELECT name, cca2 FROM country_table WHERE region = :region AND cca2 NOT IN (:correctCca2List) ORDER BY RANDOM() LIMIT 4")
+    suspend fun getQuizOptionsByRegion(correctCca2List: List<String>, region: String): List<CountryEntity>
 
-    @Query("SELECT name FROM country_table WHERE cca2 = :cca2")
-    suspend fun getNameFromCca2(cca2: String): String
-
-    @Query("SELECT cca2 FROM country_table ORDER BY RANDOM() LIMIT 1")
-    suspend fun getRandomCca2(): String */
+    /** Operaciones anteriores */
+    @Query("SELECT name, cca2 FROM country_table ORDER BY RANDOM() LIMIT 1")
+    suspend fun getRandomCca2(): CountryEntity
 }

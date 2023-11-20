@@ -1,7 +1,6 @@
 package com.example.worldexplorer.domain
 
-import com.example.worldexplorer.data.database.entities.CountryBasicEntity
-import com.example.worldexplorer.data.database.entities.relations.CountryDetailWithBorder
+import com.example.worldexplorer.data.database.entities.CountryEntity
 import com.example.worldexplorer.domain.models.countries.CountryBasicModel
 import com.example.worldexplorer.domain.models.detailcountries.CountryDetailModel
 import com.example.worldexplorer.domain.models.detailquiz.QuizDetailModel
@@ -23,8 +22,8 @@ interface RestCountriesRepository {
     /** Quiz Screen operations */
     suspend fun getQuizOptionsGlobal(correctCca2List: List<String>) : QuizDetailModel
     suspend fun getQuizOptionsByRegion(correctCca2List: List<String>, region: String): QuizDetailModel
-    suspend fun convertToQuizDetailModel(result: List<CountryBasicEntity>): QuizDetailModel
+    suspend fun convertToQuizDetailModel(result: List<CountryEntity>): QuizDetailModel
 
-    /** Travek Screen operations
-    suspend fun getRandomCountryNameCca2(): Pair<String,String>*/
+    /** Travek Screen operations */
+    suspend fun getRandomCountryNameCca2(): CountryBasicModel
 }

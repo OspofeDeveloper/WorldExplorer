@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 import com.example.worldexplorer.data.database.entities.BorderEntity
-import com.example.worldexplorer.data.database.entities.CountryDetailEntity
+import com.example.worldexplorer.data.database.entities.CountryEntity
 import com.example.worldexplorer.domain.models.detailcountries.CountryDetailModel
 
 /** En las relaciones many-to-many a parte de tener la clase auxiliar CountryDetailBorderCrossRef
@@ -14,7 +14,7 @@ import com.example.worldexplorer.domain.models.detailcountries.CountryDetailMode
  * que realmente lo que hacemos es definir 2 clases diferentes con relaciones one-to-many, por eso
  * en este caso border es una lista de Borders */
 data class CountryDetailWithBorder(
-    @Embedded val countryDetail: CountryDetailEntity,
+    @Embedded val countryDetail: CountryEntity,
 
     /** En este caso como tenemos una relacion many-to-many tenemos que especificar la clase que
      *  contiene realmente la relación entre ambas clases, que en este caso es la clase auxiliar

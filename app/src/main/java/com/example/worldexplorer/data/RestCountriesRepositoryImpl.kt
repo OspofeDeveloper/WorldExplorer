@@ -2,7 +2,7 @@ package com.example.worldexplorer.data
 
 import android.util.Log
 import com.example.worldexplorer.data.database.dao.WorldExplorerDao
-import com.example.worldexplorer.data.database.entities.CountryBasicEntity
+import com.example.worldexplorer.data.database.entities.CountryEntity
 import com.example.worldexplorer.data.database.entities.relations.CountryDetailBorderCrossRef
 import com.example.worldexplorer.data.network.RestCountriesApiService
 import com.example.worldexplorer.domain.RestCountriesRepository
@@ -23,18 +23,15 @@ class RestCountriesRepositoryImpl @Inject constructor(
     override suspend fun initWorldExplorerDatabase(): Boolean {
         kotlin.runCatching { apiService.getWorldExplorerInfoFromAPI() }
             .onSuccess { listApiResponse ->
-                val listCountryBasicEntity = listApiResponse.map { it.toCountryBasicEntity() }
-                val listCountryDetailEntity = listApiResponse.map { it.toCountryDetailEntity() }
+                val listCountryDetail = listApiResponse.map { it.toCountryEntity() }
                 val listBorderEntity = listApiResponse.map { it.toBorderEntity() }
 
                 worldExplorerDao.apply {
-                    deleteAllCountryBasic()
-                    deleteAllCountryDetail()
+                    deleteAllCountry()
                     deleteAllBorder()
                     deleteAllDetailBorderCrossRef()
 
-                    insertAllCountryBasic(listCountryBasicEntity)
-                    insertAllCountryDetail(listCountryDetailEntity)
+                    insertAllCountry(listCountryDetail)
                     insertAllBorders(listBorderEntity)
 
                     listApiResponse.forEach { apiResponse ->
@@ -58,15 +55,15 @@ class RestCountriesRepositoryImpl @Inject constructor(
     try/catch ya que este no hace operaiones en la red, sino de forma local
      */
     override suspend fun getCountryBasic(): List<CountryBasicModel> {
-        return worldExplorerDao.getAllBasicCountries().map { it.toDomain() }
+        return worldExplorerDao.getAllBasicCountries().map { it.toCountryBasicModel() }
     }
 
     override suspend fun getAllCountriesBasicOrderAsc(): List<CountryBasicModel> {
-        return worldExplorerDao.getAllCountriesBasicOrderAsc().map { it.toDomain() }
+        return worldExplorerDao.getAllCountriesBasicOrderAsc().map { it.toCountryBasicModel() }
     }
 
     override suspend fun getAllCountriesBasicOrderDesc(): List<CountryBasicModel> {
-        return worldExplorerDao.getAllCountriesBasicOrderDesc().map { it.toDomain() }
+        return worldExplorerDao.getAllCountriesBasicOrderDesc().map { it.toCountryBasicModel() }
     }
 
 
@@ -83,13 +80,13 @@ class RestCountriesRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getQuizOptionsByRegion(correctCca2List: List<String>, region: String)
-    : QuizDetailModel {
-        val result = worldExplorerDao.getQuizOptionsByRegion(correctCca2List, region).map { it.countryBasic }
+            : QuizDetailModel {
+        val result = worldExplorerDao.getQuizOptionsByRegion(correctCca2List, region)
         Log.d("Pozo", "result: $result")
         return convertToQuizDetailModel(result)
     }
 
-    override suspend fun convertToQuizDetailModel(result: List<CountryBasicEntity>): QuizDetailModel {
+    override suspend fun convertToQuizDetailModel(result: List<CountryEntity>): QuizDetailModel {
         val listOptions = mutableListOf<QuizOptionModel>()
 
         result.forEachIndexed { index, option ->
@@ -102,12 +99,9 @@ class RestCountriesRepositoryImpl @Inject constructor(
         )
     }
 
-    /** Travel Screen
-    override suspend fun getRandomCountryNameCca2(): Pair<String, String> {
-    val cca2: String = worldExplorerDao.getRandomCca2()
-    val name: String = worldExplorerDao.getNameFromCca2(cca2)
-
-    return Pair(name, cca2)
-    } */
+    /** Travel Screen */
+    override suspend fun getRandomCountryNameCca2(): CountryBasicModel {
+        return worldExplorerDao.getRandomCca2().toCountryBasicModel()
+    }
 
 }

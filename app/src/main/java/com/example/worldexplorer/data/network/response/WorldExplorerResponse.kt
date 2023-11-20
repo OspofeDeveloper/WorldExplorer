@@ -1,9 +1,7 @@
 package com.example.worldexplorer.data.network.response
 
 import com.example.worldexplorer.data.database.entities.BorderEntity
-import com.example.worldexplorer.data.database.entities.CountryBasicEntity
-import com.example.worldexplorer.data.database.entities.CountryDetailEntity
-import com.example.worldexplorer.data.database.entities.relations.CountryDetailBorderCrossRef
+import com.example.worldexplorer.data.database.entities.CountryEntity
 import com.google.gson.annotations.SerializedName
 import java.text.Normalizer
 
@@ -24,15 +22,10 @@ data class WorldExplorerResponse(
     @SerializedName("region") var region: String?,
     @SerializedName("borders") var borders: List<String>?
 ) {
-    fun toCountryBasicEntity(): CountryBasicEntity =
-        CountryBasicEntity(
+    fun toCountryEntity(): CountryEntity =
+        CountryEntity(
             cca2 = cca2,
-            name = Normalizer.normalize(name.common, Normalizer.Form.NFD)
-        )
-
-    fun toCountryDetailEntity(): CountryDetailEntity =
-        CountryDetailEntity(
-            cca2 = cca2,
+            name = Normalizer.normalize(name.common, Normalizer.Form.NFD),
             area = area,
             capital = capital?.joinToString(separator = ", "),
             cca3 = cca3,

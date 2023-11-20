@@ -22,6 +22,7 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentTravelBinding
+import com.example.worldexplorer.domain.models.countries.CountryBasicModel
 import com.example.worldexplorer.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -65,7 +66,7 @@ class TravelFragment : Fragment() {
 
     private fun initListeners() {
         binding.animationEarth.setOnClickListener {
-            /**travelViewModel.getRandomCountry()*/
+            travelViewModel.getRandomCountry()
         }
     }
 
@@ -104,9 +105,9 @@ class TravelFragment : Fragment() {
         }
     }
 
-    private fun successState(travelInfo: Pair<String, String>) {
-        binding.ivSurpriseFlag.load("https://flagcdn.com/w320/${travelInfo.second.lowercase()}.png")
-        rotateEarth(travelInfo)
+    private fun successState(cca2Travel: CountryBasicModel) {
+        binding.ivSurpriseFlag.load("https://flagcdn.com/w320/${cca2Travel.cca2.lowercase()}.png")
+        rotateEarth(cca2Travel)
     }
 
     private fun loadingState() {}
@@ -115,7 +116,7 @@ class TravelFragment : Fragment() {
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
-    private fun rotateEarth(travelInfo: Pair<String, String>) {
+    private fun rotateEarth(cca2Travel: CountryBasicModel) {
         val timer = object : CountDownTimer(2000, 50) {
             val animation = binding.animationEarth
 
@@ -125,7 +126,7 @@ class TravelFragment : Fragment() {
 
             override fun onFinish() {
                 animation.speed = 0f
-                growFlag(travelInfo)
+                growFlag(cca2Travel)
             }
         }
 
@@ -137,7 +138,7 @@ class TravelFragment : Fragment() {
         timer.start()
     }
 
-    private fun growFlag(travelInfo: Pair<String, String>) {
+    private fun growFlag(cca2Travel: CountryBasicModel) {
         val growAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.grow)
 
         growAnimation.setAnimationListener(object : Animation.AnimationListener {
@@ -147,7 +148,7 @@ class TravelFragment : Fragment() {
 
             override fun onAnimationEnd(animation: Animation?) {
                 Handler(Looper.getMainLooper()).postDelayed({
-                    showCountryView(travelInfo)
+                    showCountryView(cca2Travel)
                 }, 500)
             }
 
@@ -157,15 +158,15 @@ class TravelFragment : Fragment() {
         binding.ivSurpriseFlag.startAnimation(growAnimation)
     }
 
-    private fun showCountryView(travelInfo: Pair<String, String>) {
-        binding.ivSurpriseFlag.transitionName = travelInfo.second
+    private fun showCountryView(cca2Travel: CountryBasicModel) {
+        binding.ivSurpriseFlag.transitionName = cca2Travel.cca2
         val extras = FragmentNavigatorExtras(
-            binding.ivSurpriseFlag to travelInfo.second,
+            binding.ivSurpriseFlag to cca2Travel.cca2,
         )
         findNavController().navigate(
             TravelFragmentDirections.actionExchangeFragmentToCountriesDetailFragment(
-                name = travelInfo.first,
-                cca2 = travelInfo.second
+                name = cca2Travel.name,
+                cca2 = cca2Travel.cca2
             ),
             extras
         )

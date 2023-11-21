@@ -14,8 +14,6 @@ interface RestCountriesRepository {
 
     /** Country Screen functions */
     suspend fun getCountryBasic(): List<CountryBasicModel>
-    suspend fun getAllCountriesBasicOrderDesc(): List<CountryBasicModel>
-    suspend fun getAllCountriesBasicOrderAsc(): List<CountryBasicModel>
 
     /** Detail Country Screen functions */
     suspend fun getDetailCountries(cca2: String): CountryDetailModel

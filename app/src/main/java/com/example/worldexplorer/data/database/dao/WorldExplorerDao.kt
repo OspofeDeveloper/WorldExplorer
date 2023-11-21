@@ -56,12 +56,6 @@ interface WorldExplorerDao {
     @Query("SELECT name, cca2 FROM country_table")
     suspend fun getAllBasicCountries(): List<CountryEntity>
 
-    @Query("SELECT name, cca2 FROM country_table ORDER BY name ASC")
-    suspend fun getAllCountriesBasicOrderAsc(): List<CountryEntity>
-
-    @Query("SELECT * FROM country_table ORDER BY name DESC")
-    suspend fun getAllCountriesBasicOrderDesc(): List<CountryEntity>
-
     /** Peticiones para Quiz Detail Fragment */
     @Query("SELECT name, cca2 FROM country_table WHERE cca2 NOT IN (:correctCca2List) ORDER BY RANDOM() LIMIT 4")
     suspend fun getQuizOptionsGlobal(correctCca2List: List<String>): List<CountryEntity>

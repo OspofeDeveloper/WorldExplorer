@@ -1,13 +1,8 @@
 package com.example.worldexplorer.ui.countries
 
-import android.graphics.drawable.GradientDrawable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.worldexplorer.core.bitmapconverter.BitmapConverter
-import com.example.worldexplorer.core.paletteutils.PaletteUtils
 import com.example.worldexplorer.domain.models.countries.CountryBasicModel
-import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesOrderAscUseCase
-import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesOrderDescUseCase
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesUseCase
 import com.example.worldexplorer.domain.usecases.countries.InitDataFromApiUseCase
 import com.example.worldexplorer.util.Resource
@@ -22,13 +17,14 @@ import javax.inject.Inject
 @HiltViewModel
 class CountriesViewModel @Inject constructor(
     private val initDataFromApiUseCase: InitDataFromApiUseCase,
-    private val getAllCountriesUseCase: GetAllCountriesUseCase,
-    private val getAllCountriesOrderAscUseCase: GetAllCountriesOrderAscUseCase,
-    private val getAllCountriesOrderDescUseCase: GetAllCountriesOrderDescUseCase,
+    private val getAllCountriesUseCase: GetAllCountriesUseCase
 ) : ViewModel() {
 
     private var _state = MutableStateFlow<Resource<List<CountryBasicModel>>>(Resource.Loading())
     val state: StateFlow<Resource<List<CountryBasicModel>>> = _state
+
+    private var orderedAscCountries: List<CountryBasicModel> = listOf()
+    private var orderedDescCountries: List<CountryBasicModel> = listOf()
 
 
     /**
@@ -52,7 +48,7 @@ class CountriesViewModel @Inject constructor(
                 initDataFromApiUseCase()
             }
 
-            if(result) {
+            if (result) {
                 getAllCountries()
             } else {
                 _state.value = Resource.Error("Ha ocurrido un error, intentelo mas tarde")
@@ -68,6 +64,8 @@ class CountriesViewModel @Inject constructor(
             }
 
             if (result.isNotEmpty()) {
+                orderedAscCountries = result.sortedBy { it.name }
+                orderedDescCountries = result.sortedByDescending { it.name }
                 _state.value = Resource.Success(result)
             } else {
                 _state.value = Resource.Error("Ha ocurrido un error, intentelo mas tarde")
@@ -76,21 +74,11 @@ class CountriesViewModel @Inject constructor(
     }
 
     fun getAllCountriesOrdered(position: Int) {
-        viewModelScope.launch {
-            _state.value = Resource.Loading()
-
-            val result = withContext(Dispatchers.IO) {
-                when (position) {
-                    0 -> getAllCountriesOrderAscUseCase()
-                    else -> getAllCountriesOrderDescUseCase()
-                }
-            }
-
-            if (result.isNotEmpty()) {
-                _state.value = Resource.Success(result)
-            } else {
-                _state.value = Resource.Error("Ha ocurrido un error, intentelo mas tarde")
-            }
+        when (position) {
+            0 -> _state.value = Resource.Success(orderedAscCountries)
+            else -> _state.value = Resource.Success(orderedDescCountries)
         }
     }
+
+
 }

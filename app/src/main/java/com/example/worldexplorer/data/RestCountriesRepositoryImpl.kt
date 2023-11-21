@@ -65,34 +65,10 @@ class RestCountriesRepositoryImpl @Inject constructor(
     override suspend fun getCountryBasic(): List<CountryBasicModel> {
         var bitmap: Bitmap
         var backgroundDrawable: GradientDrawable
+        worldExplorerDao.getAllBasicCountries()
 
         return worldExplorerDao.getAllBasicCountries().map {
-            bitmap =
-                bitmapConverter.getBitmapFromUrl("https://flagcdn.com/w320/${it.cca2.lowercase()}.png")
-            backgroundDrawable = paletteUtilsCountry.getBackgroundGradient(bitmap)
-            it.toCountryBasicModel(backgroundDrawable)
-        }
-    }
-
-    override suspend fun getAllCountriesBasicOrderAsc(): List<CountryBasicModel> {
-        var bitmap: Bitmap
-        var backgroundDrawable: GradientDrawable
-
-        return worldExplorerDao.getAllCountriesBasicOrderAsc().map {
-            bitmap =
-                bitmapConverter.getBitmapFromUrl("https://flagcdn.com/w320/${it.cca2.lowercase()}.png")
-            backgroundDrawable = paletteUtilsCountry.getBackgroundGradient(bitmap)
-            it.toCountryBasicModel(backgroundDrawable)
-        }
-    }
-
-    override suspend fun getAllCountriesBasicOrderDesc(): List<CountryBasicModel> {
-        var bitmap: Bitmap
-        var backgroundDrawable: GradientDrawable
-
-        return worldExplorerDao.getAllCountriesBasicOrderDesc().map {
-            bitmap =
-                bitmapConverter.getBitmapFromUrl("https://flagcdn.com/w320/${it.cca2.lowercase()}.png")
+            bitmap = bitmapConverter.getBitmapFromUrl("https://flagcdn.com/w320/${it.cca2.lowercase()}.png")
             backgroundDrawable = paletteUtilsCountry.getBackgroundGradient(bitmap)
             it.toCountryBasicModel(backgroundDrawable)
         }

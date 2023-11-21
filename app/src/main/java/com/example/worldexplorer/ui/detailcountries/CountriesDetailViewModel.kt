@@ -1,5 +1,6 @@
 package com.example.worldexplorer.ui.detailcountries
 
+import android.graphics.Bitmap
 import android.graphics.drawable.GradientDrawable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -34,18 +35,30 @@ class CountriesDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = Resource.Loading()
 
-            val result = withContext(Dispatchers.IO) {
-                getDetailCountriesUseCase(cca2)
-            }
+            val result = getDetailCountries(cca2)
 
             if (result != null) {
-                val bitmap = bitmapConverter.getBitmapFromUrl(result.imageUrl)
-                _backGroundColor.value = paletteUtils.getBackgroundGradient(bitmap)
+                val bitmap = getBitmapFromUrl(result)
+                _backGroundColor.value = getBackgroundGradient(bitmap)
                 _state.value = Resource.Success(result)
             } else {
                 _state.value =
                     Resource.Error("Ha ocurrido un error, intentelo mas tarde")
             }
+        }
+    }
+
+    private suspend fun getBackgroundGradient(bitmap: Bitmap) =
+        paletteUtils.getBackgroundGradient(bitmap)
+
+    private suspend fun getBitmapFromUrl(result: CountryDetailModel): Bitmap {
+        val bitmap = bitmapConverter.getBitmapFromUrl(result.imageUrl)
+        return bitmap
+    }
+
+    private suspend fun getDetailCountries(cca2: String): CountryDetailModel {
+        return withContext(Dispatchers.IO) {
+            getDetailCountriesUseCase(cca2)
         }
     }
 }

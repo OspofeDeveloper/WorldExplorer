@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-/*
+/**
   En el caso de este ViewModel no hacemos uso de un Caso de Uso ya que lo unico que tenemos que
   hacer con esos datos es cargarlos al principio, y ya no nos comunicamos mas con la capa de data.
   Esto no quiere decir que esté mal recuperar los datos con un UseCase, y un Repository, pero como

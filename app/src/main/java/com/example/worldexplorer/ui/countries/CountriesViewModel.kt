@@ -26,7 +26,6 @@ class CountriesViewModel @Inject constructor(
     private var orderedAscCountries: List<CountryBasicModel> = listOf()
     private var orderedDescCountries: List<CountryBasicModel> = listOf()
 
-
     /**
     Los Scopes nos permiten que el ciclo de vida de nuestra corrutina se adhiera al ciclo de
     vida del elemento que queremos, en este caso el viewModel. Si queremos ejecuutar una corrutina
@@ -44,9 +43,7 @@ class CountriesViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = Resource.Loading()
 
-            val result = withContext(Dispatchers.IO) {
-                initDataFromApiUseCase()
-            }
+            val result = initApiData()
 
             if (result) {
                 getAllCountries()
@@ -56,21 +53,36 @@ class CountriesViewModel @Inject constructor(
         }
     }
 
-    private fun getAllCountries() {
-        viewModelScope.launch {
-
-            val result = withContext(Dispatchers.IO) {
-                getAllCountriesUseCase()
-            }
-
-            if (result.isNotEmpty()) {
-                orderedAscCountries = result.sortedBy { it.name }
-                orderedDescCountries = result.sortedByDescending { it.name }
-                _state.value = Resource.Success(result)
-            } else {
-                _state.value = Resource.Error("Ha ocurrido un error, intentelo mas tarde")
-            }
+    private suspend fun initApiData(): Boolean {
+        return withContext(Dispatchers.IO) {
+            initDataFromApiUseCase()
         }
+    }
+
+    private suspend fun getAllCountries() {
+        val result = getAllCountriesFromApi()
+
+        if (result.isNotEmpty()) {
+            orderedAscCountries = orderCountriesAsc(result)
+            orderedDescCountries = orderCountriesDesc(result)
+            _state.value = Resource.Success(result)
+        } else {
+            _state.value = Resource.Error("Ha ocurrido un error, intentelo mas tarde")
+        }
+    }
+
+    private suspend fun getAllCountriesFromApi(): List<CountryBasicModel> {
+        return withContext(Dispatchers.IO) {
+            getAllCountriesUseCase()
+        }
+    }
+
+    private fun orderCountriesAsc(countries: List<CountryBasicModel>): List<CountryBasicModel> {
+        return countries.sortedBy { it.name }
+    }
+
+    private fun orderCountriesDesc(countries: List<CountryBasicModel>): List<CountryBasicModel> {
+        return countries.sortedByDescending { it.name }
     }
 
     fun getAllCountriesOrdered(position: Int) {
@@ -79,6 +91,4 @@ class CountriesViewModel @Inject constructor(
             else -> _state.value = Resource.Success(orderedDescCountries)
         }
     }
-
-
 }

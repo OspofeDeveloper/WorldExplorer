@@ -26,16 +26,19 @@ class TravelViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = Resource.Loading()
 
-            val result = withContext(Dispatchers.IO) {
-                getRandomCca2UseCase()
-            }
+            val result = getRandomCca2()
 
             if (result != null) {
                 _state.value = Resource.Success(result)
             } else {
-                _state.value =
-                    Resource.Error("Ha ocurrido un error, intentelo mas tarde")
+                _state.value = Resource.Error("Ha ocurrido un error, intentelo mas tarde")
             }
+        }
+    }
+
+    private suspend fun getRandomCca2(): TravelModel {
+        return withContext(Dispatchers.IO) {
+            getRandomCca2UseCase()
         }
     }
 

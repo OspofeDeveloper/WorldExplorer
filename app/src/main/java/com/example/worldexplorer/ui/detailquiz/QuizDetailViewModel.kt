@@ -30,24 +30,39 @@ class QuizDetailViewModel @Inject constructor(
         viewModelScope.launch {
             _state.value = Resource.Loading()
 
-            val result = withContext(Dispatchers.IO) {
-                if(region == "Earth") {
-                    getQuizOptionsGlobalUseCase(correctCca2List)
-                } else {
-                    getQuizOptionsByRegionUseCase(correctCca2List, region)
-                }
-
-            }
+            val result = getQuizOptions(region)
 
             if (result != null) {
-                Log.d("Pozo", "correctCca2: $correctCca2List")
-                correctCca2List.add(result.imageUrl)
+                getCorrectCca2List(result.cca2Correct)
+                Log.d("Pozo", "correctCca2List: $correctCca2List")
                 _state.value = Resource.Success(result)
             } else {
                 _state.value = Resource.Error("Ha ocurrido un error, intentelo mas tarde")
             }
         }
     }
+
+    private fun getCorrectCca2List(cca2: String) {
+        correctCca2List.add(cca2)
+    }
+
+    private suspend fun getQuizOptions(region: String): QuizDetailModel {
+        val result = withContext(Dispatchers.IO) {
+            if (region == "Earth") {
+                getQuizOptionsGlobal()
+            } else {
+                getQuizByRegion(region)
+            }
+
+        }
+        return result
+    }
+
+    private suspend fun getQuizByRegion(region: String) =
+        getQuizOptionsByRegionUseCase(correctCca2List, region)
+
+    private suspend fun getQuizOptionsGlobal() =
+        getQuizOptionsGlobalUseCase(correctCca2List)
 
     fun restartListCorrectAnswers() {
         correctCca2List.clear()

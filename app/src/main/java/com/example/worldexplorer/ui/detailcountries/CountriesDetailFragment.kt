@@ -2,7 +2,6 @@ package com.example.worldexplorer.ui.detailcountries
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.transition.TransitionInflater
 import android.view.LayoutInflater
@@ -10,8 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -19,7 +16,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
-import androidx.palette.graphics.Palette
 import coil.load
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentCountriesDetailBinding
@@ -78,8 +74,8 @@ class CountriesDetailFragment : Fragment() {
         initView()
         initListeners()
         initUIState()
+        initBackgroundColor()
     }
-
     private fun initView() {
         binding.ivFlag.transitionName = args.cca2
         binding.tvCountryTitle.transitionName = args.name
@@ -104,6 +100,17 @@ class CountriesDetailFragment : Fragment() {
         }
     }
 
+    private fun initBackgroundColor() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                countriesDetailViewModel.backGroundColor.collect {
+                    binding.clFragmentCountries.background = it
+                }
+            }
+        }
+    }
+
+
     private fun loadingState() {
         binding.pbDetailCountries.isVisible = true
     }
@@ -115,12 +122,12 @@ class CountriesDetailFragment : Fragment() {
 
     private fun successState(data: CountryDetailModel) {
         binding.pbDetailCountries.isVisible = false
-        setBackgroundColor(data.imageUrl)
 
         data.apply {
             binding.tvCountryTitle.text = args.name
             binding.tvContinents.text = continents
             binding.tvCapital.text = capital
+            binding.ivFlag.load(imageUrl)
 
             initCountryStats(population, area)
             initGridView(cca2Borders, nameBorders, args.name)
@@ -134,7 +141,11 @@ class CountriesDetailFragment : Fragment() {
         setProgressbarAnimation(binding.pbArea)
     }
 
-    private fun initGridView(cca2Borders: List<String>, nameBorders: List<String>, country: String) {
+    private fun initGridView(
+        cca2Borders: List<String>,
+        nameBorders: List<String>,
+        country: String
+    ) {
         if (cca2Borders.isEmpty() && nameBorders.isEmpty()) {
             binding.tvIslandExplanation.apply {
                 isVisible = true
@@ -185,32 +196,6 @@ class CountriesDetailFragment : Fragment() {
             }
 
             else -> throw IllegalArgumentException("Unsupported type: ${finalValue::class.java.simpleName}")
-        }
-    }
-
-    private fun setBackgroundColor(imageUrl: String) {
-        binding.ivFlag.load(imageUrl) {
-            // Disable hardware bitmaps as Palette needs to read the image's pixels.
-            allowHardware(false)
-            listener(
-                onSuccess = { _, result ->
-                    // Create the palette on a background thread.
-                    Palette.Builder(result.drawable.toBitmap()).generate { palette ->
-                        // Consume the palette.
-                        val drawable = GradientDrawable(
-                            GradientDrawable.Orientation.TOP_BOTTOM,
-                            palette?.dominantSwatch?.let {
-                                intArrayOf(
-                                    ContextCompat.getColor(requireContext(), R.color.primary),
-                                    it.rgb,
-                                    ContextCompat.getColor(requireContext(), R.color.accent),
-                                )
-                            }
-                        )
-                        binding.clFragmentCountries.background = drawable
-                    }
-                }
-            )
         }
     }
 

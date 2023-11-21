@@ -4,6 +4,7 @@ import com.example.worldexplorer.data.database.entities.CountryEntity
 import com.example.worldexplorer.domain.models.countries.CountryBasicModel
 import com.example.worldexplorer.domain.models.detailcountries.CountryDetailModel
 import com.example.worldexplorer.domain.models.detailquiz.QuizDetailModel
+import com.example.worldexplorer.domain.models.travel.TravelModel
 
 //Cada repositorio
 interface RestCountriesRepository {
@@ -25,5 +26,5 @@ interface RestCountriesRepository {
     suspend fun convertToQuizDetailModel(result: List<CountryEntity>): QuizDetailModel
 
     /** Travek Screen operations */
-    suspend fun getRandomCountryNameCca2(): CountryBasicModel
+    suspend fun getRandomCountryNameCca2(): TravelModel
 }

@@ -1,8 +1,10 @@
 package com.example.worldexplorer.ui.countries
 
-import android.util.Log
+import android.graphics.drawable.GradientDrawable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.worldexplorer.core.bitmapconverter.BitmapConverter
+import com.example.worldexplorer.core.paletteutils.PaletteUtils
 import com.example.worldexplorer.domain.models.countries.CountryBasicModel
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesOrderAscUseCase
 import com.example.worldexplorer.domain.usecases.countries.GetAllCountriesOrderDescUseCase
@@ -22,7 +24,7 @@ class CountriesViewModel @Inject constructor(
     private val initDataFromApiUseCase: InitDataFromApiUseCase,
     private val getAllCountriesUseCase: GetAllCountriesUseCase,
     private val getAllCountriesOrderAscUseCase: GetAllCountriesOrderAscUseCase,
-    private val getAllCountriesOrderDescUseCase: GetAllCountriesOrderDescUseCase
+    private val getAllCountriesOrderDescUseCase: GetAllCountriesOrderDescUseCase,
 ) : ViewModel() {
 
     private var _state = MutableStateFlow<Resource<List<CountryBasicModel>>>(Resource.Loading())
@@ -50,7 +52,6 @@ class CountriesViewModel @Inject constructor(
                 initDataFromApiUseCase()
             }
 
-            Log.d("Pozo", "$result")
             if(result) {
                 getAllCountries()
             } else {

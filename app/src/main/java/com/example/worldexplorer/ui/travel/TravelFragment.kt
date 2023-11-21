@@ -22,7 +22,7 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.example.worldexplorer.R
 import com.example.worldexplorer.databinding.FragmentTravelBinding
-import com.example.worldexplorer.domain.models.countries.CountryBasicModel
+import com.example.worldexplorer.domain.models.travel.TravelModel
 import com.example.worldexplorer.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -105,7 +105,7 @@ class TravelFragment : Fragment() {
         }
     }
 
-    private fun successState(cca2Travel: CountryBasicModel) {
+    private fun successState(cca2Travel: TravelModel) {
         binding.ivSurpriseFlag.load(cca2Travel.imageUrl)
         rotateEarth(cca2Travel)
     }
@@ -116,7 +116,7 @@ class TravelFragment : Fragment() {
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
     }
 
-    private fun rotateEarth(cca2Travel: CountryBasicModel) {
+    private fun rotateEarth(cca2Travel: TravelModel) {
         val timer = object : CountDownTimer(2000, 50) {
             val animation = binding.animationEarth
 
@@ -138,7 +138,7 @@ class TravelFragment : Fragment() {
         timer.start()
     }
 
-    private fun growFlag(cca2Travel: CountryBasicModel) {
+    private fun growFlag(cca2Travel: TravelModel) {
         val growAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.grow)
 
         growAnimation.setAnimationListener(object : Animation.AnimationListener {
@@ -158,7 +158,7 @@ class TravelFragment : Fragment() {
         binding.ivSurpriseFlag.startAnimation(growAnimation)
     }
 
-    private fun showCountryView(cca2Travel: CountryBasicModel) {
+    private fun showCountryView(cca2Travel: TravelModel) {
         binding.ivSurpriseFlag.transitionName = cca2Travel.cca2
         val extras = FragmentNavigatorExtras(
             binding.ivSurpriseFlag to cca2Travel.cca2,

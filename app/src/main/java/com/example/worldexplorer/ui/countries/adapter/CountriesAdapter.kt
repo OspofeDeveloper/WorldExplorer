@@ -1,6 +1,5 @@
 package com.example.worldexplorer.ui.countries.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -10,9 +9,8 @@ import com.example.worldexplorer.R
 import com.example.worldexplorer.domain.models.countries.CountryBasicModel
 
 class CountriesAdapter(
-    private val context: Context?,
     private var countriesList: List<CountryBasicModel>,
-    private val onItemSelected: (CountryBasicModel, ImageView, TextView) -> Unit,
+    private val onItemSelected: (CountryBasicModel, ImageView, TextView) -> Unit
 ) : RecyclerView.Adapter<CountriesViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountriesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -22,7 +20,7 @@ class CountriesAdapter(
 
     override fun onBindViewHolder(holder: CountriesViewHolder, position: Int) {
         val item = countriesList[position]
-        holder.render(context, item, onItemSelected)
+        holder.render(item, onItemSelected)
     }
 
     fun updateCountries(list: List<CountryBasicModel>) {

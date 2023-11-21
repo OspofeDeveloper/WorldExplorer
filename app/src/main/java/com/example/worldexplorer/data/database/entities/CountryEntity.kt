@@ -1,9 +1,11 @@
 package com.example.worldexplorer.data.database.entities
 
+import android.graphics.drawable.GradientDrawable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.worldexplorer.domain.models.countries.CountryBasicModel
+import com.example.worldexplorer.domain.models.travel.TravelModel
 
 @Entity(tableName = "country_table")
 data class CountryEntity(
@@ -17,10 +19,17 @@ data class CountryEntity(
     @ColumnInfo(name = "population") val population: Int?,
     @ColumnInfo(name = "region") val region: String?,
 ) {
-    fun toCountryBasicModel() : CountryBasicModel =
-        CountryBasicModel(
+    fun toTravelModel() : TravelModel =
+        TravelModel(
             cca2 = cca2,
             name = name,
             imageUrl = "https://flagcdn.com/w320/${cca2.lowercase()}.png"
+        )
+    fun toCountryBasicModel(backgroundDrawable: GradientDrawable) : CountryBasicModel =
+        CountryBasicModel(
+            cca2 = cca2,
+            name = name,
+            imageUrl = "https://flagcdn.com/w320/${cca2.lowercase()}.png",
+            backgroundDrawable = backgroundDrawable
         )
 }

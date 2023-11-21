@@ -151,7 +151,6 @@ class CountriesFragment : Fragment() {
     private fun initRecyclerView(countries: List<CountryBasicModel>) {
         countriesAdapter =
             CountriesAdapter(
-                context,
                 countries,
                 onItemSelected = { country, imageView, textView ->
                     val extras = FragmentNavigatorExtras(

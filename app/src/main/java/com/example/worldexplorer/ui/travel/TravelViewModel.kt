@@ -3,6 +3,7 @@ package com.example.worldexplorer.ui.travel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.worldexplorer.domain.models.countries.CountryBasicModel
+import com.example.worldexplorer.domain.models.travel.TravelModel
 import com.example.worldexplorer.domain.usecases.travel.GetRandomCca2UseCase
 import com.example.worldexplorer.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,8 +19,8 @@ class TravelViewModel @Inject constructor(
     private val getRandomCca2UseCase: GetRandomCca2UseCase,
 ) : ViewModel() {
 
-    private var _state = MutableStateFlow<Resource<CountryBasicModel>>(Resource.Loading())
-    val state: StateFlow<Resource<CountryBasicModel>> = _state
+    private var _state = MutableStateFlow<Resource<TravelModel>>(Resource.Loading())
+    val state: StateFlow<Resource<TravelModel>> = _state
 
     fun getRandomCountry() {
         viewModelScope.launch {

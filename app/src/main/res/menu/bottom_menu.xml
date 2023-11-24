@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/countriesFragment"
+        android:title="@string/countries"
+        android:icon="@drawable/ic_countries"/>
+    <item
+        android:id="@+id/quizFragment"
+        android:title="@string/quiz"
+        android:icon="@drawable/ic_quiz"/>
+    <item
+        android:id="@+id/exchangeFragment"
+        android:title="@string/travel"
+        android:icon="@drawable/ic_money_exchange"/>
+</menu>

@@ -84,6 +84,18 @@ dependencies {
     //Palette
     implementation("androidx.palette:palette-ktx:1.0.0")
 
+    //UnitTesting
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("io.kotlintest:kotlintest-runner-junit5:3.4.2")
+    testImplementation("org.mockito:mockito-core:5.7.0")
+
+
+    //Android Unit Testing
+    androidTestImplementation("junit:junit:4.13.2")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4")
+    androidTestImplementation("com.google.truth:truth:1.1.5")
+
+
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")

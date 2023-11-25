@@ -29,12 +29,6 @@ World Explorer es una aplicación Android diseñada para ofrecer una experiencia
 - Dagger Hilt para inyección de dependencias
 - Patrones de diseño: Singleton, Observer
 
-## Instalación
-
-1. Clona el repositorio: `git clone https://github.com/OspofeDeveloper/WorldExplorer.git`
-2. Abre el proyecto en Android Studio.
-3. Ejecuta la aplicación en un emulador o dispositivo Android.
-
 ## Contribuciones
 
-Las contribuciones son bienvenidas. Si encuentras un problema o tienes una sugerencia, por favor crea un nuevo problema o envía un pull request.
+Las contribuciones son bienvenidas. Si encuentras un problema o tienes una sugerencia, por favor no dudes en enviar un pull request en la rama [Develop](https://github.com/OspofeDeveloper/WorldExplorer/tree/develop)

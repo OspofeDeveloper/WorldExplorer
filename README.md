@@ -1,8 +1,6 @@
 # WORLD EXPLORER
 
-<p>
-:construction: Proyecto en construcción :construction:
-</p>
+<p>:construction: Proyecto en construcción :construction:</p>
 
 ## Descripción
 
@@ -18,9 +16,9 @@ World Explorer es una aplicación Android diseñada para ofrecer una experiencia
 
 ## Capturas de pantalla
 
-<img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/e5976eea-58bb-49f6-a1f0-6077ebfbe386" width="250" height="500" hspace="0"/>
-<img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/4be206c2-cf94-41c2-a8a5-f0832cd95a1c" width="250" height="500" hspace="30"/>
-<img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/81bca442-3a9f-43cb-893b-b30314ba2cd1" width="250" height="500" hspace="60"/>
+<img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/e5976eea-58bb-49f6-a1f0-6077ebfbe386" width="250" height="500"/>
+<img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/4be206c2-cf94-41c2-a8a5-f0832cd95a1c" width="250" height="500" hspace="10"/>
+<img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/81bca442-3a9f-43cb-893b-b30314ba2cd1" width="250" height="500" hspace="20"/>
 
 ## Tecnologías Utilizadas
 
@@ -33,7 +31,7 @@ World Explorer es una aplicación Android diseñada para ofrecer una experiencia
 
 ## Instalación
 
-1. Clona el repositorio: `git clone https://github.com/TuUsuario/WorldExplorer.git`
+1. Clona el repositorio: `git clone https://github.com/OspofeDeveloper/WorldExplorer.git`
 2. Abre el proyecto en Android Studio.
 3. Ejecuta la aplicación en un emulador o dispositivo Android.
 

@@ -1,8 +1,8 @@
-# World Explorer
-<h4>
+# WORLD EXPLORER
+
+<p>
 :construction: Proyecto en construcción :construction:
-</h4>
-<p></p>
+</p>
 
 ## Descripción
 

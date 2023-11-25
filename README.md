@@ -18,9 +18,9 @@ World Explorer es una aplicación Android diseñada para ofrecer una experiencia
 
 ## Capturas de pantalla
 
-<img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/e5976eea-58bb-49f6-a1f0-6077ebfbe386" width="250" height="500" hspace="20"/>
-<img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/4be206c2-cf94-41c2-a8a5-f0832cd95a1c" width="250" height="500" hspace="70"/>
-<img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/81bca442-3a9f-43cb-893b-b30314ba2cd1" width="250" height="500" hspace="130"/>
+<img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/e5976eea-58bb-49f6-a1f0-6077ebfbe386" width="250" height="500" hspace="0"/>
+<img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/4be206c2-cf94-41c2-a8a5-f0832cd95a1c" width="250" height="500" hspace="50"/>
+<img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/81bca442-3a9f-43cb-893b-b30314ba2cd1" width="250" height="500" hspace="100"/>
 
 ## Tecnologías Utilizadas
 

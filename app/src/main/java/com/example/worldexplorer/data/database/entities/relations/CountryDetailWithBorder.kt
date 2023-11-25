@@ -7,18 +7,9 @@ import com.example.worldexplorer.data.database.entities.BorderEntity
 import com.example.worldexplorer.data.database.entities.CountryEntity
 import com.example.worldexplorer.domain.models.detailcountries.CountryDetailModel
 
-/** En las relaciones many-to-many a parte de tener la clase auxiliar CountryDetailBorderCrossRef
- * para encapsular las primaryKeys de ambas tablas necesitamos crear las relaciones al igual que
- * hicimos con CountryBasicWithCountryDetail, pero en este caso tendremos que hacer dos clases, en
- * cada una de ellas tendremos una tabla que será la ebedded y la otra será la relacionada. Osea
- * que realmente lo que hacemos es definir 2 clases diferentes con relaciones one-to-many, por eso
- * en este caso border es una lista de Borders */
 data class CountryDetailWithBorder(
     @Embedded val countryDetail: CountryEntity,
 
-    /** En este caso como tenemos una relacion many-to-many tenemos que especificar la clase que
-     *  contiene realmente la relación entre ambas clases, que en este caso es la clase auxiliar
-     *  CountryDetailBorderCrossRef */
     @Relation(
         parentColumn = "cca2",
         entityColumn = "cca3",
@@ -27,6 +18,7 @@ data class CountryDetailWithBorder(
 
     val border: List<BorderEntity>
 ) {
+
     fun toDomain() : CountryDetailModel =
         CountryDetailModel(
             cca3 = countryDetail.cca3,

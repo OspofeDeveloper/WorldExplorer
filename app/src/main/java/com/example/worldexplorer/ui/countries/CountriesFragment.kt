@@ -42,7 +42,6 @@ class CountriesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentCountriesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -64,12 +63,6 @@ class CountriesFragment : Fragment() {
         setReturnAnimation()
     }
 
-    /** Usamos setSoftInputMode para controlar cómo se ajusta la ventana cuando el teclado virtual
-     *  (soft keyboard) se muestra. Cuando se establece en SOFT_INPUT_ADJUST_PAN, la ventana de la
-     *  aplicación se ajusta de manera que el contenido de la ventana no se redimensiona
-     *  automáticamente para acomodar el teclado virtual. En su lugar, el sistema de Android
-     *  intenta hacer que el contenido visible se desplace para que el foco actual (generalmente un
-     *  campo de entrada) sea visible*/
     private fun initKeyboard() {
         activity?.window?.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
     }
@@ -100,10 +93,7 @@ class CountriesFragment : Fragment() {
         }
     }
 
-    /** Retrasamos la transicion con postponeEnterTransition() hasta que el recyclerview
-     * esté listo paras dibujars y por lo tanto esté medido. Cuando esté lista se reanuda
-     * la transición. Tenemos que poner esto para que al volver atrás se haga también la
-     * transicion */
+
     private fun setReturnAnimation() {
         postponeEnterTransition()
         binding.rvListCountries.doOnPreDraw {
@@ -174,4 +164,5 @@ class CountriesFragment : Fragment() {
             adapter = countriesAdapter
         }
     }
+
 }

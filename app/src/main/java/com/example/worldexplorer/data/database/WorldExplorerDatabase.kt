@@ -16,5 +16,7 @@ import com.example.worldexplorer.data.database.entities.relations.CountryDetailB
     version = 1
 )
 abstract class WorldExplorerDatabase : RoomDatabase() {
+
     abstract fun getWorldExplorerDao(): WorldExplorerDao
+
 }

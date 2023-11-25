@@ -5,12 +5,6 @@ import com.example.worldexplorer.data.database.entities.CountryEntity
 import com.google.gson.annotations.SerializedName
 import java.text.Normalizer
 
-/**
-Aunque se llamen igual las variables se ponen los SerializedName porque cuando lanzamos la app
-a produccion hacemos cosas como la ofuscacion, que se trata de cambiar los nombres a las
-variables a otros mas cortos y no tan claros para asi optimizarla porque pesa menos y si alguien
-intenta hackear el codigo el codigo no se entiende
- */
 data class WorldExplorerResponse(
     @SerializedName("cca2") val cca2: String,
     @SerializedName("name") val name: Name,
@@ -22,6 +16,7 @@ data class WorldExplorerResponse(
     @SerializedName("region") var region: String?,
     @SerializedName("borders") var borders: List<String>?
 ) {
+
     fun toCountryEntity(): CountryEntity =
         CountryEntity(
             cca2 = cca2,
@@ -40,4 +35,5 @@ data class WorldExplorerResponse(
             cca2 = cca2,
             name = Normalizer.normalize(name.common, Normalizer.Form.NFD)
         )
+
 }

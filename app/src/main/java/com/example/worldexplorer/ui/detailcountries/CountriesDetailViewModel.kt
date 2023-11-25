@@ -4,8 +4,8 @@ import android.graphics.Bitmap
 import android.graphics.drawable.GradientDrawable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.worldexplorer.core.bitmapconverter.BitmapConverter
-import com.example.worldexplorer.core.paletteutils.PaletteUtils
+import com.example.worldexplorer.util.bitmapconverter.BitmapConverter
+import com.example.worldexplorer.util.paletteutils.PaletteUtils
 import com.example.worldexplorer.domain.models.detailcountries.CountryDetailModel
 import com.example.worldexplorer.domain.usecases.detailcountries.GetDetailCountriesUseCase
 import com.example.worldexplorer.util.Resource
@@ -61,4 +61,5 @@ class CountriesDetailViewModel @Inject constructor(
             getDetailCountriesUseCase(cca2)
         }
     }
+
 }

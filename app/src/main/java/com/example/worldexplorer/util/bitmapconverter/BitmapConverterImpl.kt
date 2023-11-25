@@ -1,4 +1,4 @@
-package com.example.worldexplorer.core.bitmapconverter
+package com.example.worldexplorer.util.bitmapconverter
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -12,6 +12,7 @@ import javax.inject.Inject
 class BitmapConverterImpl @Inject constructor(
     @ApplicationContext private val context: Context
 ) : BitmapConverter {
+
     override suspend fun getBitmapFromUrl(imageUrl: String): Bitmap {
         val loader = ImageLoader(context)
         val request = ImageRequest.Builder(context)
@@ -23,4 +24,5 @@ class BitmapConverterImpl @Inject constructor(
 
         return (result as BitmapDrawable).bitmap
     }
+
 }

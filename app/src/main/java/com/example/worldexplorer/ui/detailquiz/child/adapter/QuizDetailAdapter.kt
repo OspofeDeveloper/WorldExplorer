@@ -20,23 +20,21 @@ class QuizDetailAdapter(
     private val context: Context,
     private val dataList: List<QuizOptionModel>,
     private val onItemSelected: (Boolean) -> Unit,
-) :
-    BaseAdapter() {
+) : BaseAdapter() {
 
-    override fun getCount(): Int = dataList.size /** Numero de opciones (4) */
+    override fun getCount(): Int = dataList.size
+
     override fun getItem(position: Int): Any? = null
+
     override fun getItemId(position: Int): Long = 0
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val binding: ItemQuizOptionBinding
 
         if (convertView == null) {
-            /** Si convertView es nulo, inflamos la vista utilizando ViewBinding */
             binding = ItemQuizOptionBinding.inflate(LayoutInflater.from(context), parent, false)
             binding.root.tag = binding
-            /** Guardamos la referencia al ViewBinding en la etiqueta de la vista */
         } else {
-            /** Si convertView no es nulo, recuperamos el ViewBinding de la etiqueta */
             binding = convertView.tag as ItemQuizOptionBinding
         }
 
@@ -46,13 +44,12 @@ class QuizDetailAdapter(
         return binding.root
     }
 
-    /**  Iniciamos cada opcion con su medida y texto correspondiente*/
     private fun initGridOption(
         binding: ItemQuizOptionBinding,
         position: Int,
         parent: ViewGroup?
     ) {
-        val countryName = dataList[position].name /** Nombre de la opcion*/
+        val countryName = dataList[position].name
 
         val parentHeight = parent?.height ?: 0
         val itemsPerRow = 2
@@ -68,7 +65,7 @@ class QuizDetailAdapter(
         position: Int,
         parent: ViewGroup?
     ) {
-        val isCorrectAnswer = dataList[position].isCorrect /** Booleano isCorrect */
+        val isCorrectAnswer = dataList[position].isCorrect
 
         binding.apply {
             cvGridOption.setOnClickListener {
@@ -79,7 +76,6 @@ class QuizDetailAdapter(
         }
     }
 
-    /** Cambiamos el color de la respuesta marcada para ver si es correcta o no */
     private fun ItemQuizOptionBinding.setAnswerFeedbackColors(isCorrectAnswer: Boolean) {
         cvGridOption.setCardBackgroundColor(
             ContextCompat.getColor(
@@ -90,8 +86,6 @@ class QuizDetailAdapter(
         tvGridOption.setTextColor(Color.WHITE)
     }
 
-    /** Desactivamos interaccion cvGridOption para no poder pulsar 2 veces y haga crash
-     *  y marcamos la opcion correcta en caso de que la haya fallado */
     private fun postMarkedOptionGridBehaviour(parent: ViewGroup?, isCorrectAnswer: Boolean) {
         parent?.childCount.let {
             for (i in 0..<it!!) {
@@ -112,12 +106,11 @@ class QuizDetailAdapter(
         }
     }
 
-    /** Esperamos 1seg para que el usuario vea la respuesta y cargamos la siguiente pregunta */
     private fun delayedCallbackOnMain(isCorrectAnswer: Boolean) {
-        /** Usamos Dispatchers.Main porque lo ejecutamos en el hilo principal */
         CoroutineScope(Dispatchers.Main).launch {
             delay(1000)
             onItemSelected(isCorrectAnswer)
         }
     }
+
 }

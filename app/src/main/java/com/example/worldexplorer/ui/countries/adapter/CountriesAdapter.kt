@@ -12,10 +12,12 @@ class CountriesAdapter(
     private var countriesList: List<CountryBasicModel>,
     private val onItemSelected: (CountryBasicModel, ImageView, TextView) -> Unit
 ) : RecyclerView.Adapter<CountriesViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountriesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return CountriesViewHolder(layoutInflater.inflate(R.layout.item_countries, parent, false))
     }
+
     override fun getItemCount(): Int = countriesList.size
 
     override fun onBindViewHolder(holder: CountriesViewHolder, position: Int) {
@@ -27,4 +29,5 @@ class CountriesAdapter(
         this.countriesList = list
         notifyDataSetChanged()
     }
+
 }

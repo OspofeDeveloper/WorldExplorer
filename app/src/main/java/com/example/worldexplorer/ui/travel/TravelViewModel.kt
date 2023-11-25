@@ -45,4 +45,5 @@ class TravelViewModel @Inject constructor(
     fun restartViewModel() {
         _state.value = Resource.Loading()
     }
+
 }

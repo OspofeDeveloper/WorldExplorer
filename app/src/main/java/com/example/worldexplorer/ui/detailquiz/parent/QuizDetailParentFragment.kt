@@ -62,12 +62,10 @@ class QuizDetailParentFragment : Fragment() {
     private fun initChildFragment() {
         viewModel.getQuizInformation(getString(args.region))
 
-        /** Creamos el bundle con los valores que le pasamos al fragmnto child */
         val bundle = bundleOf(
             QUESTION_INDEX to questionNumber.toString()
         )
 
-        /** Creamos el fragmento hijo con los datos que queremos */
         childFragmentManager.commit {
             setReorderingAllowed(true)
             replace<QuizDetailChildFragment>(R.id.fragmentContainerView, args = bundle)
@@ -84,7 +82,6 @@ class QuizDetailParentFragment : Fragment() {
     }
 
     private fun initChildFragmentListener() {
-        /** Set the listener on the child fragmentManager.*/
         childFragmentManager.setFragmentResultListener(
             "requestKey", viewLifecycleOwner
         ) { _, bundle ->
@@ -122,9 +119,10 @@ class QuizDetailParentFragment : Fragment() {
             val animator = ObjectAnimator.ofInt(pbResult, "progress", 0, correctanswers * 7)
 
             animator.apply {
-                duration = 1000
+                duration = 400
                 start()
             }
         }
     }
+
 }

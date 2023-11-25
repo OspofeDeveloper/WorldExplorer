@@ -34,7 +34,6 @@ class QuizDetailViewModel @Inject constructor(
 
             if (result != null) {
                 getCorrectCca2List(result.cca2Correct)
-                Log.d("Pozo", "correctCca2List: $correctCca2List")
                 _state.value = Resource.Success(result)
             } else {
                 _state.value = Resource.Error("Ha ocurrido un error, intentelo mas tarde")
@@ -67,4 +66,5 @@ class QuizDetailViewModel @Inject constructor(
     fun restartListCorrectAnswers() {
         correctCca2List.clear()
     }
+
 }

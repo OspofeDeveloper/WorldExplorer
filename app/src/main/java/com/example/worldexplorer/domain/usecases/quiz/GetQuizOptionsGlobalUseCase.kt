@@ -8,6 +8,8 @@ import javax.inject.Inject
 class GetQuizOptionsGlobalUseCase @Inject constructor(
     private val repository: RestCountriesRepository
 ) {
+
     suspend operator fun invoke(correctCca2List: List<String>): QuizDetailModel =
         repository.getQuizOptionsGlobal(correctCca2List)
+
 }

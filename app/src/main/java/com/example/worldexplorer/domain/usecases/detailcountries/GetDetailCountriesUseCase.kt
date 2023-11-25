@@ -9,7 +9,9 @@ import javax.inject.Inject
 class GetDetailCountriesUseCase @Inject constructor(
     private val repository: RestCountriesRepository
 ) {
+
     suspend operator fun invoke(cca2: String): CountryDetailModel {
         return repository.getDetailCountries(cca2)
     }
+
 }

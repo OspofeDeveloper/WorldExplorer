@@ -94,4 +94,5 @@ class QuizDetailChildFragment : Fragment() {
             }
         )
     }
+
 }

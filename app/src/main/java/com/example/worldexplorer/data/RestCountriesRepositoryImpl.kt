@@ -3,8 +3,8 @@ package com.example.worldexplorer.data
 import android.graphics.Bitmap
 import android.graphics.drawable.GradientDrawable
 import android.util.Log
-import com.example.worldexplorer.core.bitmapconverter.BitmapConverter
-import com.example.worldexplorer.core.paletteutils.PaletteUtils
+import com.example.worldexplorer.util.bitmapconverter.BitmapConverter
+import com.example.worldexplorer.util.paletteutils.PaletteUtils
 import com.example.worldexplorer.data.database.dao.WorldExplorerDao
 import com.example.worldexplorer.data.database.entities.CountryEntity
 import com.example.worldexplorer.data.database.entities.relations.CountryDetailBorderCrossRef
@@ -25,9 +25,6 @@ class RestCountriesRepositoryImpl @Inject constructor(
     @Named("paletteUtilsCountry") private val paletteUtilsCountry: PaletteUtils
 ) : RestCountriesRepository {
 
-    /** En el caso de hacer peticiones a una API de internet metemos la función en un bloque
-    try catch que nos proporciona kotlin para controlar si la respuesta de la API ha ido de
-    forma correcta */
     override suspend fun initWorldExplorerDatabase(): Boolean {
         kotlin.runCatching { apiService.getWorldExplorerInfoFromAPI() }
             .onSuccess { listApiResponse ->
@@ -58,10 +55,8 @@ class RestCountriesRepositoryImpl @Inject constructor(
         return false
     }
 
-    /**
-    En el caso de hacer operaciones sobre Room no hace falta meter el codigo dentro de un bloque
-    try/catch ya que este no hace operaiones en la red, sino de forma local
-     */
+    /** List Of Countries Screen */
+
     override suspend fun getCountryBasic(): List<CountryBasicModel> {
         var bitmap: Bitmap
         var backgroundDrawable: GradientDrawable
@@ -74,14 +69,14 @@ class RestCountriesRepositoryImpl @Inject constructor(
         }
     }
 
-
     /** Detail Country Screen */
+
     override suspend fun getDetailCountries(cca2: String): CountryDetailModel {
         return worldExplorerDao.getBordersOfCountryDetail(cca2).toDomain()
     }
 
-
     /** Quiz Screen */
+
     override suspend fun getQuizOptionsGlobal(correctCca2List: List<String>): QuizDetailModel {
         val result = worldExplorerDao.getQuizOptionsGlobal(correctCca2List)
         return convertToQuizDetailModel(result)
@@ -109,6 +104,7 @@ class RestCountriesRepositoryImpl @Inject constructor(
     }
 
     /** Travel Screen */
+
     override suspend fun getRandomCountryNameCca2(): TravelModel {
         return worldExplorerDao.getRandomCca2().toTravelModel()
     }

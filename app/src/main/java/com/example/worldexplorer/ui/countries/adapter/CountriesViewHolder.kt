@@ -12,7 +12,9 @@ import com.example.worldexplorer.domain.models.countries.CountryBasicModel
 class CountriesViewHolder(
     view: View
 ) : ViewHolder(view) {
+
     val binding = ItemCountriesBinding.bind(view)
+
     fun render(
         item: CountryBasicModel,
         onItemSelected: (CountryBasicModel, ImageView, TextView) -> Unit
@@ -34,4 +36,5 @@ class CountriesViewHolder(
             }
         }
     }
+
 }

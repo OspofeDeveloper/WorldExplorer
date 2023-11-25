@@ -48,10 +48,6 @@ class TravelFragment : Fragment() {
         initUI()
     }
 
-    /** Cuando mostramos por pantalla el detalle del pais que ha salido entramos en el estado
-     *  STOP, que es basicamente cuando el fragmento ya no es visible. En ese momento reiniciamos
-     *  el state del viewmodel de tal forma que al volver a ver la pantalla se haga una nueva
-     *  busqueda a otro país a mostrar diferente al que ya habiamos cargado*/
     override fun onStop() {
         super.onStop()
         travelViewModel.restartViewModel()
@@ -77,23 +73,9 @@ class TravelFragment : Fragment() {
         }
     }
 
-    /** La diferencia en usar lifecycleScope.launch o viewLifecycleOwner.lifecycleScope.launch
-     *  es que con la segunda está suscrita al ciclo de vida de la UI del fragment, por lo tanto
-     *  cuando el fragment pasa al estado STOPPED dejamos de ver la UI pero el fragment sigue ahi en
-     *  segundo plano por lo tanto la corrutina se cancela y al
-     *  volver al estado STARTED esta se vuelve a lanzar. Por eso usando esta solo hace 1 vez el
-     *  bloque de repeatOnLifecycle cuando volvemos de STOPPED. En el otro caso parece que solo se
-     *  cancela en el caso de destruir el fragment, cosa que no hacemos cuando nos envia a la pantalla
-     *  de detalle, por lo tanto al volver a STARTED desde STOPPED se ejecuta tantas veces como veces
-     *  ha pasado por el estado STARTED*/
     private fun initUIState() {
         viewLifecycleOwner.lifecycleScope.launch {
-            /** repeatOnLifecycle lanza el bloque en una nueva corrutina cada vez que
-             *   el ciclo de vida está en el estado STARTED (o superior) y la cancela cuando está en STOPPED.*/
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                /** Inicia el flujo y comienza a escuchar los valores.
-                 **  Esto sucede cuando el ciclo de vida está en STARTED y deja de
-                 ** recolectar cuando el ciclo de vida está en STOPPED. */
                 travelViewModel.state.collect {
                     when (it) {
                         is Resource.Loading -> loadingState()

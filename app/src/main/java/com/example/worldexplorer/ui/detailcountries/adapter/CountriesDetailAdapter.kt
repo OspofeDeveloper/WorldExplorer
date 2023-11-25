@@ -23,19 +23,16 @@ class CountriesDetailAdapter(
         val binding: ItemDetailCountriesBinding
 
         if (convertView == null) {
-            /** Si convertView es nulo, inflamos la vista utilizando ViewBinding */
             binding = ItemDetailCountriesBinding.inflate(LayoutInflater.from(context), parent, false)
             binding.root.tag = binding
-            /** Guardamos la referencia al ViewBinding en la etiqueta de la vista */
         } else {
-            /** Si convertView no es nulo, recuperamos el ViewBinding de la etiqueta */
             binding = convertView.tag as ItemDetailCountriesBinding
         }
 
         binding.ivBorderCountryFlag.load("https://flagcdn.com/w320/${borderCca2[position].lowercase()}.png")
         binding.tvCountryName.text = borderNames[position]
-        Log.d("Oscar", "https://flagcdn.com/w320/${borderCca2[position].lowercase()}.png")
 
         return binding.root
     }
+
 }

@@ -54,10 +54,6 @@ class CountriesDetailFragment : Fragment() {
         countriesDetailViewModel.getCountriesDetail(args.cca2)
     }
 
-    /** Configuramos una transición de entrada para elementos compartidos al ingresar al
-     * fragmento y la posponemos por 200 milisegundos antes de comenzar.
-     * Es útil para sincronizar y controlar la animación de entrada de elementos
-     * compartidos durante la transición entre fragmentos. */
     private fun initAnimations() {
         val animation = TransitionInflater.from(context).inflateTransition(
             android.R.transition.move
@@ -66,21 +62,17 @@ class CountriesDetailFragment : Fragment() {
         postponeEnterTransition(200, TimeUnit.MILLISECONDS)
     }
 
-    /**Lo que tenga que ver con modificar elementos de la vista aqui, porque en onViewCreated
-     * es el primer momento del ciclo de vida de la actividad en que los elementos de la vista
-     * ya están creados. En cambio la transición si que la podemos poner en onCreate así se
-     * inicializa antes de que se cree la vista y no pasa nada */
     private fun initUI() {
         initView()
         initListeners()
         initUIState()
         initBackgroundColor()
     }
+
     private fun initView() {
         binding.ivFlag.transitionName = args.cca2
         binding.tvCountryTitle.transitionName = args.name
     }
-
 
     private fun initListeners() {
         binding.ivBack.setOnClickListener { requireActivity().onBackPressed() }

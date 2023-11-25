@@ -6,23 +6,29 @@ import com.example.worldexplorer.domain.models.detailcountries.CountryDetailMode
 import com.example.worldexplorer.domain.models.detailquiz.QuizDetailModel
 import com.example.worldexplorer.domain.models.travel.TravelModel
 
-//Cada repositorio
 interface RestCountriesRepository {
 
-    /** Inicializamos los datos de la app en Room */
+    /** Init App by inserting data into Room Database */
+
     suspend fun initWorldExplorerDatabase(): Boolean
 
-    /** Country Screen functions */
+    /** Country Screen */
+
     suspend fun getCountryBasic(): List<CountryBasicModel>
 
-    /** Detail Country Screen functions */
+    /** Detail Country Screen */
+
     suspend fun getDetailCountries(cca2: String): CountryDetailModel
 
-    /** Quiz Screen operations */
+    /** Quiz Screen */
+
     suspend fun getQuizOptionsGlobal(correctCca2List: List<String>) : QuizDetailModel
+
     suspend fun getQuizOptionsByRegion(correctCca2List: List<String>, region: String): QuizDetailModel
+
     suspend fun convertToQuizDetailModel(result: List<CountryEntity>): QuizDetailModel
 
-    /** Travek Screen operations */
+    /** Travek Screen */
+
     suspend fun getRandomCountryNameCca2(): TravelModel
 }

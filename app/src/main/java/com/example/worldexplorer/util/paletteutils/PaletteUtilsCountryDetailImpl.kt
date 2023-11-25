@@ -1,4 +1,4 @@
-package com.example.worldexplorer.core.paletteutils
+package com.example.worldexplorer.util.paletteutils
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -9,9 +9,10 @@ import com.example.worldexplorer.R
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-class PaletteUtilsCountryImpl @Inject constructor(
+class PaletteUtilsCountryDetailImpl @Inject constructor(
     @ApplicationContext private val context: Context
-) : PaletteUtils {
+): PaletteUtils {
+
     override suspend fun getBackgroundGradient(bitmap: Bitmap): GradientDrawable {
         val drawable: GradientDrawable
 
@@ -20,6 +21,7 @@ class PaletteUtilsCountryImpl @Inject constructor(
                 GradientDrawable.Orientation.TOP_BOTTOM,
                 dominantSwatch?.let {
                     intArrayOf(
+                        ContextCompat.getColor(context, R.color.primary),
                         it.rgb,
                         ContextCompat.getColor(context, R.color.accent),
                     )

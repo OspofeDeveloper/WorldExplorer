@@ -19,12 +19,14 @@ data class CountryEntity(
     @ColumnInfo(name = "population") val population: Int?,
     @ColumnInfo(name = "region") val region: String?,
 ) {
+
     fun toTravelModel() : TravelModel =
         TravelModel(
             cca2 = cca2,
             name = name,
             imageUrl = "https://flagcdn.com/w320/${cca2.lowercase()}.png"
         )
+
     fun toCountryBasicModel(backgroundDrawable: GradientDrawable) : CountryBasicModel =
         CountryBasicModel(
             cca2 = cca2,
@@ -32,4 +34,5 @@ data class CountryEntity(
             imageUrl = "https://flagcdn.com/w320/${cca2.lowercase()}.png",
             backgroundDrawable = backgroundDrawable
         )
+
 }

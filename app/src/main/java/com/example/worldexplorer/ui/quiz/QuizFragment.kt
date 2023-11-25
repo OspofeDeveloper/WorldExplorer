@@ -37,8 +37,6 @@ class QuizFragment : Fragment() {
         initUIState()
     }
 
-    /** En vez de poner dos veces binding.rvQuiz al hacer "binding.rvQuiz.layoutManager = LinearLayoutManager(context)
-    y binding.rvQuiz.adapter = QuizAdapter()" usamos ".apply" */
     private fun initRecyclerView() {
         quizAdapter = QuizAdapter(
             onItemSelected = {
@@ -54,14 +52,10 @@ class QuizFragment : Fragment() {
         }
     }
 
-    /** Siempre que lanzamos corrutinas en fragment lo hacemos con lifecycleScope ya que asi la corrutina se adhiere
-    al ciclo de vida del Fragment. Con "repeatOnLifecycle(Lifecycle.State.STARTED" indicamos que se suscriba al viewmodel
-    cuando empiece el ciclo de vida */
     private fun initUIState() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 quizViewModel.quiz.collect {
-                    /** Si hay cambios en Quiz le notificamos al adapter*/
                     quizAdapter.updateList(it)
                 }
             }
@@ -75,4 +69,5 @@ class QuizFragment : Fragment() {
         _binding = FragmentQuizBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
+
 }

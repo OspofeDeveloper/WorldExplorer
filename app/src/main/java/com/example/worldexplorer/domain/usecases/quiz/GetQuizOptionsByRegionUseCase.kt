@@ -8,6 +8,8 @@ import javax.inject.Inject
 class GetQuizOptionsByRegionUseCase @Inject constructor(
     private val repository: RestCountriesRepository
 ) {
+
     suspend operator fun invoke(correctCca2List: List<String>, region: String): QuizDetailModel =
         repository.getQuizOptionsByRegion(correctCca2List, region)
+
 }

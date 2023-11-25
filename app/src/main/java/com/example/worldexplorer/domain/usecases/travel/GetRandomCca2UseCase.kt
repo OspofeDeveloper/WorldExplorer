@@ -8,5 +8,7 @@ import javax.inject.Inject
 class GetRandomCca2UseCase @Inject constructor(
     private val repository: RestCountriesRepository
 ) {
+
     suspend operator fun invoke(): TravelModel = repository.getRandomCountryNameCca2()
+
 }

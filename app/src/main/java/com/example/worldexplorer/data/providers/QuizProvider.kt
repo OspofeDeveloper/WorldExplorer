@@ -10,6 +10,7 @@ import com.example.worldexplorer.domain.models.quiz.QuizModel.Oceania
 import javax.inject.Inject
 
 class QuizProvider @Inject constructor() {
+
     fun getQuizItems(): List<QuizModel> {
         return listOf(
             Earth,
@@ -21,12 +22,4 @@ class QuizProvider @Inject constructor() {
         )
     }
 
-    /**
-    Caribbean,
-    EasternAfrica,
-    NorthernAfrica,
-    NorthernEurope,
-    SouthAmerica,
-    WesternAsia
-     */
 }

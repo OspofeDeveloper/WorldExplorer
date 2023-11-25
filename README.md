@@ -1,34 +1,34 @@
 # WORLD EXPLORER
 
-<p>:construction: Proyecto en construcción :construction:</p>
+<p>:construction: Project under construction :construction:</p>
 
-## Descripción
+## Description
 
-World Explorer es una aplicación Android diseñada para ofrecer una experiencia interactiva de exploración global. La aplicación proporciona información detallada sobre países, quizzes de banderas y una emocionante función de viaje aleatorio.
+World Explorer is an Android application designed to offer an interactive global exploration experience. The application provides detailed information about countries, flag quizzes, and an exciting random travel feature.
 
-## Funcionalidades del proyecto
+## Project Features
 
-- `Funcionalidad 1`: **Listado Detallado de Países ->** Explora información clave de cada país, incluyendo capitales, continentes, áreas, poblaciones y fronteras.
+- `Feature 1`: **Detailed Country Listing ->** Explore key information about each country, including capitals, continents, areas, populations, and borders.
 
-- `Funcionalidad 2`: **Quizzes de Banderas ->** Pon a prueba tus conocimientos con quizzes interactivos sobre banderas de todo el mundo y de cada continente.
-  
-- `Funcionalidad 3`: **Viaje Aleatorio ->** Déjate sorprender con la función de viaje aleatorio, que elige un país al azar como tu próximo destino.
+- `Feature 2`: **Flag Quizzes ->** Test your knowledge with interactive quizzes on flags from around the world and each continent.
 
-## Capturas de pantalla
+- `Feature 3`: **Random Travel ->** Let yourself be surprised by the random travel feature, which selects a country at random as your next destination.
+
+## Screencasts
 
 <img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/e5976eea-58bb-49f6-a1f0-6077ebfbe386" width="250" height="500"/>
 <img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/4be206c2-cf94-41c2-a8a5-f0832cd95a1c" width="250" height="500" hspace="10"/>
 <img src="https://github.com/OspofeDeveloper/WorldExplorer/assets/126957247/81bca442-3a9f-43cb-893b-b30314ba2cd1" width="250" height="500" hspace="20"/>
 
-## Tecnologías Utilizadas
+## Technologies Used
 
-- Arquitectura Single Activity
-- MVVM y Clean Architecture
+- Single Activity Architecture
+- MVVM and Clean Architecture
 - Room Database
-- Retrofit para conexión a API externa
-- Dagger Hilt para inyección de dependencias
-- Patrones de diseño: Singleton, Observer
+- Retrofit for connecting to an external API
+- Dagger Hilt for dependency injection
+- Design Patterns: Singleton, Observer
 
-## Contribuciones
+## Contributions
 
-Las contribuciones son bienvenidas. Si encuentras un problema o tienes una sugerencia, por favor no dudes en enviar un pull request en la rama [Develop](https://github.com/OspofeDeveloper/WorldExplorer/tree/develop)
+Contributions are welcome. If you find an issue or have a suggestion, please feel free to submit a pull request on the [Develop branch](https://github.com/OspofeDeveloper/WorldExplorer/tree/develop)
